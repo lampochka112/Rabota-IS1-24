@@ -1,1 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>Движущиеся изображения</title>
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f8ff;
+  }
 
+  .angel-container {
+    width: 100%;
+    overflow: hidden;
+    height: 150px;
+    margin-bottom: 50px;
+    position: relative;
+  }
+
+  @keyframes moveHorizontal {
+    0% {transform: translateX(-100px);}
+    50% {transform: translateX(100%);}
+    100% {transform: translateX(-100px);}
+  }
+
+  .angel {
+    width: 100px;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: moveHorizontal 4s linear infinite;
+  }
+
+  .earth-container {
+    width: 150px;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  @keyframes moveVertical {
+    0% {transform: translateY(0);}
+    50% {transform: translateY(100%);}
+    100% {transform: translateY(0);}
+  }
+
+  .earth {
+    width: 150px;
+    height: auto;
+    animation: moveVertical 6s ease-in-out infinite;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>
+</head>
+<body>
+
+<h2>Ангел движется по горизонтали</h2>
+<div class="angel-container">
+  <img src="data:image/jpeg;base64,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" alt="Ангел" class="angel" />
+</div>
+
+<h2>Земля движется по вертикали</h2>
+<div class="earth-container">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg" alt="Земля" class="earth" />
+</div>
+
+</body>
+</html>
