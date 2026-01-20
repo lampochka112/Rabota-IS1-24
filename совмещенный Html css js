@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Милое сердечко и звездочки</title>
 <style>
-  /* Общий стиль страницы */
+
 body {
   margin: 0;
   padding: 0;
@@ -19,7 +19,6 @@ body {
   position: relative;
 }
 
-/* Облака для милоты */
 .cloud {
   position: absolute;
   background: #fff;
@@ -36,7 +35,6 @@ body {
   border-radius: 50%;
 }
 
-/* Расположение облаков */
 .cloud1 {
   width: 150px; height: 80px;
   top: 10%; left: 5%;
@@ -58,7 +56,6 @@ body {
   100% {transform: translateX(100%);}
 }
 
-/* Контейнер для сердца и милого текста */
 .container {
   position: relative;
   width: 400px;
@@ -69,7 +66,6 @@ body {
   z-index: 2;
 }
 
-/* Самое сердце, больше и повернуто вверх ногами */
 .heart {
   width: 200px;
   height: 180px;
@@ -113,7 +109,6 @@ body {
   }
 }
 
-/* Милый текст под сердечком */
 .text {
   font-size: 28px;
   font-weight: bold;
@@ -123,7 +118,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* Декоративные звездочки вокруг, мерцающие */
 .stars {
   position: absolute;
   top: 0;
@@ -146,7 +140,6 @@ body {
   50% { opacity: 0.1; }
 }
 
-/* Милые котики в углах */
 .corner-cat {
   position: absolute;
   width: 80px;
@@ -173,7 +166,6 @@ body {
   }
 }
 
-/* Сердечки вокруг сердечка и звездочки */
 .littleHeart {
   position: absolute;
   width: 12px;
@@ -192,7 +184,6 @@ body {
   100% { transform: translateY(0); }
 }
 
-/* Место для вставки своей картинки — просто вставьте сюда ваш тег <img> */
 #custom-image {
   position: absolute;
   top: 50%;
@@ -212,7 +203,7 @@ body {
 </style>
 </head>
 <body>
-<!-- Облака для милоты -->
+
 <div class="cloud cloud1"></div>
 <div class="cloud cloud2"></div>
 <div class="cloud cloud3"></div>
