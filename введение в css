@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Расширенное обучение CSS — просто и красиво!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #eef2f3;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-family: 'Pacifico', cursive;
+            font-size: 3em;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 40px;
+            border-bottom: 2px solid #2980b9;
+            padding-bottom: 8px;
+        }
+        p {
+            font-size: 1.1em;
+            margin: 15px 0;
+        }
+        ul {
+            margin-left: 20px;
+            list-style: inside circle;
+        }
+        code {
+            background-color: #dfe6e9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        .box {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        pre {
+            background-color: #f5f6fa;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        blockquote {
+            background-color: #dfe6e9;
+            border-left: 4px solid #2980b9;
+            margin: 20px 0;
+            padding: 10px 15px;
+            border-radius: 4px;
+        }
+        /* Новые стили для яркости и красоты */
+        .highlight {
+            background-color: #ffeaa7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        a {
+            color: #0984e3;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        /* Анимации и эффекты */
+        .animation-example {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #dfe6e9;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.5s ease;
+        }
+        .animation-example:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+    </style>
+    <!-- Подключение шрифта для красоты -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <h1>Расширенное обучение CSS — просто и интересно!</h1>
+    
+    <section>
+        <h2>Что такое CSS?</h2>
+        <p>
+            CSS — это язык, который помогает превращать обычную страницу в красивую и стильную. Представьте, что HTML — это скелет, а CSS — это одежда, стиль и украшения. Всё, что делает сайт привлекательным и удобным — делается с помощью CSS!
+        </p>
+        <p>
+            Можно менять цвета, шрифты, размеры, добавлять тени, анимации — и всё это без изменения основного содержания страницы.
+        </p>
+    </section>
+    
+    <section>
+        <h2>Краткая история CSS</h2>
+        <p>Основные этапы развития:</p>
+        <ul>
+            <li><strong>1996 год</strong>: появился первый CSS — очень простой, назывался CSS1.</li>
+            <li><strong>1998 год</strong>: появился CSS2 — добавили новые возможности, например, позиционирование элементов.</li>
+            <li><strong>2011 год</strong>: вышел CSS3 — мощный и гибкий, с множеством новых свойств, анимаций и эффектов.</li>
+            <li><strong>Сегодня</strong>: CSS продолжает развиваться! Новые свойства, переменные, 3D-эффекты — всё для красоты и удобства.</li>
+        </ul>
+    </section>
+    
+    <section>
+        <h2>Что такое CSS-правила?</h2>
+        <p>
+            Правила CSS — это инструкции, которые говорят браузеру, как оформить определённые элементы страницы.
+        </p>
+        <div class="box">
+            <pre>
+селектор {
+  свойство: значение;
+}
+            </pre>
+        </div>
+        <p>Например, чтобы сделать все заголовки &lt;h1&gt; красными и крупными:</p>
+        <div class="box">
+            <pre>
+h1 {
+  color: red;        /* цвет текста */
+  font-size: 36px;  /* размер шрифта */
+}
+            </pre>
+        </div>
+        <p>Это как команда: "Все &lt;h1&gt; делай так!".</p>
+    </section>
+    
+    <section>
+        <h2>Самые важные свойства CSS</h2>
+        <ul>
+            <li><span class="highlight">color</span> — цвет текста.</li>
+            <li><span class="highlight">background-color</span> — цвет фона.</li>
+            <li><span class="highlight">font-size</span> — размер шрифта.</li>
+            <li><span class="highlight">margin</span> — пространство вокруг элемента (снаружи).</li>
+            <li><span class="highlight">padding</span> — внутренняя отступка (между содержимым и границей).</li>
+            <li><span class="highlight">border</span> — рамка вокруг элемента.</li>
+            <li><span class="highlight">display</span> — как отображается элемент (блочный, строчный, флекс).</li>
+            <li><span class="highlight">width</span> и <span class="highlight">height</span> — размеры элемента.</li>
+        </ul>
+        <p>Рассмотрим пример:</p>
+        <div class="box">
+            <h3>Что такое &lt;div&gt;?</h3>
+            <p>
+                &lt;div&gt; — это контейнер, который помогает объединить несколько элементов. Это как коробка, в которую кладут всё, что нужно.
+            </p>
+            <p>Пример:</p>
+            <pre>
+&lt;div class="box"&gt;
+  &lt;h2&gt;Заголовок в коробке&lt;/h2&gt;
+  &lt;p&gt;Текст внутри этого блока.&lt;/p&gt;
+&lt;/div&gt;
+            </pre>
+            <p>CSS для этого блока:</p>
+            <pre>
+.box {
+  background-color: #d0e6f0; /* светлый голубой фон */
+  padding: 20px;           /* внутренние отступы */
+  border-radius: 8px;      /* скругление углов */
+}
+            </pre>
+            <p>Это создаст красивую "коробку".</p>
+        </div>
+    </section>
+    
+    <section>
+        <h2>Новые возможности CSS</h2>
+        <p>Современные свойства позволяют делать сайты невероятно красивыми:</p>
+        <ul>
+            <li><strong>Градиенты</strong> — плавные переходы цветов.</li>
+            <li><strong>Тени</strong> — добавляют объем и глубину.</li>
+            <li><strong>Анимации и переходы</strong> — движущиеся эффекты и плавное изменение свойств.</li>
+            <li><strong>Медиа-запросы</strong> — адаптация сайта под разные устройства (телефоны, планшеты, компьютеры).</li>
+            <li><strong>Flexbox и Grid</strong> — современные системы раскладки элементов.</li>
+            <li><strong>Переменные CSS</strong> — удобно менять стили одним местом.</li>
+        </ul>
+        <div class="animation-example">Наведи сюда — эффект смотри! (на hover)</div>
+    </section>
+    
+    <section>
+        <h2>Эффекты и анимации</h2>
+        <p>
+            CSS позволяет добавлять красивые эффекты. Например, плавное изменение цвета, увеличение при наведении мыши или даже движение объектов!
+        </p>
+        <div class="box">
+            <h3>Пример анимации</h3>
+            <p>Наведи мышкой на блок ниже:</p>
+            <div class="animation-example">Я движусь и меняюсь при наведении!</div>
+        </div>
+        <p>CSS для этого эффекта:</p>
+        <pre>
+/* Анимация при наведении */
+.animation-example:hover {
+  transform: scale(1.1); /* чуть увеличивается */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* тень */
+}
+        </pre>
+    </section>
+    
+    <section>
+        <h2>Что еще можно делать с CSS?</h2>
+        <ul>
+            <li>Создавать красивые кнопки с эффектами при нажатии.</li>
+            <li>Добавлять фоны с картинками, видео или градиентами.</li>
+            <li>Делать сайты адаптивными — правильно отображать на телефоне и компьютере.</li>
+            <li>Использовать шрифты из интернета для уникального стиля.</li>
+            <li>Создавать красивые карточки, меню, формы и многое другое.</li>
+        </ul>
+    </section>
+    
+    <section>
+        <h2>Заключение и советы</h2>
+        <p>
+            CSS — это очень мощный инструмент, который делает сайты красивыми и интересными. Учитесь экспериментировать, создавайте новые эффекты и делайте свои страницы уникальными!
+        </p>
+        <p>
+            Советуем вам начать с простых правил и постепенно изучать новые свойства. В Интернете много уроков, примеров и видео — всё для вашего успеха!
+        </p>
+    </section>
+</body>
+</html>
