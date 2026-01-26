@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Профиль Георгия</title>
 <style>
-    /* Обновленный фон и стиль в деловом стиле */
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         line-height: 1.6;
@@ -199,7 +198,6 @@
         animation: fadeIn 1s ease-in;
     }
 
-    /* Отзывы */
     #reviews {
         position: relative;
     }
@@ -228,10 +226,9 @@
     }
 
     #reviews-list.show {
-        max-height: 1000px; /* достаточно большое значение */
+        max-height: 1000px;
     }
 
-    /* Новая форма добавления отзыва */
     #add-review-form {
         margin-top: 15px;
         display: flex;
@@ -261,7 +258,6 @@
         background-color: #3498db;
     }
 
-    /* Звезды */
     .stars {
         display: inline-block;
         color: #f39c12;
@@ -287,7 +283,8 @@
     <h2>Мои официальные соц сети</h2>
     <ul style="list-style-type: square;">
         <li><a href="https://desktop.telegram.org/" target="_blank" rel="noopener noreferrer">Telegram</a></li>
-        <!-- Можно добавить другие соцсети -->
+        <li><a href="https://vk.com/" target="_blank" rel="noopener noreferrer">ВКонтакте</a></li>
+        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Инстаграмм</a></li>
     </ul>
 </section>
 
@@ -299,7 +296,22 @@
         <li>Быстрая езда на члене</li>
         <li>Fawk</li>
         <li>Trahatsuk</li>
+        <li>Путешествия: люблю путешествовать по миру, открывать новые страны и культуры.</li>
+        <li>Фотография: снимаю природу и уличные сцены, люблю экспериментировать с настройками камеры.</li>
+        <li>Чтение: интересуюсь историей, технологиями и научной фантастикой, регулярно читаю книги и статьи.</li>
+        <li>Обучение: постоянно изучаю новые языки программирования и технологии для развития своих навыков.</li>
+        <li>Здоровье и спорт: занимаюсь фитнесом, йогой и плаванием для поддержания формы.</li>
     </ul>
+</section>
+
+<hr>
+
+<section>
+    <h2>Обо мне</h2>
+    <button id="toggle-about" style="margin-bottom:10px;">Развернуть/Свернуть описание</button>
+    <div id="about-text" style="display:none; line-height:1.5;">
+        <p>Я Георгий, профессиональный разработчик с более чем 10-летним опытом. Люблю заниматься новыми технологиями, создавать качественные продукты и делиться знаниями. В свободное время путешествую, фотографирую и развиваюсь как личность. Моя цель — делать мир лучше через технологии и творчество.</p>
+    </div>
 </section>
 
 <hr>
@@ -354,7 +366,6 @@
     </form>
 </section>
 
-<!-- Секция отзывов -->
 <section id="reviews">
     <h2>Отзывы и комментарии</h2>
     <div id="reviews-toggle">Показать отзывы</div>
@@ -378,26 +389,23 @@
 </section>
 
 <script>
-    // Массив отзывов
     const reviews = [
-        {name: "Алексей", text: "Отличный специалист, рекомендую!", rating: 5},
-        {name: "Мария", text: "Работает быстро и качественно.", rating: 4},
-        {name: "Иван", text: "Очень профессионально и ответственно.", rating: 5},
-        {name: "Сергей", text: "Респект!", rating: 4},
-        {name: "Ольга", text: "Рекомендую всем!", rating: 5}
+        {name: "Алексей", text: "Отличный специалист, рекомендую!", rating: 5, time: "2025-04-25 14:30"},
+        {name: "Мария", text: "Работает быстро и качественно.", rating: 4, time: "2025-04-24 10:15"},
+        {name: "Иван", text: "Очень профессионально и ответственно.", rating: 5, time: "2025-04-23 18:45"},
+        {name: "Сергей", text: "Респект!", rating: 4, time: "2024-04-22 09:20"},
+        {name: "Ольга", text: "Рекомендую всем!", rating: 5, time: "2024-04-21 16:50"}
     ];
 
     const reviewsContainer = document.getElementById('reviews-list');
     const toggleButton = document.getElementById('reviews-toggle');
 
-    // Функция для отображения отзывов
     function renderReviews() {
         reviewsContainer.innerHTML = '';
         reviews.forEach(review => {
             const reviewDiv = document.createElement('div');
             reviewDiv.style.marginBottom = '15px';
 
-            // Звезды
             let stars = '';
             for (let i=0; i<review.rating; i++) {
                 stars += '★';
@@ -406,15 +414,19 @@
                 stars += '☆';
             }
 
+            const dateTime = new Date(review.time);
+            const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            const formattedTime = dateTime.toLocaleString('ru-RU', options);
+
             reviewDiv.innerHTML = `
                 <p><strong>${review.name}:</strong> ${review.text}</p>
                 <div class="stars">${stars}</div>
+                <small style="display:block; margin-top:5px; color:#555;">${formattedTime}</small>
             `;
             reviewsContainer.appendChild(reviewDiv);
         });
     }
 
-    // Изначально скрываем отзывы
     document.getElementById('reviews').querySelector('#reviews-toggle').addEventListener('click', () => {
         if (reviewsContainer.classList.toggle('show')) {
             toggleButton.textContent = 'Скрыть отзывы';
@@ -423,31 +435,36 @@
         }
     });
 
-    // Обработчик добавления нового отзыва
     document.getElementById('add-review-form').addEventListener('submit', (e) => {
         e.preventDefault();
         const name = document.getElementById('reviewer-name').value;
         const text = document.getElementById('review-text').value;
         const rating = parseInt(document.getElementById('review-rating').value);
+        const now = new Date();
+        const timeString = now.toISOString();
 
-        // Добавляем отзыв в массив
-        reviews.push({name, text, rating});
+        reviews.push({name, text, rating, time: timeString});
 
-        // Обновляем отображение
         renderReviews();
 
-        // Очистка формы
         document.getElementById('add-review-form').reset();
 
-        // Открываем отзывы, если они были скрыты
         if (!reviewsContainer.classList.contains('show')) {
             reviewsContainer.classList.add('show');
             toggleButton.textContent = 'Скрыть отзывы';
         }
     });
 
-    // Изначально показываем отзывы
     renderReviews();
+
+    document.getElementById('toggle-about').addEventListener('click', () => {
+        const aboutDiv = document.getElementById('about-text');
+        if (aboutDiv.style.display === 'none') {
+            aboutDiv.style.display = 'block';
+        } else {
+            aboutDiv.style.display = 'none';
+        }
+    });
 </script>
 
 </body>
