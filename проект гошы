@@ -346,9 +346,6 @@
 <section>
     <h2>Youtube курсы</h2>
     <a href="youtube.html" target="_blank" rel="noopener noreferrer">Посмотреть список</a>
- <li><a href="https://coursera.org" target="_blank" rel="noopener noreferrer">Обучение на Coursera</a></li>
-        <li><a href="https://udemy.com" target="_blank" rel="noopener noreferrer">Udemy курсы</a></li>
-        <li><a href="https://freecodecamp.org" target="_blank" rel="noopener noreferrer">FreeCodeCamp</a></li>
 </section>
 
 <hr>
