@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Профиль Георгия</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header, section {
+            margin-bottom: 40px;
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+        }
+
+        /* Таблица для контактов и опыта работы */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 2px solid #34495e;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2980b9;
+            color: #fff;
+        }
+
+        /* Фото и описание в шапке */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-header img {
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Ссылки */
+        a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Форма */
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #2980b9;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3498db;
+        }
+
+        /* Общий стиль для разделов */
+        hr {
+            border: 0;
+            height: 2px;
+            background-color: #2980b9;
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="profile-header">
+        <img src="avatar.jpg" width="200" alt="Моя фотография" />
+        <h1>Георгий</h1>
+    </div>
+    <p><em>Я самый крутой <strong>программист</strong> Москвы</em></p>
+    <p>Я люблю работать и писать коды</p>
+</header>
+
+<hr>
+
+<section>
+    <h2>Мои официальные соц сети</h2>
+    <ul style="list-style-type: square;">
+        <li><a href="https://desktop.telegram.org/" target="_blank" rel="noopener noreferrer">Telegram</a></li>
+        <!-- Можно добавить другие соцсети -->
+    </ul>
+</section>
+
+<hr>
+
+<section>
+    <h2>Мои хобби</h2>
+    <ul>
+        <li>Быстрая езда</li>
+        <li>Fawk</li>
+        <li>Trahatsuk</li>
+    </ul>
+</section>
+
+<hr>
+
+<section>
+    <h2>Опыт работы</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Компания</th>
+                <th>Должность</th>
+                <th>Факультативно</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>ОАО ЧЛЕНЫ</td>
+                <td>ТАДЖИК</td>
+                <td>ПИСЮН</td>
+            </tr>
+            <tr>
+                <td>ОАО ЭШАНОВСТАН</td>
+                <td>ЧИСЛЕННЫЕ МЕТОДЫ</td>
+                <td>КККМТ</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<hr>
+
+<section>
+    <h2>Youtube курсы</h2>
+    <a href="youtube.html" target="_blank" rel="noopener noreferrer">Посмотреть список</a>
+</section>
+
+<hr>
+
+<section>
+    <h2>Связаться со мной</h2>
+    <form action="#" method="post">
+        <label for="name">Ваше имя:</label>
+        <input type="text" id="name" name="name" placeholder="Введите ваше имя" required>
+
+        <label for="email">Ваш EMAIL:</label>
+        <input type="email" id="email" name="email" placeholder="Введите email" required>
+
+        <label for="text">Ваше сообщение:</label>
+        <textarea id="text" name="message" rows="5" cols="50" placeholder="Ваше сообщение" required></textarea>
+
+        <input type="submit" value="Отправить">
+    </form>
+</section>
+
+</body>
+</html>
