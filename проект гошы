@@ -5,33 +5,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Профиль Георгия</title>
 <style>
-    /* Обновленный фон и шрифты */
+    /* Обновленный фон и стиль в деловом стиле */
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         line-height: 1.6;
         margin: 20px;
-        background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
-        color: #333;
+        background: #f0f2f5;
+        color: #222;
     }
 
-    /* Общие стили для заголовков и разделов */
     h1, h2 {
-        color: #2c3e50;
+        color: #34495e;
         margin-bottom: 10px;
+        font-weight: 600;
+        letter-spacing: 1px;
     }
 
-    /* Стиль для хедера */
     header {
-        background: rgba(255, 255, 255, 0.8);
+        background: #ffffff;
         padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: box-shadow 0.3s ease;
+    }
+
+    header:hover {
+        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
     }
 
     .profile-header {
         display: flex;
         align-items: center;
         gap: 20px;
+        transition: transform 0.3s ease;
+    }
+
+    .profile-header:hover {
+        transform: translateY(-2px);
     }
 
     .profile-header img {
@@ -48,40 +58,43 @@
         transform: scale(1.05);
     }
 
-    /* Стиль для текста в шапке */
     header p {
         font-size: 1.2em;
         margin: 10px 0;
     }
 
-    /* Стиль для разделов */
     section {
-        background: rgba(255, 255, 255, 0.8);
+        background: #ffffff;
         padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         margin-bottom: 40px;
+        transition: box-shadow 0.3s ease;
     }
 
-    /* Таблица с более современным стилем */
+    section:hover {
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
     table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 10px;
         font-size: 1em;
+        transition: all 0.3s ease;
     }
 
     th, td {
         padding: 12px;
         border: 2px solid #34495e;
         text-align: left;
-        transition: background-color 0.3s;
+        transition: background-color 0.3s, transform 0.3s;
     }
 
     th {
         background-color: #2980b9;
         color: #fff;
-        font-weight: bold;
+        font-weight: 600;
     }
 
     td {
@@ -92,33 +105,37 @@
         background-color: #d0d7de;
     }
 
-    /* Стиль для ссылок */
     a {
         color: #2980b9;
         text-decoration: none;
-        font-weight: bold;
-        transition: color 0.3s;
+        font-weight: 600;
+        transition: color 0.3s, transform 0.3s;
     }
 
     a:hover {
         color: #e74c3c;
         text-decoration: underline;
+        transform: scale(1.05);
     }
 
-    /* Стиль формы */
     form {
         display: flex;
         flex-direction: column;
-        max-width: 500px;
-        background: #fff;
+        max-width: 600px;
+        background: #f9f9f9;
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: box-shadow 0.3s ease;
+    }
+
+    form:hover {
+        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
     }
 
     label {
         margin-top: 10px;
-        font-weight: bold;
+        font-weight: 600;
         font-size: 1em;
         color: #2c3e50;
     }
@@ -146,29 +163,33 @@
     input[type="submit"] {
         margin-top: 15px;
         padding: 12px;
-        background-color: #2980b9;
+        background-color: #34495e;
         color: #fff;
         border: none;
         border-radius: 8px;
         cursor: pointer;
         font-size: 1.1em;
-        transition: background-color 0.3s;
+        transition: background-color 0.3s, transform 0.2s;
     }
 
     input[type="submit"]:hover {
-        background-color: #3498db;
+        background-color: #2c3e50;
+        transform: scale(1.05);
     }
 
-    /* Расширенная стилизация для разделов и линий */
     hr {
         border: 0;
         height: 4px;
         background-color: #2980b9;
         margin: 40px 0;
         border-radius: 2px;
+        transition: height 0.3s ease;
     }
 
-    /* Анимация при скролле (по желанию) */
+    hr:hover {
+        height: 6px;
+    }
+
     @keyframes fadeIn {
         from {opacity: 0; transform: translateY(20px);}
         to {opacity: 1; transform: translateY(0);}
@@ -177,13 +198,83 @@
     section {
         animation: fadeIn 1s ease-in;
     }
+
+    /* Отзывы */
+    #reviews {
+        position: relative;
+    }
+
+    #reviews-toggle {
+        cursor: pointer;
+        display: inline-block;
+        margin-top: 10px;
+        color: #2980b9;
+        font-weight: bold;
+        transition: color 0.3s, transform 0.3s;
+    }
+
+    #reviews-toggle:hover {
+        color: #e74c3c;
+        transform: scale(1.05);
+    }
+
+    #reviews-list {
+        margin-top: 15px;
+        padding-left: 20px;
+        border-left: 3px solid #2980b9;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease;
+    }
+
+    #reviews-list.show {
+        max-height: 1000px; /* достаточно большое значение */
+    }
+
+    /* Новая форма добавления отзыва */
+    #add-review-form {
+        margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+    #add-review-form input,
+    #add-review-form select,
+    #add-review-form textarea {
+        margin-top: 8px;
+        padding: 8px;
+        border: 2px solid #2980b9;
+        border-radius: 6px;
+        font-size: 1em;
+    }
+    #add-review-form button {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #2980b9;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1.1em;
+        transition: background-color 0.3s;
+    }
+    #add-review-form button:hover {
+        background-color: #3498db;
+    }
+
+    /* Звезды */
+    .stars {
+        display: inline-block;
+        color: #f39c12;
+        font-size: 1.2em;
+        margin-left: 8px;
+    }
 </style>
 </head>
 <body>
 
 <header>
     <div class="profile-header">
-        <img src="data:image/jpeg;base64,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" width="200" alt="Моя фотография" />
+        <img src="data:image/jpeg;base64,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" width="200" alt="Моя фотография" />
         <h1>Георгий</h1>
     </div>
     <p><em>Я самый крутой <strong>программист</strong> Москвы</em></p>
@@ -262,6 +353,102 @@
         <input type="submit" value="Отправить">
     </form>
 </section>
+
+<!-- Секция отзывов -->
+<section id="reviews">
+    <h2>Отзывы и комментарии</h2>
+    <div id="reviews-toggle">Показать отзывы</div>
+    <div id="reviews-list"></div>
+    <div id="add-review-section" style="margin-top:20px;">
+        <h3>Добавить отзыв</h3>
+        <form id="add-review-form">
+            <input type="text" id="reviewer-name" placeholder="Ваше имя" required />
+            <select id="review-rating" required>
+                <option value="">Оцените (звезды)</option>
+                <option value="1">1 ★</option>
+                <option value="2">2 ★★</option>
+                <option value="3">3 ★★★</option>
+                <option value="4">4 ★★★★</option>
+                <option value="5">5 ★★★★★</option>
+            </select>
+            <textarea id="review-text" rows="3" placeholder="Ваш отзыв" required></textarea>
+            <button type="submit">Добавить отзыв</button>
+        </form>
+    </div>
+</section>
+
+<script>
+    // Массив отзывов
+    const reviews = [
+        {name: "Алексей", text: "Отличный специалист, рекомендую!", rating: 5},
+        {name: "Мария", text: "Работает быстро и качественно.", rating: 4},
+        {name: "Иван", text: "Очень профессионально и ответственно.", rating: 5},
+        {name: "Сергей", text: "Респект!", rating: 4},
+        {name: "Ольга", text: "Рекомендую всем!", rating: 5}
+    ];
+
+    const reviewsContainer = document.getElementById('reviews-list');
+    const toggleButton = document.getElementById('reviews-toggle');
+
+    // Функция для отображения отзывов
+    function renderReviews() {
+        reviewsContainer.innerHTML = '';
+        reviews.forEach(review => {
+            const reviewDiv = document.createElement('div');
+            reviewDiv.style.marginBottom = '15px';
+
+            // Звезды
+            let stars = '';
+            for (let i=0; i<review.rating; i++) {
+                stars += '★';
+            }
+            for (let i=review.rating; i<5; i++) {
+                stars += '☆';
+            }
+
+            reviewDiv.innerHTML = `
+                <p><strong>${review.name}:</strong> ${review.text}</p>
+                <div class="stars">${stars}</div>
+            `;
+            reviewsContainer.appendChild(reviewDiv);
+        });
+    }
+
+    // Изначально скрываем отзывы
+    document.getElementById('reviews').querySelector('#reviews-toggle').addEventListener('click', () => {
+        if (reviewsContainer.classList.toggle('show')) {
+            toggleButton.textContent = 'Скрыть отзывы';
+        } else {
+            toggleButton.textContent = 'Показать отзывы';
+        }
+    });
+
+    // Обработчик добавления нового отзыва
+    document.getElementById('add-review-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('reviewer-name').value;
+        const text = document.getElementById('review-text').value;
+        const rating = parseInt(document.getElementById('review-rating').value);
+
+        // Добавляем отзыв в массив
+        reviews.push({name, text, rating});
+
+        // Обновляем отображение
+        renderReviews();
+
+        // Очистка формы
+        document.getElementById('add-review-form').reset();
+
+        // Открываем отзывы, если они были скрыты
+        if (!reviewsContainer.classList.contains('show')) {
+            reviewsContainer.classList.add('show');
+            toggleButton.textContent = 'Скрыть отзывы';
+        }
+    });
+
+    // Изначально показываем отзывы
+    renderReviews();
+</script>
 
 </body>
 </html>
