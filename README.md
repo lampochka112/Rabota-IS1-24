@@ -54,7 +54,7 @@
 ### Как установить расширение:
 1. Откройте VS Code
 2. На панели слева нажмите на иконку **"Extensions"** (или `Ctrl+Shift+X`)
-   ![Иконка Extensions](https://i.imgur.com/IKXr3Y3.png)
+   ![Иконка Extensions](dimg_7pp_aYSnBrr-p84PvfWRyQI_107)
 3. В поисковой строке введите название расширения
 4. Нажмите "Install" на нужном расширении
 
