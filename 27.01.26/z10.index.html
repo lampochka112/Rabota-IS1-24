@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Лифт</title>
+    <style>
+        body {
+            background: #1a1a2e;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        h1 {
+            color: #f8c300;
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(248, 195, 0, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: #ccc;
+            font-size: 1.1em;
+            margin-top: 0;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .left-panel {
+            background: #162447;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            width: 300px;
+            border: 2px solid #0f3460;
+        }
+
+        .right-panel {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+        }
+
+        .building {
+            background: #2d4059;
+            width: 100%;
+            height: 600px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #0f3460;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .shaft {
+            position: absolute;
+            width: 120px;
+            height: 100%;
+            background: #1a1a2e;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 2px solid #444;
+            border-right: 2px solid #444;
+        }
+
+        .floor-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .floor-label {
+            position: absolute;
+            color: #f8c300;
+            font-weight: bold;
+            font-size: 1.2em;
+            left: 20px;
+        }
+
+        .elevator {
+            position: absolute;
+            width: 100px;
+            height: 120px;
+            background: linear-gradient(145deg, #e63946, #c1121f);
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+            transition: bottom 0.01s linear;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.3em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            border: 3px solid #780000;
+        }
+
+        .door {
+            position: absolute;
+            top: 5px;
+            width: 45px;
+            height: 110px;
+            background: #9d0208;
+            transition: transform 0.3s;
+        }
+
+        .door-left {
+            left: 5px;
+            border-right: 2px solid #6a040f;
+        }
+
+        .door-right {
+            right: 5px;
+            border-left: 2px solid #6a040f;
+        }
+
+        .controls {
+            margin-top: 30px;
+        }
+
+        .control-group {
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            color: #f8c300;
+            border-bottom: 2px solid #0f3460;
+            padding-bottom: 8px;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .btn {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:hover {
+            background: #1a508b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn-up {
+            background: #2a9d8f;
+        }
+
+        .btn-up:hover {
+            background: #21867a;
+        }
+
+        .btn-down {
+            background: #e76f51;
+        }
+
+        .btn-down:hover {
+            background: #d65c3e;
+        }
+
+        .status {
+            background: rgba(15, 52, 96, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 1px solid #0f3460;
+        }
+
+        .status-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .status-value {
+            color: #f8c300;
+            font-weight: bold;
+        }
+
+        .info {
+            background: rgba(15, 52, 96, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            border-left: 4px solid #f8c300;
+        }
+
+        .info h3 {
+            margin-top: 0;
+        }
+
+        .info ul {
+            padding-left: 20px;
+            line-height: 1.6;
+        }
+
+        .info li {
+            margin-bottom: 8px;
+        }
+
+        .counter {
+            font-size: 2.5em;
+            text-align: center;
+            color: #f8c300;
+            font-weight: bold;
+            margin: 10px 0;
+            text-shadow: 0 0 10px rgba(248, 195, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .left-panel, .right-panel {
+                width: 100%;
+                max-width: 500px;
+            }
+            
+            .building {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>АНИМИРОВАННЫЙ ЛИФТ</h1>
+        <p class="subtitle">Демонстрация движения лифта между этажами</p>
+    </div>
+
+    <div class="content">
+        <div class="left-panel">
+            <div class="controls">
+                <div class="control-group">
+                    <h3>УПРАВЛЕНИЕ ЛИФТОМ</h3>
+                    <div class="buttons">
+                        <button class="btn btn-up" id="goUp">ВВЕРХ</button>
+                        <button class="btn" id="stopBtn">СТОП</button>
+                        <button class="btn btn-down" id="goDown">ВНИЗ</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3>СКОРОСТЬ</h3>
+                    <div class="buttons">
+                        <button class="btn" id="speedSlow">МЕДЛЕННО</button>
+                        <button class="btn" id="speedNormal" style="background:#f8c300;color:#000">НОРМАЛЬНО</button>
+                        <button class="btn" id="speedFast">БЫСТРО</button>
+                    </div>
+                </div>
+
+                <div class="status">
+                    <h3>СТАТУС ЛИФТА</h3>
+                    <div class="status-line">
+                        <span>Текущий этаж:</span>
+                        <span class="status-value" id="currentFloor">1</span>
+                    </div>
+                    <div class="status-line">
+                        <span>Направление:</span>
+                        <span class="status-value" id="direction">ВВЕРХ</span>
+                    </div>
+                    <div class="status-line">
+                        <span>Состояние:</span>
+                        <span class="status-value" id="state">В ДВИЖЕНИИ</span>
+                    </div>
+                    <div class="counter" id="counter">0</div>
+                    <div style="text-align:center;font-size:0.9em;color:#aaa;">количество поездок</div>
+                </div>
+            </div>
+
+            <div class="info">
+                <h3>ИНФОРМАЦИЯ</h3>
+                <ul>
+                    <li>Лифт движется автоматически вверх и вниз</li>
+                    <li>Можно управлять кнопками "ВВЕРХ" и "ВНИЗ"</li>
+                    <li>Кнопка "СТОП" останавливает движение</li>
+                    <li>Можно изменить скорость движения</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="building" id="building">
+                <div class="shaft">
+                    <!-- Этажи будут созданы через JS -->
+                </div>
+                <div class="elevator" id="elevator">
+                    ЛИФТ
+                    <div class="door door-left"></div>
+                    <div class="door door-right"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const elevator = document.getElementById('elevator');
+        const building = document.getElementById('building');
+        const shaft = document.querySelector('.shaft');
+        const currentFloorEl = document.getElementById('currentFloor');
+        const directionEl = document.getElementById('direction');
+        const stateEl = document.getElementById('state');
+        const counterEl = document.getElementById('counter');
+        
+        const goUpBtn = document.getElementById('goUp');
+        const goDownBtn = document.getElementById('goDown');
+        const stopBtn = document.getElementById('stopBtn');
+        const speedSlowBtn = document.getElementById('speedSlow');
+        const speedNormalBtn = document.getElementById('speedNormal');
+        const speedFastBtn = document.getElementById('speedFast');
+        
+        let currentFloor = 1;
+        let targetFloor = 5;
+        let isMoving = true;
+        let direction = 'up'; // 'up' или 'down'
+        let speed = 2; // 1-медленно, 2-нормально, 3-быстро
+        let tripCount = 0;
+        const totalFloors = 5;
+        const buildingHeight = 600;
+        const elevatorHeight = 120;
+        const bottomMargin = 40;
+        const floorHeight = (buildingHeight - bottomMargin - elevatorHeight) / (totalFloors - 1);
+        
+       
+        function createFloors() {
+            shaft.innerHTML = '';
+            for (let i = 0; i < totalFloors; i++) {
+                const floorLine = document.createElement('div');
+                floorLine.className = 'floor-line';
+                floorLine.style.bottom = `${bottomMargin + i * floorHeight}px`;
+                
+                const floorLabel = document.createElement('div');
+                floorLabel.className = 'floor-label';
+                floorLabel.textContent = `${totalFloors - i}`;
+                floorLabel.style.bottom = `${bottomMargin + i * floorHeight - 10}px`;
+                
+                shaft.appendChild(floorLine);
+                shaft.appendChild(floorLabel);
+            }
+        }
+
+        function updateElevatorPosition() {
+            const floorIndex = totalFloors - currentFloor;
+            const bottomPosition = bottomMargin + floorIndex * floorHeight;
+            elevator.style.bottom = `${bottomPosition}px`;
+            
+            currentFloorEl.textContent = currentFloor;
+            directionEl.textContent = direction === 'up' ? 'ВВЕРХ' : 'ВНИЗ';
+            stateEl.textContent = isMoving ? 'В ДВИЖЕНИИ' : 'ОСТАНОВЛЕН';
+        }
+        
+        function moveElevator() {
+            if (!isMoving) return;
+
+            if (direction === 'up') {
+                if (currentFloor < totalFloors) {
+                    currentFloor++;
+                    if (currentFloor === totalFloors) {
+                        direction = 'down';
+                        tripCount++;
+                        counterEl.textContent = tripCount;
+                    }
+                }
+            } else {
+                if (currentFloor > 1) {
+                    currentFloor--;
+                    if (currentFloor === 1) {
+                        direction = 'up';
+                        tripCount++;
+                        counterEl.textContent = tripCount;
+                    }
+                }
+            }
+            
+            updateElevatorPosition();
+            
+            animateDoors();
+        }
+        
+        function animateDoors() {
+            const doors = document.querySelectorAll('.door');
+            doors.forEach(door => {
+                door.style.transform = 'translateX(0)';
+            });
+            
+            setTimeout(() => {
+                doors[0].style.transform = 'translateX(-45px)';
+                doors[1].style.transform = 'translateX(45px)';
+            }, 300);
+            
+            setTimeout(() => {
+                doors[0].style.transform = 'translateX(0)';
+                doors[1].style.transform = 'translateX(0)';
+            }, 1500);
+        }
+        
+        goUpBtn.addEventListener('click', () => {
+            if (currentFloor < totalFloors) {
+                isMoving = true;
+                direction = 'up';
+                moveElevator();
+            }
+        });
+        
+        goDownBtn.addEventListener('click', () => {
+            if (currentFloor > 1) {
+                isMoving = true;
+                direction = 'down';
+                moveElevator();
+            }
+        });
+        
+        stopBtn.addEventListener('click', () => {
+            isMoving = !isMoving;
+            if (isMoving) {
+                stopBtn.textContent = 'СТОП';
+            } else {
+                stopBtn.textContent = 'ПУСК';
+            }
+        });
+        
+        function setSpeed(newSpeed) {
+            speed = newSpeed;
+            
+            clearInterval(moveInterval);
+            
+            let intervalTime;
+            switch(speed) {
+                case 1: intervalTime = 2000; break;
+                case 2: intervalTime = 1500; break;
+                case 3: intervalTime = 800; break;
+            }
+            
+            moveInterval = setInterval(moveElevator, intervalTime);
+            
+            [speedSlowBtn, speedNormalBtn, speedFastBtn].forEach(btn => {
+                btn.style.background = '#0f3460';
+                btn.style.color = 'white';
+            });
+            
+            switch(speed) {
+                case 1: 
+                    speedSlowBtn.style.background = '#f8c300';
+                    speedSlowBtn.style.color = '#000';
+                    break;
+                case 2: 
+                    speedNormalBtn.style.background = '#f8c300';
+                    speedNormalBtn.style.color = '#000';
+                    break;
+                case 3: 
+                    speedFastBtn.style.background = '#f8c300';
+                    speedFastBtn.style.color = '#000';
+                    break;
+            }
+        }
+        
+        speedSlowBtn.addEventListener('click', () => setSpeed(1));
+        speedNormalBtn.addEventListener('click', () => setSpeed(2));
+        speedFastBtn.addEventListener('click', () => setSpeed(3));
+        
+        createFloors();
+        updateElevatorPosition();
+        
+        let moveInterval = setInterval(moveElevator, 1500);
+        
+        setInterval(() => {
+            if (isMoving) {
+                moveElevator();
+            }
+        }, 1500);
+    </script>
+</body>
+</html>
