@@ -41,6 +41,38 @@
             position: relative;
         }
         
+        /* Новые элементы: Анимированный бэкграунд с кодом */
+        .code-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.03;
+            overflow: hidden;
+        }
+        
+        .code-line-bg {
+            position: absolute;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            color: var(--primary-color);
+            white-space: nowrap;
+            opacity: 0.4;
+            animation: floatCode 20s linear infinite;
+        }
+        
+        @keyframes floatCode {
+            0% {
+                transform: translateY(100vh) translateX(0);
+            }
+            100% {
+                transform: translateY(-100px) translateX(0);
+            }
+        }
+        
         .floating-shapes {
             position: fixed;
             width: 100%;
@@ -94,8 +126,96 @@
             padding: 0 40px;
         }
         
+        /* Новый навигационный бар */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 0;
+            z-index: 1000;
+            background: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+            transition: var(--transition);
+        }
+        
+        .navbar.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 10px 0;
+            transition: var(--transition);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+            border-radius: 2px;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        
         header {
-            padding: 150px 0 80px;
+            padding: 180px 0 100px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -174,6 +294,37 @@
         @keyframes blink {
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0; }
+        }
+        
+        /* Новый компонент: Панель быстрого доступа */
+        .quick-access {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .quick-btn {
+            padding: 15px 30px;
+            background: rgba(100, 255, 218, 0.1);
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quick-btn:hover {
+            background: var(--primary-color);
+            color: var(--dark-bg);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(100, 255, 218, 0.3);
         }
         
         .intro {
@@ -461,6 +612,58 @@
             background: linear-gradient(90deg, transparent, rgba(100, 255, 218, 0.3), transparent);
         }
         
+        /* Новый модуль: Плавающие карточки технологий */
+        .tech-floating-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin: 60px 0;
+            perspective: 1000px;
+        }
+        
+        .tech-card {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(145deg, var(--card-bg), var(--card-bg-light));
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+        
+        .tech-card:hover {
+            transform: translateY(-20px) rotateY(10deg);
+            border-color: var(--primary-color);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(100, 255, 218, 0.2);
+        }
+        
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .tech-card:hover .tech-icon {
+            transform: scale(1.2) rotate(15deg);
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+        
+        .tech-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+        
         .skills {
             margin-bottom: 140px;
         }
@@ -594,6 +797,76 @@
         @keyframes shimmer {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
+        }
+        
+        /* Новый модуль: Визуализатор кода */
+        .code-visualizer {
+            margin: 100px 0;
+            padding: 60px;
+            background: linear-gradient(145deg, var(--card-bg), var(--card-bg-light));
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .visualizer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .visualizer-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+        
+        .visualizer-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .vis-control-btn {
+            padding: 12px 25px;
+            background: rgba(100, 255, 218, 0.1);
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+        
+        .vis-control-btn:hover {
+            background: var(--primary-color);
+            color: var(--dark-bg);
+            transform: translateY(-5px);
+        }
+        
+        .code-output {
+            height: 300px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.2rem;
+            overflow-y: auto;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+        
+        .code-output-line {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .code-output-line:hover {
+            background: rgba(100, 255, 218, 0.1);
         }
         
         .projects {
@@ -771,6 +1044,62 @@
             background: rgba(100, 255, 218, 0.2);
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Новый модуль: 3D-визуализация */
+        .three-d-visual {
+            width: 100%;
+            height: 400px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            margin: 80px 0;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+        
+        .cube-container {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            perspective: 1000px;
+        }
+        
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateCube 20s infinite linear;
+        }
+        
+        .cube-face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(100, 255, 218, 0.1);
+            border: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+            opacity: 0.9;
+        }
+        
+        .front  { transform: translateZ(100px); }
+        .back   { transform: rotateY(180deg) translateZ(100px); }
+        .right  { transform: rotateY(90deg) translateZ(100px); }
+        .left   { transform: rotateY(-90deg) translateZ(100px); }
+        .top    { transform: rotateX(90deg) translateZ(100px); }
+        .bottom { transform: rotateX(-90deg) translateZ(100px); }
+        
+        @keyframes rotateCube {
+            0% { transform: rotateX(0) rotateY(0); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
         }
         
         .about {
@@ -1276,6 +1605,65 @@
                 0 0 20px rgba(100, 255, 218, 0.2);
         }
         
+        /* Новый компонент: Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: linear-gradient(145deg, var(--card-bg), var(--card-bg-light));
+            border-radius: 25px;
+            padding: 50px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            border: 2px solid var(--primary-color);
+            animation: modalAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        @keyframes modalAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            transform: rotate(90deg) scale(1.2);
+        }
+        
         @media (max-width: 1200px) {
             h1 {
                 font-size: 3.8rem;
@@ -1297,6 +1685,31 @@
         @media (max-width: 992px) {
             .container {
                 padding: 0 30px;
+            }
+            
+            .nav-container {
+                padding: 0 30px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: var(--card-bg);
+                padding: 30px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
             }
             
             h1 {
@@ -1336,6 +1749,10 @@
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
+            
+            .code-visualizer {
+                padding: 40px;
+            }
         }
         
         @media (max-width: 768px) {
@@ -1343,8 +1760,12 @@
                 padding: 0 20px;
             }
             
+            .nav-container {
+                padding: 0 20px;
+            }
+            
             header {
-                padding: 120px 0 60px;
+                padding: 150px 0 60px;
             }
             
             h1 {
@@ -1439,6 +1860,10 @@
                 bottom: 20px;
                 right: 20px;
             }
+            
+            .modal-content {
+                padding: 30px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1481,18 +1906,81 @@
                 height: 60px;
                 font-size: 1.5rem;
             }
+            
+            .quick-btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+            
+            .tech-card {
+                width: 120px;
+                height: 120px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Новый фон с летающим кодом -->
+    <div class="code-background" id="codeBackground"></div>
+    
     <div class="floating-shapes">
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
         <div class="shape shape-3"></div>
     </div>
     
+    <!-- Новая навигация -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-code"></i>
+                <span>DaniilDev</span>
+            </a>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="#about" class="nav-link">Обо мне</a>
+                <a href="#skills" class="nav-link">Навыки</a>
+                <a href="#projects" class="nav-link">Проекты</a>
+                <a href="#contact" class="nav-link">Контакты</a>
+                <button class="quick-btn" id="showDemo">
+                    <i class="fas fa-play"></i> Демо
+                </button>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    
     <div class="theme-toggle" id="themeToggle">
         <i class="fas fa-moon"></i>
+    </div>
+    
+    <!-- Новое модальное окно -->
+    <div class="modal" id="demoModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">Интерактивная демонстрация</h2>
+            <p style="color: var(--text-gray); margin-bottom: 30px;">В этом демо-режиме вы можете увидеть возможности современного JavaScript. Попробуйте изменить параметры ниже:</p>
+            
+            <div class="demo-controls">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: var(--primary-color); margin-bottom: 10px;">Скорость анимаций:</label>
+                    <input type="range" id="animationSpeed" min="0.5" max="3" step="0.1" value="1" style="width: 100%;">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: var(--primary-color); margin-bottom: 10px;">Яркость интерфейса:</label>
+                    <input type="range" id="brightness" min="50" max="200" value="100" style="width: 100%;">
+                </div>
+                
+                <div style="display: flex; gap: 15px; margin-top: 30px;">
+                    <button class="vis-control-btn" id="resetDemo">Сбросить</button>
+                    <button class="vis-control-btn" id="applyDemo">Применить</button>
+                </div>
+            </div>
+        </div>
     </div>
     
     <div class="container">
@@ -1502,10 +1990,47 @@
                 <h1>Мир программирования - моя Вселенная</h1>
                 <p class="tagline" id="typedText"></p>
                 <div class="typewriter-cursor" id="cursor"></div>
+                
+                <!-- Новая панель быстрого доступа -->
+                <div class="quick-access">
+                    <button class="quick-btn" id="scrollToProjects">
+                        <i class="fas fa-rocket"></i> Проекты
+                    </button>
+                    <button class="quick-btn" id="startTutorial">
+                        <i class="fas fa-graduation-cap"></i> Туториал
+                    </button>
+                    <button class="quick-btn" id="showTech">
+                        <i class="fas fa-cogs"></i> Технологии
+                    </button>
+                </div>
             </div>
         </header>
         
-        <section class="intro">
+        <!-- Новый модуль с плавающими технологиями -->
+        <div class="tech-floating-cards" id="techCards">
+            <div class="tech-card">
+                <i class="fab fa-html5 tech-icon"></i>
+                <span class="tech-name">HTML5</span>
+            </div>
+            <div class="tech-card">
+                <i class="fab fa-css3-alt tech-icon"></i>
+                <span class="tech-name">CSS3</span>
+            </div>
+            <div class="tech-card">
+                <i class="fab fa-js-square tech-icon"></i>
+                <span class="tech-name">JavaScript</span>
+            </div>
+            <div class="tech-card">
+                <i class="fab fa-react tech-icon"></i>
+                <span class="tech-name">React</span>
+            </div>
+            <div class="tech-card">
+                <i class="fab fa-node-js tech-icon"></i>
+                <span class="tech-name">Node.js</span>
+            </div>
+        </div>
+        
+        <section class="intro" id="about">
             <div class="intro-text">
                 <h2>Приветствую! Я Даниил</h2>
                 <p>Программирование - это моя страсть, творчество и способ самовыражения. С тех пор как я написал свою первую строчку кода, я понял, что нашел не просто хобби, а целую вселенную возможностей. Это мир, где логика встречается с креативностью, где каждая задача - это головоломка, а каждое решение - маленькая победа.</p>
@@ -1573,7 +2098,22 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
             </div>
         </section>
         
-        <section class="skills">
+        <!-- Новый модуль визуализатора кода -->
+        <div class="code-visualizer">
+            <div class="visualizer-header">
+                <h3 class="visualizer-title">Визуализатор кода</h3>
+                <div class="visualizer-controls">
+                    <button class="vis-control-btn" id="generateCode">Сгенерировать код</button>
+                    <button class="vis-control-btn" id="animateCode">Анимировать</button>
+                    <button class="vis-control-btn" id="clearOutput">Очистить</button>
+                </div>
+            </div>
+            <div class="code-output" id="codeOutput">
+                <div class="code-output-line">// Код появится здесь...</div>
+            </div>
+        </div>
+        
+        <section class="skills" id="skills">
             <h2 class="section-title">Мои компетенции</h2>
             <div class="skills-grid">
                 <div class="skill-card" data-skill="95">
@@ -1611,6 +2151,20 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
             </div>
         </section>
         
+        <!-- Новая 3D визуализация -->
+        <div class="three-d-visual">
+            <div class="cube-container">
+                <div class="cube" id="rotatingCube">
+                    <div class="cube-face front"><i class="fas fa-code"></i></div>
+                    <div class="cube-face back"><i class="fab fa-js"></i></div>
+                    <div class="cube-face right"><i class="fab fa-html5"></i></div>
+                    <div class="cube-face left"><i class="fab fa-css3-alt"></i></div>
+                    <div class="cube-face top"><i class="fas fa-rocket"></i></div>
+                    <div class="cube-face bottom"><i class="fas fa-cogs"></i></div>
+                </div>
+            </div>
+        </div>
+        
         <section class="about">
             <h2>Философия разработки</h2>
             <div class="about-content">
@@ -1637,7 +2191,7 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
             </div>
         </section>
         
-        <section class="projects">
+        <section class="projects" id="projects">
             <h2 class="section-title">Портфолио проектов</h2>
             
             <div class="projects-tabs">
@@ -1715,6 +2269,10 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
                     <div class="counter-value" id="colorChanges">0</div>
                     <div class="counter-label">Цветов</div>
                 </div>
+                <div class="counter-box">
+                    <div class="counter-value" id="achievementCount">0</div>
+                    <div class="counter-label">Достижений</div>
+                </div>
             </div>
             
             <button id="clickMeBtn" class="btn">Нажми для магии!</button>
@@ -1735,9 +2293,25 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
                     <button class="color-btn" style="background: #50fa7b;" data-color="#50fa7b"></button>
                 </div>
             </div>
+            
+            <!-- Новые элементы управления -->
+            <div style="margin-top: 40px;">
+                <p style="margin-bottom: 15px; font-size: 1.2rem;">Управление анимациями:</p>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button class="vis-control-btn" id="pauseAnimations">
+                        <i class="fas fa-pause"></i> Пауза
+                    </button>
+                    <button class="vis-control-btn" id="resumeAnimations">
+                        <i class="fas fa-play"></i> Продолжить
+                    </button>
+                    <button class="vis-control-btn" id="randomizeColors">
+                        <i class="fas fa-random"></i> Случайные цвета
+                    </button>
+                </div>
+            </div>
         </div>
         
-        <section class="contact">
+        <section class="contact" id="contact">
             <h2>Давайте создавать будущее вместе!</h2>
             <p>Если вы разделяете мою страсть к технологиям, хотите обсудить интересный проект или просто пообщаться о программировании - я всегда открыт для новых знакомств и сотрудничества. Вместе мы можем создать нечто поистине удивительное!
             мой аккаунт на Github https://github.com/lampochka112</p>
@@ -1756,12 +2330,16 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
                     <div style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px;">100%</div>
                     <div style="color: var(--text-gray);">Страсть к коду</div>
                 </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px;" id="liveUsers">1</div>
+                    <div style="color: var(--text-gray);">Активных пользователей</div>
+                </div>
             </div>
         </section>
         
         <footer>
             <div class="social-links">
-                <a href="#" class="social-link" title="GitHub">
+                <a href="https://github.com/lampochka112" class="social-link" title="GitHub" target="_blank">
                     <i class="fab fa-github"></i>
                 </a>
                 <a href="#" class="social-link" title="CodePen">
@@ -1791,11 +2369,13 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
     </div>
 
     <script>
+        // Основные переменные
         const clickMeBtn = document.getElementById('clickMeBtn');
         const clickCountElement = document.getElementById('clickCount');
         const clickCounterElement = document.getElementById('clickCounter');
         const timeSpentElement = document.getElementById('timeSpent');
         const colorChangesElement = document.getElementById('colorChanges');
+        const achievementCountElement = document.getElementById('achievementCount');
         const achievementsElement = document.getElementById('achievements');
         const scrollTopBtn = document.getElementById('scrollTop');
         const themeToggleBtn = document.getElementById('themeToggle');
@@ -1806,19 +2386,43 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
         const typedTextElement = document.getElementById('typedText');
         const cursorElement = document.getElementById('cursor');
         const particlesContainer = document.getElementById('particles');
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.getElementById('navLinks');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const codeBackground = document.getElementById('codeBackground');
+        const rotatingCube = document.getElementById('rotatingCube');
+        const codeOutput = document.getElementById('codeOutput');
+        const generateCodeBtn = document.getElementById('generateCode');
+        const animateCodeBtn = document.getElementById('animateCode');
+        const clearOutputBtn = document.getElementById('clearOutput');
+        const pauseAnimationsBtn = document.getElementById('pauseAnimations');
+        const resumeAnimationsBtn = document.getElementById('resumeAnimations');
+        const randomizeColorsBtn = document.getElementById('randomizeColors');
+        const showDemoBtn = document.getElementById('showDemo');
+        const demoModal = document.getElementById('demoModal');
+        const modalClose = document.getElementById('modalClose');
+        const scrollToProjectsBtn = document.getElementById('scrollToProjects');
+        const startTutorialBtn = document.getElementById('startTutorial');
+        const showTechBtn = document.getElementById('showTech');
+        const techCards = document.getElementById('techCards');
+        const liveUsersElement = document.getElementById('liveUsers');
         
         let clickCount = 0;
         let timeSpent = 0;
         let colorChanges = 0;
         let achievements = [];
+        let achievementCount = 0;
         let startTime = Date.now();
         let isLightTheme = false;
+        let animationsPaused = false;
+        let liveUsers = 1;
         
         const texts = [
             "Создание цифровых миров с помощью кода - это искусство, которым я живу",
             "Каждая строчка кода - это шаг к созданию чего-то удивительного",
             "Программирование - это не работа, а образ мышления и стиль жизни",
-            "Превращаю сложные задачи в элегантные решения с помощью кода"
+            "Превращаю сложные задачи в элегантные решения с помощью кода",
+            "Интерактивность - это язык, на котором говорит современный веб"
         ];
         
         let currentTextIndex = 0;
@@ -1826,6 +2430,52 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
         let isDeleting = false;
         let isTypingPaused = false;
         
+        // Создание анимированного фона с кодом
+        function createCodeBackground() {
+            const codeLines = [
+                "const passion = 'programming';",
+                "function createMagic() {",
+                "  return 'Hello World!';",
+                "}",
+                "class Developer {",
+                "  constructor(name) {",
+                "    this.name = name;",
+                "  }",
+                "}",
+                "const dev = new Developer('Daniil');",
+                "console.log('Code is poetry');",
+                "// Веб-разработка - это искусство",
+                "async function fetchData() {",
+                "  const response = await fetch(url);",
+                "  return response.json();",
+                "}",
+                "const technologies = ['HTML', 'CSS', 'JS'];",
+                "const projects = 28;",
+                "let experience = 4; // года",
+                "const isPassionate = true;",
+                "export default Developer;"
+            ];
+            
+            codeLines.forEach((line, index) => {
+                const codeLine = document.createElement('div');
+                codeLine.classList.add('code-line-bg');
+                codeLine.textContent = line;
+                
+                // Случайная позиция и задержка
+                const left = Math.random() * 100;
+                const delay = Math.random() * 20;
+                const duration = 20 + Math.random() * 20;
+                
+                codeLine.style.left = `${left}%`;
+                codeLine.style.animationDelay = `${delay}s`;
+                codeLine.style.animationDuration = `${duration}s`;
+                codeLine.style.fontSize = `${0.8 + Math.random() * 0.4}rem`;
+                
+                codeBackground.appendChild(codeLine);
+            });
+        }
+        
+        // Функция печатающего текста
         function typeWriter() {
             if (isTypingPaused) return;
             
@@ -1853,6 +2503,7 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
             }
         }
         
+        // Создание частиц
         function createParticles() {
             const particleCount = 50;
             
@@ -1878,19 +2529,27 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
             }
         }
         
+        // Обновление времени на сайте
         function updateTimeSpent() {
             const now = Date.now();
             timeSpent = Math.floor((now - startTime) / 1000);
             timeSpentElement.textContent = timeSpent;
         }
         
+        // Добавление достижений
         function addAchievement(text) {
             if (!achievements.includes(text)) {
                 achievements.push(text);
+                achievementCount++;
+                achievementCountElement.textContent = achievementCount;
+                
                 const achievement = document.createElement('div');
                 achievement.classList.add('achievement');
                 achievement.innerHTML = `<i class="fas fa-trophy"></i> ${text}`;
                 achievementsElement.appendChild(achievement);
+                
+                // Анимация появления
+                achievement.style.animation = 'pop 0.5s';
                 
                 setTimeout(() => {
                     achievement.style.opacity = '0';
@@ -1904,21 +2563,25 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
             }
         }
         
+        // Обработка кликов по кнопке
         function handleClick() {
             clickCount++;
             clickCountElement.textContent = clickCount;
             
+            // Смена цвета кнопки
             const colors = ['#64ffda', '#00a8ff', '#c678dd', '#e6c07b', '#e06c75', '#50fa7b'];
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
             const nextColor = colors[(colors.indexOf(randomColor) + 1) % colors.length];
             
             clickMeBtn.style.background = `linear-gradient(90deg, ${randomColor}, ${nextColor})`;
             
+            // Анимация нажатия
             clickMeBtn.style.transform = 'translateY(-8px) scale(1.05)';
             setTimeout(() => {
                 clickMeBtn.style.transform = 'translateY(-8px) scale(1.05)';
             }, 150);
             
+            // Добавление достижений
             if (clickCount % 10 === 0) {
                 addAchievement(`Достижение: ${clickCount} нажатий!`);
             }
@@ -1926,14 +2589,34 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
             if (clickCount === 25) addAchievement('Серебряный уровень!');
             if (clickCount === 50) addAchievement('Золотой уровень!');
             if (clickCount === 100) addAchievement('Платиновый уровень!');
+            if (clickCount === 150) addAchievement('Легендарный уровень!');
+            
+            // Случайная анимация куба
+            if (clickCount % 5 === 0) {
+                rotateCubeRandomly();
+            }
         }
         
+        // Случайный поворот куба
+        function rotateCubeRandomly() {
+            const randomX = Math.floor(Math.random() * 360);
+            const randomY = Math.floor(Math.random() * 360);
+            rotatingCube.style.transform = `rotateX(${randomX}deg) rotateY(${randomY}deg)`;
+            
+            setTimeout(() => {
+                rotatingCube.style.animation = 'rotateCube 20s infinite linear';
+            }, 1000);
+        }
+        
+        // Смена цвета темы
         function handleColorChange(color) {
             colorChanges++;
             colorChangesElement.textContent = colorChanges;
             
+            // Обновление основного цвета
             document.documentElement.style.setProperty('--primary-color', color);
             
+            // Анимация изменения формы
             const hueRotate = Math.floor(Math.random() * 360);
             document.querySelector('.shape-1').style.filter = `hue-rotate(${hueRotate}deg) blur(40px)`;
             
@@ -1942,29 +2625,244 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
             }
         }
         
-        function handleTabClick(event) {
-            const filter = event.target.getAttribute('data-filter');
+        // Генерация случайного кода
+        function generateRandomCode() {
+            const codeSnippets = [
+                "function fibonacci(n) {\n  if (n <= 1) return n;\n  return fibonacci(n-1) + fibonacci(n-2);\n}",
+                "const debounce = (fn, delay) => {\n  let timeout;\n  return (...args) => {\n    clearTimeout(timeout);\n    timeout = setTimeout(() => fn(...args), delay);\n  };\n};",
+                "class Observable {\n  constructor() {\n    this.subscribers = [];\n  }\n  subscribe(fn) {\n    this.subscribers.push(fn);\n  }\n  notify(data) {\n    this.subscribers.forEach(fn => fn(data));\n  }\n}",
+                "const deepClone = (obj) => {\n  if (obj === null || typeof obj !== 'object') return obj;\n  const clone = Array.isArray(obj) ? [] : {};\n  for (let key in obj) {\n    clone[key] = deepClone(obj[key]);\n  }\n  return clone;\n};",
+                "async function fetchWithRetry(url, retries = 3) {\n  try {\n    const response = await fetch(url);\n    if (!response.ok) throw new Error('Request failed');\n    return await response.json();\n  } catch (error) {\n    if (retries === 0) throw error;\n    return fetchWithRetry(url, retries - 1);\n  }\n}"
+            ];
             
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            const randomCode = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+            const codeLine = document.createElement('div');
+            codeLine.classList.add('code-output-line');
+            codeLine.textContent = randomCode;
+            codeLine.style.opacity = '0';
             
-            projectsContainer.style.opacity = '0';
-            projectsContainer.style.transform = 'translateY(30px)';
+            codeOutput.appendChild(codeLine);
             
+            // Анимация появления
             setTimeout(() => {
-                const projectCards = document.querySelectorAll('.project-card');
+                codeLine.style.transition = 'opacity 0.5s';
+                codeLine.style.opacity = '1';
+            }, 10);
+            
+            // Прокрутка к новому коду
+            codeOutput.scrollTop = codeOutput.scrollHeight;
+            
+            addAchievement('Сгенерирован новый код!');
+        }
+        
+        // Анимация кода
+        function animateCode() {
+            const lines = codeOutput.querySelectorAll('.code-output-line');
+            lines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.style.transform = 'translateX(-20px)';
+                    line.style.backgroundColor = 'rgba(100, 255, 218, 0.1)';
+                    
+                    setTimeout(() => {
+                        line.style.transform = 'translateX(0)';
+                        line.style.backgroundColor = 'transparent';
+                    }, 500);
+                }, index * 200);
+            });
+            
+            addAchievement('Запущена анимация кода!');
+        }
+        
+        // Очистка вывода кода
+        function clearCodeOutput() {
+            codeOutput.innerHTML = '<div class="code-output-line">// Код появится здесь...</div>';
+            addAchievement('Вывод кода очищен!');
+        }
+        
+        // Пауза анимаций
+        function pauseAllAnimations() {
+            animationsPaused = true;
+            document.querySelectorAll('*').forEach(el => {
+                if (el.style.animationPlayState !== undefined) {
+                    el.style.animationPlayState = 'paused';
+                }
+            });
+            addAchievement('Анимации приостановлены!');
+        }
+        
+        // Возобновление анимаций
+        function resumeAllAnimations() {
+            animationsPaused = false;
+            document.querySelectorAll('*').forEach(el => {
+                if (el.style.animationPlayState !== undefined) {
+                    el.style.animationPlayState = 'running';
+                }
+            });
+            addAchievement('Анимации возобновлены!');
+        }
+        
+        // Случайные цвета
+        function randomizeAllColors() {
+            const colors = ['#64ffda', '#00a8ff', '#c678dd', '#e6c07b', '#e06c75', '#50fa7b', '#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4'];
+            
+            // Случайный основной цвет
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.documentElement.style.setProperty('--primary-color', randomColor);
+            
+            // Случайный вторичный цвет
+            const secondaryColor = colors[Math.floor(Math.random() * colors.length)];
+            document.documentElement.style.setProperty('--secondary-color', secondaryColor);
+            
+            // Случайный акцентный цвет
+            const accentColor = colors[Math.floor(Math.random() * colors.length)];
+            document.documentElement.style.setProperty('--accent-1', accentColor);
+            
+            colorChanges++;
+            colorChangesElement.textContent = colorChanges;
+            
+            addAchievement('Все цвета рандомизированы!');
+        }
+        
+        // Показ/скрытие модального окна
+        function showDemoModal() {
+            demoModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            addAchievement('Открыт демо-режим!');
+        }
+        
+        function hideDemoModal() {
+            demoModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Прокрутка к проектам
+        function scrollToProjects() {
+            document.getElementById('projects').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+            addAchievement('Прокрутка к проектам!');
+        }
+        
+        // Запуск туториала
+        function startTutorial() {
+            const tutorialSteps = [
+                "Добро пожаловать в туториал!",
+                "Нажмите на кнопку 'Нажми для магии!' несколько раз",
+                "Попробуйте изменить цвета с помощью палитры",
+                "Исследуйте другие интерактивные элементы",
+                "Нажмите на карточки технологий для анимации",
+                "Используйте навигацию для быстрого доступа"
+            ];
+            
+            let step = 0;
+            function showNextStep() {
+                if (step < tutorialSteps.length) {
+                    addAchievement(tutorialSteps[step]);
+                    step++;
+                    setTimeout(showNextStep, 2000);
+                }
+            }
+            
+            showNextStep();
+            addAchievement('Туториал начат!');
+        }
+        
+        // Показ технологий с анимацией
+        function showTechAnimation() {
+            const cards = document.querySelectorAll('.tech-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.transform = 'translateY(-30px) scale(1.1)';
+                    card.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.5)';
+                    
+                    setTimeout(() => {
+                        card.style.transform = 'translateY(-20px) rotateY(10deg)';
+                        card.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.4)';
+                    }, 300);
+                }, index * 200);
+            });
+            
+            addAchievement('Анимация технологий запущена!');
+        }
+        
+        // Симуляция живых пользователей
+        function simulateLiveUsers() {
+            setInterval(() => {
+                // Случайное изменение количества пользователей
+                const change = Math.random() > 0.5 ? 1 : -1;
+                const newUsers = Math.max(1, liveUsers + change);
                 
-                projectCards.forEach(card => {
-                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
+                if (newUsers !== liveUsers) {
+                    liveUsers = newUsers;
+                    liveUsersElement.textContent = liveUsers;
+                    
+                    // Анимация изменения
+                    liveUsersElement.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        liveUsersElement.style.transform = 'scale(1)';
+                    }, 300);
+                }
+            }, 5000);
+        }
+        
+        // Инициализация навигации
+        function initNavigation() {
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.classList.add('active');
+                } else {
+                    scrollTopBtn.classList.remove('active');
+                }
+            });
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+            
+            // Закрытие меню при клике на ссылку
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
                 });
+            });
+        }
+        
+        // Инициализация прогресса навыков
+        function initSkillProgress() {
+            skillCards.forEach(card => {
+                const skillValue = card.getAttribute('data-skill');
+                const progressBar = card.querySelector('.skill-progress-bar');
                 
-                projectsContainer.style.opacity = '1';
-                projectsContainer.style.transform = 'translateY(0)';
-            }, 300);
+                setTimeout(() => {
+                    progressBar.style.width = `${skillValue}%`;
+                }, 300);
+            });
+        }
+        
+        // Инициализация прокрутки наверх
+        function initScrollTop() {
+            scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                addAchievement('Прокрутка наверх!');
+            });
+        }
+        
+        // Инициализация переключения темы
+        function initThemeToggle() {
+            themeToggleBtn.addEventListener('click', toggleTheme);
         }
         
         function toggleTheme() {
@@ -1991,35 +2889,42 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
             addAchievement(isLightTheme ? 'Включен светлый режим!' : 'Включен темный режим!');
         }
         
-        function initSkillProgress() {
-            skillCards.forEach(card => {
-                const skillValue = card.getAttribute('data-skill');
-                const progressBar = card.querySelector('.skill-progress-bar');
-                
-                setTimeout(() => {
-                    progressBar.style.width = `${skillValue}%`;
-                }, 300);
+        // Инициализация фильтрации проектов
+        function initProjectFilter() {
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', handleTabClick);
             });
         }
         
-        function initScrollTop() {
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    scrollTopBtn.classList.add('active');
-                } else {
-                    scrollTopBtn.classList.remove('active');
-                }
-            });
+        function handleTabClick(event) {
+            const filter = event.target.getAttribute('data-filter');
             
-            scrollTopBtn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            projectsContainer.style.opacity = '0';
+            projectsContainer.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                const projectCards = document.querySelectorAll('.project-card');
+                
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
                 });
-            });
+                
+                projectsContainer.style.opacity = '1';
+                projectsContainer.style.transform = 'translateY(0)';
+            }, 300);
+            
+            addAchievement(`Фильтр проектов: ${event.target.textContent}`);
         }
         
-        function initAnimations() {
+        // Инициализация анимаций при прокрутке
+        function initScrollAnimations() {
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
@@ -2034,7 +2939,7 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
                 });
             }, observerOptions);
             
-            document.querySelectorAll('.skill-card, .project-card, .motivation-card').forEach(el => {
+            document.querySelectorAll('.skill-card, .project-card, .motivation-card, .tech-card').forEach(el => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(40px)';
                 el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
@@ -2042,33 +2947,8 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
             });
         }
         
-        function init() {
-            createParticles();
-            typeWriter();
-            initSkillProgress();
-            initScrollTop();
-            initAnimations();
-            
-            setInterval(updateTimeSpent, 1000);
-            
-            const currentYear = new Date().getFullYear();
-            document.querySelector('.year').textContent = currentYear;
-            
-            clickMeBtn.addEventListener('click', handleClick);
-            
-            tabButtons.forEach(btn => {
-                btn.addEventListener('click', handleTabClick);
-            });
-            
-            themeToggleBtn.addEventListener('click', toggleTheme);
-            
-            colorButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const color = btn.getAttribute('data-color');
-                    handleColorChange(color);
-                });
-            });
-            
+        // Инициализация копирования кода
+        function initCodeCopy() {
             document.querySelectorAll('.code-icons i').forEach((icon, index) => {
                 icon.addEventListener('click', () => {
                     if (index === 0) {
@@ -2079,21 +2959,80 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
                             setTimeout(() => {
                                 icon.className = originalIcon;
                             }, 2000);
+                            addAchievement('Код скопирован в буфер обмена!');
                         });
                     } else if (index === 1) {
                         alert('Код успешно выполнен! Результат в консоли браузера.');
+                        addAchievement('Код выполнен!');
                     } else if (index === 2) {
                         document.querySelector('.code-display').classList.toggle('expanded');
+                        addAchievement('Режим полноэкранного просмотра кода!');
                     }
                 });
             });
+        }
+        
+        // Основная инициализация
+        function init() {
+            createParticles();
+            createCodeBackground();
+            typeWriter();
+            initNavigation();
+            initSkillProgress();
+            initScrollTop();
+            initThemeToggle();
+            initProjectFilter();
+            initScrollAnimations();
+            initCodeCopy();
+            simulateLiveUsers();
             
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    document.querySelector('.code-display').classList.remove('expanded');
+            setInterval(updateTimeSpent, 1000);
+            
+            // Установка текущего года
+            const currentYear = new Date().getFullYear();
+            document.querySelector('.year').textContent = currentYear;
+            
+            // Обработчики событий
+            clickMeBtn.addEventListener('click', handleClick);
+            
+            colorButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const color = btn.getAttribute('data-color');
+                    handleColorChange(color);
+                });
+            });
+            
+            generateCodeBtn.addEventListener('click', generateRandomCode);
+            animateCodeBtn.addEventListener('click', animateCode);
+            clearOutputBtn.addEventListener('click', clearCodeOutput);
+            pauseAnimationsBtn.addEventListener('click', pauseAllAnimations);
+            resumeAnimationsBtn.addEventListener('click', resumeAllAnimations);
+            randomizeColorsBtn.addEventListener('click', randomizeAllColors);
+            showDemoBtn.addEventListener('click', showDemoModal);
+            modalClose.addEventListener('click', hideDemoModal);
+            scrollToProjectsBtn.addEventListener('click', scrollToProjects);
+            startTutorialBtn.addEventListener('click', startTutorial);
+            showTechBtn.addEventListener('click', showTechAnimation);
+            
+            // Закрытие модального окна при клике вне его
+            demoModal.addEventListener('click', (e) => {
+                if (e.target === demoModal) {
+                    hideDemoModal();
                 }
             });
             
+            // Анимация карточек технологий при наведении
+            document.querySelectorAll('.tech-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    card.style.transform = 'translateY(-30px) rotateY(180deg) scale(1.2)';
+                    setTimeout(() => {
+                        card.style.transform = 'translateY(-20px) rotateY(10deg)';
+                    }, 600);
+                    addAchievement('Карточка технологии активирована!');
+                });
+            });
+            
+            // Добавление стилей для модального окна
             const style = document.createElement('style');
             style.textContent = `
                 .code-display.expanded {
@@ -2131,12 +3070,35 @@ console.<span class="code-function">log</span>(DeveloperJourney.<span class="cod
                     border-color: white;
                     box-shadow: 0 0 15px currentColor;
                 }
+                
+                .demo-controls {
+                    margin-top: 30px;
+                }
+                
+                .demo-controls input[type="range"] {
+                    -webkit-appearance: none;
+                    height: 8px;
+                    background: rgba(100, 255, 218, 0.2);
+                    border-radius: 4px;
+                    outline: none;
+                }
+                
+                .demo-controls input[type="range"]::-webkit-slider-thumb {
+                    -webkit-appearance: none;
+                    width: 20px;
+                    height: 20px;
+                    background: var(--primary-color);
+                    border-radius: 50%;
+                    cursor: pointer;
+                }
             `;
             document.head.appendChild(style);
             
+            // Начальные достижения
             addAchievement('Добро пожаловать на мою страницу!');
             setTimeout(() => addAchievement('Попробуйте нажать на кнопку!'), 2000);
             setTimeout(() => addAchievement('Измените цвет темы!'), 5000);
+            setTimeout(() => addAchievement('Исследуйте все интерактивные элементы!'), 8000);
         }
         
         document.addEventListener('DOMContentLoaded', init);
