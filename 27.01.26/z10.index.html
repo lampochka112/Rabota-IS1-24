@@ -1,519 +1,628 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Лифт</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лифт в доме</title>
     <style>
-        body {
-            background: #1a1a2e;
-            font-family: 'Arial', sans-serif;
+        * {
             margin: 0;
-            padding: 20px;
-            color: #fff;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            color: #333;
         }
-
+        
         .header {
             text-align: center;
             margin-bottom: 30px;
-            width: 100%;
-            max-width: 800px;
         }
-
-        h1 {
-            color: #f8c300;
-            font-size: 2.8em;
+        
+        .header h1 {
+            font-size: 2.8rem;
+            color: #2c3e50;
             margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(248, 195, 0, 0.5);
-            letter-spacing: 2px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
         }
-
-        .subtitle {
-            color: #ccc;
-            font-size: 1.1em;
-            margin-top: 0;
+        
+        .header h2 {
+            font-size: 1.8rem;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            font-weight: normal;
         }
-
-        .content {
+        
+        .separator {
+            width: 300px;
+            height: 4px;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            border-radius: 2px;
+            margin-bottom: 30px;
+        }
+        
+        .container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
             width: 100%;
             max-width: 1200px;
+            gap: 40px;
+            margin-bottom: 40px;
         }
-
-        .left-panel {
-            background: #162447;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            width: 300px;
-            border: 2px solid #0f3460;
-        }
-
-        .right-panel {
+        
+        .house-container {
             flex: 1;
-            min-width: 300px;
-            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-
-        .building {
-            background: #2d4059;
-            width: 100%;
-            height: 600px;
-            border-radius: 15px;
+        
+        .house {
+            width: 300px;
+            height: 500px;
+            background-color: #f8f9fa;
+            border: 5px solid #2c3e50;
+            border-radius: 10px;
             position: relative;
             overflow: hidden;
-            border: 3px solid #0f3460;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-
-        .shaft {
+        
+        .roof {
             position: absolute;
-            width: 120px;
-            height: 100%;
-            background: #1a1a2e;
-            left: 50%;
-            transform: translateX(-50%);
-            border-left: 2px solid #444;
-            border-right: 2px solid #444;
+            top: -25px;
+            left: -5px;
+            width: 310px;
+            height: 60px;
+            background-color: #e74c3c;
+            clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+            z-index: 2;
         }
-
-        .floor-line {
+        
+        .floors {
             position: absolute;
+            top: 40px;
+            left: 0;
             width: 100%;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.2);
+            height: 460px;
         }
-
+        
+        .floor {
+            height: 115px;
+            border-bottom: 3px solid #bdc3c7;
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            position: relative;
+        }
+        
         .floor-label {
-            position: absolute;
-            color: #f8c300;
             font-weight: bold;
-            font-size: 1.2em;
-            left: 20px;
+            color: #2c3e50;
+            font-size: 1.2rem;
         }
-
+        
+        .elevator-shaft {
+            position: absolute;
+            right: 20px;
+            top: 40px;
+            width: 80px;
+            height: 460px;
+            background-color: #34495e;
+            border-left: 3px solid #2c3e50;
+            border-right: 3px solid #2c3e50;
+        }
+        
         .elevator {
             position: absolute;
-            width: 100px;
-            height: 120px;
-            background: linear-gradient(145deg, #e63946, #c1121f);
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
-            transition: bottom 0.01s linear;
-            z-index: 10;
+            bottom: 0;
+            left: 5px;
+            width: 70px;
+            height: 110px;
+            background: linear-gradient(to bottom, #3498db, #2980b9);
+            border-radius: 5px;
+            transition: bottom 2s ease-in-out;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.3em;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-            border: 3px solid #780000;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            z-index: 1;
         }
-
-        .door {
+        
+        .elevator-door {
+            width: 60px;
+            height: 100px;
+            background-color: #2980b9;
+            border: 2px solid #1c5a7a;
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .door-left, .door-right {
             position: absolute;
-            top: 5px;
-            width: 45px;
-            height: 110px;
-            background: #9d0208;
-            transition: transform 0.3s;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, #3498db, #2980b9);
+            transition: transform 0.5s;
         }
-
+        
         .door-left {
-            left: 5px;
-            border-right: 2px solid #6a040f;
+            left: 0;
+            border-right: 1px solid #1c5a7a;
         }
-
+        
         .door-right {
-            right: 5px;
-            border-left: 2px solid #6a040f;
+            right: 0;
+            border-left: 1px solid #1c5a7a;
         }
-
-        .controls {
-            margin-top: 30px;
+        
+        .elevator:hover .door-left {
+            transform: translateX(-90%);
         }
-
-        .control-group {
-            margin-bottom: 25px;
+        
+        .elevator:hover .door-right {
+            transform: translateX(90%);
         }
-
-        h3 {
-            color: #f8c300;
-            border-bottom: 2px solid #0f3460;
-            padding-bottom: 8px;
-            margin-top: 0;
-            margin-bottom: 15px;
+        
+        .control-panel {
+            flex: 1;
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 400px;
         }
-
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+        
+        .control-panel h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            text-align: center;
         }
-
-        .btn {
-            background: #0f3460;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: bold;
-            transition: all 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn:hover {
-            background: #1a508b;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-        }
-
-        .btn:active {
-            transform: translateY(1px);
-        }
-
-        .btn-up {
-            background: #2a9d8f;
-        }
-
-        .btn-up:hover {
-            background: #21867a;
-        }
-
-        .btn-down {
-            background: #e76f51;
-        }
-
-        .btn-down:hover {
-            background: #d65c3e;
-        }
-
-        .status {
-            background: rgba(15, 52, 96, 0.5);
+        
+        .instructions {
+            background-color: #f8f9fa;
             padding: 15px;
             border-radius: 10px;
-            margin-top: 20px;
-            border: 1px solid #0f3460;
+            margin-bottom: 25px;
+            border-left: 5px solid #3498db;
         }
-
-        .status-line {
-            display: flex;
-            justify-content: space-between;
+        
+        .instructions p {
             margin-bottom: 10px;
-            font-size: 1.1em;
+            line-height: 1.5;
         }
-
-        .status-value {
-            color: #f8c300;
+        
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .floor-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .floor-btn {
+            padding: 15px 5px;
+            background-color: #ecf0f1;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
             font-weight: bold;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-
-        .info {
-            background: rgba(15, 52, 96, 0.3);
+        
+        .floor-btn:hover {
+            background-color: #3498db;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .floor-btn.active {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .start-btn {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .start-btn:hover {
+            background-color: #27ae60;
+            transform: translateY(-3px);
+        }
+        
+        .stop-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .stop-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+        }
+        
+        .auto-btn {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .auto-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+        
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .status.moving-up {
+            color: #2ecc71;
+            background-color: rgba(46, 204, 113, 0.1);
+        }
+        
+        .status.moving-down {
+            color: #e74c3c;
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+        
+        .status.idle {
+            color: #7f8c8d;
+        }
+        
+        .current-floor {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .note {
+            max-width: 800px;
+            background-color: white;
             padding: 20px;
             border-radius: 10px;
-            margin-top: 25px;
-            border-left: 4px solid #f8c300;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid #9b59b6;
         }
-
-        .info h3 {
-            margin-top: 0;
+        
+        .note h3 {
+            color: #9b59b6;
+            margin-bottom: 10px;
         }
-
-        .info ul {
-            padding-left: 20px;
+        
+        .note p {
             line-height: 1.6;
         }
-
-        .info li {
-            margin-bottom: 8px;
-        }
-
-        .counter {
-            font-size: 2.5em;
-            text-align: center;
-            color: #f8c300;
-            font-weight: bold;
-            margin: 10px 0;
-            text-shadow: 0 0 10px rgba(248, 195, 0, 0.5);
-        }
-
-        @media (max-width: 768px) {
-            .content {
+        
+        @media (max-width: 900px) {
+            .container {
                 flex-direction: column;
                 align-items: center;
             }
             
-            .left-panel, .right-panel {
-                width: 100%;
-                max-width: 500px;
-            }
-            
-            .building {
-                height: 500px;
+            .control-panel {
+                max-width: 100%;
             }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>АНИМИРОВАННЫЙ ЛИФТ</h1>
-        <p class="subtitle">Демонстрация движения лифта между этажами</p>
+        <h1>Это дом</h1>
+        <h2>С анимированным лифтом</h2>
+        <div class="separator"></div>
     </div>
-
-    <div class="content">
-        <div class="left-panel">
+    
+    <div class="container">
+        <div class="house-container">
+            <div class="house">
+                <div class="roof"></div>
+                <div class="elevator-shaft">
+                    <div class="elevator" id="elevator">
+                        <div class="elevator-door">
+                            <div class="door-left"></div>
+                            <div class="door-right"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="floors">
+                    <div class="floor" style="top: 345px;"><span class="floor-label">1 этаж</span></div>
+                    <div class="floor" style="top: 230px;"><span class="floor-label">2 этаж</span></div>
+                    <div class="floor" style="top: 115px;"><span class="floor-label">3 этаж</span></div>
+                    <div class="floor" style="top: 0px;"><span class="floor-label">4 этаж</span></div>
+                </div>
+            </div>
+            <div class="current-floor" id="currentFloorDisplay">Лифт на: 1 этаже</div>
+        </div>
+        
+        <div class="control-panel">
+            <h3>Панель управления</h3>
+            
+            <div class="instructions">
+                <p><strong>Управление лифтом:</strong></p>
+                <p>1. Нажмите кнопку этажа для перемещения лифта</p>
+                <p>2. Или нажмите "Авто-режим" для автоматического движения</p>
+                <p>3. Используйте "Стоп" для остановки лифта</p>
+            </div>
+            
             <div class="controls">
-                <div class="control-group">
-                    <h3>УПРАВЛЕНИЕ ЛИФТОМ</h3>
-                    <div class="buttons">
-                        <button class="btn btn-up" id="goUp">ВВЕРХ</button>
-                        <button class="btn" id="stopBtn">СТОП</button>
-                        <button class="btn btn-down" id="goDown">ВНИЗ</button>
-                    </div>
+                <div class="floor-buttons">
+                    <button class="floor-btn" data-floor="4">4 этаж</button>
+                    <button class="floor-btn" data-floor="3">3 этаж</button>
+                    <button class="floor-btn" data-floor="2">2 этаж</button>
+                    <button class="floor-btn active" data-floor="1">1 этаж</button>
+                    <button class="floor-btn" data-floor="0">Подвал</button>
                 </div>
-
-                <div class="control-group">
-                    <h3>СКОРОСТЬ</h3>
-                    <div class="buttons">
-                        <button class="btn" id="speedSlow">МЕДЛЕННО</button>
-                        <button class="btn" id="speedNormal" style="background:#f8c300;color:#000">НОРМАЛЬНО</button>
-                        <button class="btn" id="speedFast">БЫСТРО</button>
-                    </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn start-btn" id="startBtn">Старт</button>
+                    <button class="action-btn stop-btn" id="stopBtn">Стоп</button>
+                    <button class="action-btn auto-btn" id="autoBtn">Авто-режим</button>
                 </div>
-
-                <div class="status">
-                    <h3>СТАТУС ЛИФТА</h3>
-                    <div class="status-line">
-                        <span>Текущий этаж:</span>
-                        <span class="status-value" id="currentFloor">1</span>
-                    </div>
-                    <div class="status-line">
-                        <span>Направление:</span>
-                        <span class="status-value" id="direction">ВВЕРХ</span>
-                    </div>
-                    <div class="status-line">
-                        <span>Состояние:</span>
-                        <span class="status-value" id="state">В ДВИЖЕНИИ</span>
-                    </div>
-                    <div class="counter" id="counter">0</div>
-                    <div style="text-align:center;font-size:0.9em;color:#aaa;">количество поездок</div>
-                </div>
-            </div>
-
-            <div class="info">
-                <h3>ИНФОРМАЦИЯ</h3>
-                <ul>
-                    <li>Лифт движется автоматически вверх и вниз</li>
-                    <li>Можно управлять кнопками "ВВЕРХ" и "ВНИЗ"</li>
-                    <li>Кнопка "СТОП" останавливает движение</li>
-                    <li>Можно изменить скорость движения</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="right-panel">
-            <div class="building" id="building">
-                <div class="shaft">
-                    <!-- Этажи будут созданы через JS -->
-                </div>
-                <div class="elevator" id="elevator">
-                    ЛИФТ
-                    <div class="door door-left"></div>
-                    <div class="door door-right"></div>
+                
+                <div class="status idle" id="status">
+                    Лифт ожидает команду
                 </div>
             </div>
         </div>
+    </div>
+    
+    <div class="note">
+        <h3>Примечание:</h3>
+        <p>Лифт должен двигаться вверх, а затем, достигнув верхнего этажа (верхней границы), вниз, и наоборот. В авто-режиме лифт автоматически перемещается между этажами, достигая крайних точек (подвала и 4 этажа), затем меняет направление.</p>
     </div>
 
     <script>
-        const elevator = document.getElementById('elevator');
-        const building = document.getElementById('building');
-        const shaft = document.querySelector('.shaft');
-        const currentFloorEl = document.getElementById('currentFloor');
-        const directionEl = document.getElementById('direction');
-        const stateEl = document.getElementById('state');
-        const counterEl = document.getElementById('counter');
-        
-        const goUpBtn = document.getElementById('goUp');
-        const goDownBtn = document.getElementById('goDown');
-        const stopBtn = document.getElementById('stopBtn');
-        const speedSlowBtn = document.getElementById('speedSlow');
-        const speedNormalBtn = document.getElementById('speedNormal');
-        const speedFastBtn = document.getElementById('speedFast');
-        
-        let currentFloor = 1;
-        let targetFloor = 5;
-        let isMoving = true;
-        let direction = 'up'; // 'up' или 'down'
-        let speed = 2; // 1-медленно, 2-нормально, 3-быстро
-        let tripCount = 0;
-        const totalFloors = 5;
-        const buildingHeight = 600;
-        const elevatorHeight = 120;
-        const bottomMargin = 40;
-        const floorHeight = (buildingHeight - bottomMargin - elevatorHeight) / (totalFloors - 1);
-        
-       
-        function createFloors() {
-            shaft.innerHTML = '';
-            for (let i = 0; i < totalFloors; i++) {
-                const floorLine = document.createElement('div');
-                floorLine.className = 'floor-line';
-                floorLine.style.bottom = `${bottomMargin + i * floorHeight}px`;
-                
-                const floorLabel = document.createElement('div');
-                floorLabel.className = 'floor-label';
-                floorLabel.textContent = `${totalFloors - i}`;
-                floorLabel.style.bottom = `${bottomMargin + i * floorHeight - 10}px`;
-                
-                shaft.appendChild(floorLine);
-                shaft.appendChild(floorLabel);
-            }
-        }
-
-        function updateElevatorPosition() {
-            const floorIndex = totalFloors - currentFloor;
-            const bottomPosition = bottomMargin + floorIndex * floorHeight;
-            elevator.style.bottom = `${bottomPosition}px`;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Элементы DOM
+            const elevator = document.getElementById('elevator');
+            const currentFloorDisplay = document.getElementById('currentFloorDisplay');
+            const statusDisplay = document.getElementById('status');
+            const floorButtons = document.querySelectorAll('.floor-btn');
+            const startBtn = document.getElementById('startBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const autoBtn = document.getElementById('autoBtn');
             
-            currentFloorEl.textContent = currentFloor;
-            directionEl.textContent = direction === 'up' ? 'ВВЕРХ' : 'ВНИЗ';
-            stateEl.textContent = isMoving ? 'В ДВИЖЕНИИ' : 'ОСТАНОВЛЕН';
-        }
-        
-        function moveElevator() {
-            if (!isMoving) return;
-
-            if (direction === 'up') {
-                if (currentFloor < totalFloors) {
-                    currentFloor++;
-                    if (currentFloor === totalFloors) {
-                        direction = 'down';
-                        tripCount++;
-                        counterEl.textContent = tripCount;
+            // Константы для лифта
+            const FLOOR_HEIGHT = 115; // Высота одного этажа в пикселях
+            const FLOOR_COUNT = 5; // Количество этажей (включая подвал)
+            const TOP_FLOOR = 4; // Верхний этаж
+            const BOTTOM_FLOOR = 0; // Подвал
+            const MOVE_DURATION = 2000; // Длительность движения между этажами в мс
+            
+            // Состояние лифта
+            let currentFloor = 1; // Текущий этаж (начинаем с 1)
+            let isMoving = false;
+            let isAutoMode = false;
+            let moveDirection = 'up'; // Направление движения в авто-режиме
+            let autoInterval = null;
+            
+            // Позиции лифта для каждого этажа (в пикселях снизу)
+            const floorPositions = {
+                0: 0,      // Подвал
+                1: 0,      // 1 этаж
+                2: FLOOR_HEIGHT,      // 2 этаж
+                3: FLOOR_HEIGHT * 2,  // 3 этаж
+                4: FLOOR_HEIGHT * 3   // 4 этаж
+            };
+            
+            // Обновление отображения текущего этажа
+            function updateDisplay() {
+                const floorNames = {
+                    0: 'подвале',
+                    1: '1 этаже',
+                    2: '2 этаже',
+                    3: '3 этаже',
+                    4: '4 этаже'
+                };
+                
+                currentFloorDisplay.textContent = `Лифт на: ${floorNames[currentFloor]}`;
+                
+                // Обновляем активную кнопку этажа
+                floorButtons.forEach(btn => {
+                    const floor = parseInt(btn.dataset.floor);
+                    if (floor === currentFloor) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Обновление статуса
+            function updateStatus(status, type = 'idle') {
+                statusDisplay.textContent = status;
+                statusDisplay.className = 'status';
+                statusDisplay.classList.add(type);
+            }
+            
+            // Перемещение лифта на указанный этаж
+            function moveToFloor(targetFloor) {
+                if (isMoving && !isAutoMode) return; // Не прерываем ручное перемещение
+                
+                // В авто-режиме разрешаем перемещения
+                if (isMoving && isAutoMode) {
+                    // В авто-режиме разрешаем новое движение
+                }
+                
+                isMoving = true;
+                const targetPosition = floorPositions[targetFloor];
+                
+                // Определяем направление для отображения статуса
+                const direction = targetFloor > currentFloor ? 'up' : 'down';
+                updateStatus(`Лифт движется ${direction === 'up' ? 'вверх' : 'вниз'}...`, `moving-${direction}`);
+                
+                // Анимация перемещения лифта
+                elevator.style.bottom = `${targetPosition}px`;
+                
+                // Обновляем текущий этаж после завершения анимации
+                setTimeout(() => {
+                    currentFloor = targetFloor;
+                    updateDisplay();
+                    
+                    if (!isAutoMode) {
+                        isMoving = false;
+                        updateStatus('Лифт прибыл на этаж', 'idle');
+                    } else {
+                        // В авто-режиме продолжаем движение
+                        autoMove();
+                    }
+                }, MOVE_DURATION);
+            }
+            
+            // Автоматическое движение лифта
+            function autoMove() {
+                if (!isAutoMode) return;
+                
+                // Определяем следующий этаж
+                let nextFloor;
+                if (moveDirection === 'up') {
+                    nextFloor = currentFloor + 1;
+                    if (nextFloor > TOP_FLOOR) {
+                        // Достигли верха, меняем направление
+                        nextFloor = TOP_FLOOR - 1;
+                        moveDirection = 'down';
+                        updateStatus('Лифт достиг верхнего этажа, двигаемся вниз', 'moving-down');
+                    }
+                } else {
+                    nextFloor = currentFloor - 1;
+                    if (nextFloor < BOTTOM_FLOOR) {
+                        // Достигли низа, меняем направление
+                        nextFloor = BOTTOM_FLOOR + 1;
+                        moveDirection = 'up';
+                        updateStatus('Лифт достиг подвала, двигаемся вверх', 'moving-up');
                     }
                 }
-            } else {
-                if (currentFloor > 1) {
-                    currentFloor--;
-                    if (currentFloor === 1) {
-                        direction = 'up';
-                        tripCount++;
-                        counterEl.textContent = tripCount;
-                    }
+                
+                // Перемещаем лифт
+                moveToFloor(nextFloor);
+            }
+            
+            // Запуск авто-режима
+            function startAutoMode() {
+                if (isAutoMode) return;
+                
+                isAutoMode = true;
+                isMoving = true;
+                autoBtn.textContent = 'Остановить авто';
+                autoBtn.style.backgroundColor = '#f39c12';
+                
+                updateStatus('Авто-режим: лифт движется вверх', 'moving-up');
+                moveDirection = 'up';
+                
+                // Начинаем движение
+                moveToFloor(currentFloor + 1);
+            }
+            
+            // Остановка авто-режима
+            function stopAutoMode() {
+                isAutoMode = false;
+                isMoving = false;
+                autoBtn.textContent = 'Авто-режим';
+                autoBtn.style.backgroundColor = '#3498db';
+                
+                updateStatus('Авто-режим остановлен', 'idle');
+            }
+            
+            // Обработчики событий для кнопок этажей
+            floorButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (isMoving) return; // Не позволяем выбрать этаж во время движения
+                    
+                    const targetFloor = parseInt(this.dataset.floor);
+                    moveToFloor(targetFloor);
+                });
+            });
+            
+            // Обработчики для кнопок управления
+            startBtn.addEventListener('click', function() {
+                if (isMoving) return;
+                
+                // Если лифт на верхнем этаже, начинаем движение вниз
+                if (currentFloor === TOP_FLOOR) {
+                    moveToFloor(TOP_FLOOR - 1);
+                } 
+                // Если лифт в подвале, начинаем движение вверх
+                else if (currentFloor === BOTTOM_FLOOR) {
+                    moveToFloor(BOTTOM_FLOOR + 1);
                 }
-            }
-            
-            updateElevatorPosition();
-            
-            animateDoors();
-        }
-        
-        function animateDoors() {
-            const doors = document.querySelectorAll('.door');
-            doors.forEach(door => {
-                door.style.transform = 'translateX(0)';
+                // Иначе продолжаем движение в том же направлении
+                else {
+                    moveToFloor(currentFloor + 1);
+                }
             });
             
-            setTimeout(() => {
-                doors[0].style.transform = 'translateX(-45px)';
-                doors[1].style.transform = 'translateX(45px)';
-            }, 300);
-            
-            setTimeout(() => {
-                doors[0].style.transform = 'translateX(0)';
-                doors[1].style.transform = 'translateX(0)';
-            }, 1500);
-        }
-        
-        goUpBtn.addEventListener('click', () => {
-            if (currentFloor < totalFloors) {
-                isMoving = true;
-                direction = 'up';
-                moveElevator();
-            }
-        });
-        
-        goDownBtn.addEventListener('click', () => {
-            if (currentFloor > 1) {
-                isMoving = true;
-                direction = 'down';
-                moveElevator();
-            }
-        });
-        
-        stopBtn.addEventListener('click', () => {
-            isMoving = !isMoving;
-            if (isMoving) {
-                stopBtn.textContent = 'СТОП';
-            } else {
-                stopBtn.textContent = 'ПУСК';
-            }
-        });
-        
-        function setSpeed(newSpeed) {
-            speed = newSpeed;
-            
-            clearInterval(moveInterval);
-            
-            let intervalTime;
-            switch(speed) {
-                case 1: intervalTime = 2000; break;
-                case 2: intervalTime = 1500; break;
-                case 3: intervalTime = 800; break;
-            }
-            
-            moveInterval = setInterval(moveElevator, intervalTime);
-            
-            [speedSlowBtn, speedNormalBtn, speedFastBtn].forEach(btn => {
-                btn.style.background = '#0f3460';
-                btn.style.color = 'white';
+            stopBtn.addEventListener('click', function() {
+                if (isAutoMode) {
+                    stopAutoMode();
+                } else if (isMoving) {
+                    // Останавливаем движение (в реальности лифт должен доехать до этажа)
+                    updateStatus('Лифт останавливается...', 'idle');
+                }
             });
             
-            switch(speed) {
-                case 1: 
-                    speedSlowBtn.style.background = '#f8c300';
-                    speedSlowBtn.style.color = '#000';
-                    break;
-                case 2: 
-                    speedNormalBtn.style.background = '#f8c300';
-                    speedNormalBtn.style.color = '#000';
-                    break;
-                case 3: 
-                    speedFastBtn.style.background = '#f8c300';
-                    speedFastBtn.style.color = '#000';
-                    break;
-            }
-        }
-        
-        speedSlowBtn.addEventListener('click', () => setSpeed(1));
-        speedNormalBtn.addEventListener('click', () => setSpeed(2));
-        speedFastBtn.addEventListener('click', () => setSpeed(3));
-        
-        createFloors();
-        updateElevatorPosition();
-        
-        let moveInterval = setInterval(moveElevator, 1500);
-        
-        setInterval(() => {
-            if (isMoving) {
-                moveElevator();
-            }
-        }, 1500);
+            autoBtn.addEventListener('click', function() {
+                if (isAutoMode) {
+                    stopAutoMode();
+                } else {
+                    startAutoMode();
+                }
+            });
+            
+            // Инициализация отображения
+            updateDisplay();
+            updateStatus('Лифт ожидает команду', 'idle');
+            
+            // Запускаем авто-режим через 3 секунды для демонстрации
+            setTimeout(() => {
+                if (!isMoving) {
+                    autoBtn.click();
+                }
+            }, 3000);
+        });
     </script>
 </body>
 </html>
