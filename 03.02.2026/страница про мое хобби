@@ -5,114 +5,195 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мое хобби - программирование</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #64ffda;
+            --secondary-color: #00a8ff;
+            --dark-bg: #0a192f;
+            --card-bg: #112240;
+            --text-light: #ccd6f6;
+            --text-gray: #8892b0;
+            --accent-purple: #c678dd;
+            --accent-yellow: #e6c07b;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: #0a192f;
-            color: #ccd6f6;
-            line-height: 1.6;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.8;
             overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(100, 255, 218, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(0, 168, 255, 0.05) 0%, transparent 20%);
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 30px;
         }
         
         header {
-            padding: 80px 0 40px;
+            padding: 120px 0 60px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, rgba(100, 255, 218, 0.1) 0%, transparent 50%),
+                linear-gradient(-45deg, rgba(0, 168, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
         }
         
         h1 {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, #64ffda, #00a8ff);
+            font-size: 4.2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
         }
         
         .tagline {
-            font-size: 1.5rem;
-            color: #8892b0;
-            margin-bottom: 30px;
+            font-size: 1.8rem;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            font-weight: 300;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .intro {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 80px;
+            margin-bottom: 100px;
+            gap: 60px;
             flex-wrap: wrap;
         }
         
         .intro-text {
             flex: 1;
             min-width: 300px;
-            padding-right: 40px;
         }
         
         .intro-text h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #64ffda;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .intro-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
         }
         
         .intro-text p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: #a8b2d1;
+            font-size: 1.25rem;
+            margin-bottom: 25px;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+        
+        .intro-text .highlight {
+            color: var(--primary-color);
+            font-weight: 600;
         }
         
         .code-display {
             flex: 1;
             min-width: 300px;
-            background-color: #112240;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border-left: 5px solid #64ffda;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border-left: 6px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .code-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .code-display:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
         }
         
         .code-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            color: #64ffda;
+            margin-bottom: 25px;
+            color: var(--primary-color);
         }
         
         .code-title {
+            font-family: 'Roboto Mono', monospace;
             font-weight: 600;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
         }
         
         .code-icons i {
-            margin-left: 10px;
+            margin-left: 15px;
             cursor: pointer;
-            transition: color 0.3s;
+            transition: var(--transition);
+            font-size: 1.2rem;
         }
         
         .code-icons i:hover {
-            color: #00a8ff;
+            color: var(--secondary-color);
+            transform: scale(1.2);
         }
         
         pre {
             overflow-x: auto;
-            font-family: 'Courier New', monospace;
-            font-size: 1rem;
-            line-height: 1.5;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.2);
         }
         
         .code-keyword {
-            color: #ff79c6;
+            color: var(--accent-purple);
         }
         
         .code-function {
@@ -120,238 +201,516 @@
         }
         
         .code-string {
-            color: #f1fa8c;
+            color: var(--accent-yellow);
         }
         
         .code-comment {
             color: #6272a4;
+            font-style: italic;
         }
         
-        .skills {
-            margin-bottom: 80px;
+        .code-var {
+            color: var(--secondary-color);
         }
         
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            color: #64ffda;
+            font-size: 3rem;
+            margin-bottom: 70px;
+            color: var(--primary-color);
             position: relative;
         }
         
         .section-title::after {
             content: '';
             display: block;
-            width: 100px;
-            height: 3px;
-            background: #64ffda;
-            margin: 15px auto;
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+        
+        .skills {
+            margin-bottom: 120px;
         }
         
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
         }
         
         .skill-card {
-            background-color: #112240;
-            border-radius: 10px;
-            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 40px 30px;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-top: 5px solid #64ffda;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border-top: 5px solid transparent;
+            background-image: linear-gradient(to bottom, var(--card-bg), rgba(100, 255, 218, 0.05));
         }
         
         .skill-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            border-top: 5px solid var(--primary-color);
+        }
+        
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(100, 255, 218, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .skill-card:hover::before {
+            transform: translateX(100%);
         }
         
         .skill-icon {
-            font-size: 3rem;
-            color: #64ffda;
-            margin-bottom: 20px;
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            transition: var(--transition);
+        }
+        
+        .skill-card:hover .skill-icon {
+            transform: scale(1.2);
         }
         
         .skill-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: #ccd6f6;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--text-light);
         }
         
         .skill-card p {
-            color: #a8b2d1;
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            line-height: 1.7;
         }
         
         .projects {
-            margin-bottom: 80px;
+            margin-bottom: 120px;
         }
         
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
         }
         
         .project-card {
-            background-color: #112240;
-            border-radius: 10px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
             overflow: hidden;
-            transition: transform 0.3s;
+            transition: var(--transition);
+            position: relative;
         }
         
         .project-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
         }
         
         .project-img {
-            height: 200px;
-            background: linear-gradient(135deg, #0a192f, #112240);
+            height: 220px;
+            background: linear-gradient(135deg, #0a192f, var(--card-bg));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            color: #64ffda;
+            font-size: 4.5rem;
+            color: var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(100, 255, 218, 0.1), transparent);
         }
         
         .project-info {
-            padding: 25px;
+            padding: 30px;
         }
         
         .project-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: #ccd6f6;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
         }
         
         .project-info p {
-            color: #a8b2d1;
-            margin-bottom: 20px;
+            color: var(--text-gray);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            line-height: 1.7;
         }
         
         .project-tech {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
         }
         
         .tech-tag {
-            background-color: #233554;
-            color: #64ffda;
-            padding: 5px 15px;
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--primary-color);
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-family: 'Roboto Mono', monospace;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            transition: var(--transition);
+        }
+        
+        .tech-tag:hover {
+            background-color: rgba(100, 255, 218, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .about {
+            margin-bottom: 120px;
+            background-color: var(--card-bg);
             border-radius: 20px;
-            font-size: 0.9rem;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(100, 255, 218, 0.1) 0%, transparent 70%);
+        }
+        
+        .about h2 {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .about-text {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+        
+        .about-text p {
+            margin-bottom: 25px;
+        }
+        
+        .motivation-list {
+            list-style-type: none;
+        }
+        
+        .motivation-list li {
+            margin-bottom: 20px;
+            padding-left: 30px;
+            position: relative;
+            color: var(--text-gray);
+            font-size: 1.1rem;
+        }
+        
+        .motivation-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+        
+        .fun-element {
+            text-align: center;
+            margin: 80px 0;
+            padding: 50px;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .fun-element h3 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .fun-element p {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        #clickMeBtn {
+            margin: 20px 0;
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: var(--dark-bg);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        #clickMeBtn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(100, 255, 218, 0.3);
+        }
+        
+        #clickCounter {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-top: 25px;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 500;
         }
         
         .contact {
             text-align: center;
-            padding: 60px 0;
-            background-color: #0c1a35;
-            border-radius: 15px;
-            margin-bottom: 80px;
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--card-bg), rgba(17, 34, 64, 0.9));
+            border-radius: 25px;
+            margin-bottom: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(100, 255, 218, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 168, 255, 0.1) 0%, transparent 50%);
         }
         
         .contact h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #64ffda;
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            position: relative;
+            z-index: 1;
         }
         
         .contact p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 30px;
-            color: #a8b2d1;
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 50px;
+            color: var(--text-gray);
+            position: relative;
+            z-index: 1;
+            line-height: 1.8;
         }
         
-        .btn {
-            display: inline-block;
-            background-color: transparent;
-            color: #64ffda;
-            border: 2px solid #64ffda;
-            padding: 12px 30px;
-            border-radius: 5px;
+        .contact .btn {
+            position: relative;
+            z-index: 1;
+            padding: 18px 45px;
+            font-size: 1.3rem;
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+            overflow: hidden;
         }
         
-        .btn:hover {
+        .contact .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 255, 218, 0.2), transparent);
+            transition: left 0.7s;
+        }
+        
+        .contact .btn:hover::before {
+            left: 100%;
+        }
+        
+        .contact .btn:hover {
             background-color: rgba(100, 255, 218, 0.1);
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(100, 255, 218, 0.2);
         }
         
         footer {
             text-align: center;
-            padding: 30px 0;
-            color: #8892b0;
-            border-top: 1px solid #233554;
+            padding: 50px 0;
+            color: var(--text-gray);
+            border-top: 1px solid rgba(100, 255, 218, 0.2);
+            position: relative;
         }
         
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
+            gap: 30px;
+            margin-bottom: 30px;
         }
         
         .social-links a {
-            color: #ccd6f6;
-            font-size: 1.5rem;
-            transition: color 0.3s;
+            color: var(--text-light);
+            font-size: 1.8rem;
+            transition: var(--transition);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--card-bg);
         }
         
         .social-links a:hover {
-            color: #64ffda;
+            color: var(--primary-color);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
         
-        .fun-element {
-            text-align: center;
-            margin: 40px 0;
+        footer p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
         }
         
-        #clickCounter {
-            font-size: 1.5rem;
-            color: #64ffda;
-            margin-top: 15px;
+        .year {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 1100px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.8rem;
+            }
+            
+            .intro-text h2 {
+                font-size: 2.5rem;
+            }
         }
         
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
+            }
+            
+            .tagline {
+                font-size: 1.5rem;
             }
             
             .intro {
                 flex-direction: column;
-            }
-            
-            .intro-text {
-                padding-right: 0;
-                margin-bottom: 40px;
+                gap: 40px;
             }
             
             .section-title {
-                font-size: 2rem;
+                font-size: 2.3rem;
             }
+            
+            .about {
+                padding: 40px 30px;
+            }
+            
+            .contact h2 {
+                font-size: 2.8rem;
+            }
+            
+            .contact p {
+                font-size: 1.2rem;
+            }
+            
+            .skill-card, .project-card {
+                padding: 30px 20px;
+            }
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: var(--dark-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(100, 255, 218, 0.3);
+        }
+        
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(100, 255, 218, 0.4);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Мое хобби - программирование</h1>
-            <p class="tagline">Страсть к созданию вещей с помощью кода</p>
+            <div class="header-bg"></div>
+            <h1>Программирование - моя страсть</h1>
+            <p class="tagline">Создание цифровых миров с помощью кода - это искусство, которым я живу</p>
         </header>
         
         <section class="intro">
             <div class="intro-text">
-                <h2>Привет! Меня зовут Даниил</h2>
-                <p>Я увлечен программированием и веб-разработкой. Для меня это не просто хобби, а способ творческого самовыражения и решения интересных задач.</p>
-                <p>Особенно я люблю работать с <strong>HTML</strong> и <strong>JavaScript</strong>, потому что они позволяют создавать интерактивные и визуально привлекательные веб-страницы, которые можно сразу увидеть в действии.</p>
-                <p>Программирование для меня — это как искусство, где код становится кистью, а браузер — холстом.</p>
+                <h2>Привет! Я Даниил</h2>
+                <p>Программирование для меня - это не просто хобби или профессиональная деятельность. Это целая философия, способ мышления и инструмент для решения сложных задач. С самого первого знакомства с кодом я понял, что нашел свою стихию.</p>
+                <p>Особенно меня вдохновляет работа с <span class="highlight">HTML</span> и <span class="highlight">JavaScript</span>. Эти технологии дают мгновенную визуальную обратную связь, что превращает процесс программирования в увлекательное творческое путешествие. Видеть, как твои идеи оживают в браузере - это невероятное ощущение.</p>
+                <p>Веб-разработка сочетает в себе логику, дизайн и функциональность. Это область, где можно одновременно быть архитектором, художником и инженером. Каждый проект - это новая возможность создать что-то полезное, красивое и инновационное.</p>
+                <p>Моя цель - не просто писать код, а создавать цифровые продукты, которые улучшают жизнь людей, решают реальные проблемы и приносят эстетическое удовольствие. Я верю, что хороший код должен быть не только функциональным, но и элегантным.</p>
             </div>
             
             <div class="code-display">
@@ -362,65 +721,109 @@
                         <i class="fas fa-play" title="Запустить код"></i>
                     </div>
                 </div>
-                <pre><code><span class="code-keyword">const</span> <span class="code-function">myHobby</span> = {
-  <span class="code-string">"любимые_технологии"</span>: [<span class="code-string">"HTML"</span>, <span class="code-string">"JavaScript"</span>, <span class="code-string">"CSS"</span>],
-  <span class="code-string">"уровень_энтузиазма"</span>: <span class="code-string">"максимальный"</span>,
-  <span class="code-string">"цель"</span>: <span class="code-string">"создавать полезные и красивые веб-приложения"</span>,
+                <pre><code><span class="code-keyword">const</span> <span class="code-function">myCodingJourney</span> = {
+  <span class="code-string">"название"</span>: <span class="code-string">"Путешествие в мир программирования"</span>,
+  <span class="code-string">"старт"</span>: <span class="code-string">"2026 год"</span>,
+  <span class="code-string">"специализация"</span>: [<span class="code-string">"Frontend разработка"</span>, <span class="code-string">"Веб-приложения"</span>],
+  <span class="code-string">"технологии"</span>: [<span class="code-string">"HTML5"</span>, <span class="code-string">"JavaScript"</span>, <span class="code-string">"CSS3"</span>, <span class="code-string">"React"</span>],
+  <span class="code-string">"уровень"</span>: <span class="code-string">"Продвинутый"</span>,
   
-  <span class="code-function">начатьКодить</span>() {
-    <span class="code-keyword">return</span> <span class="code-string">`Я люблю программировать на ${this.любимые_технологии[0]} и ${this.любимые_технологии[1]}!`</span>;
+  <span class="code-function">описатьХобби</span>() {
+    <span class="code-keyword">const</span> <span class="code-var">message</span> = <span class="code-string">`Мое программирование началось в ${this.старт}. `</span>;
+    <span class="code-keyword">const</span> <span class="code-var">techMessage</span> = <span class="code-string">`Я обожаю создавать проекты с помощью ${this.технологии[0]} и ${this.технологии[1]}. `</span>;
+    <span class="code-keyword">const</span> <span class="code-var">passionMessage</span> = <span class="code-string">"Каждая строчка кода для меня - это шаг к созданию чего-то удивительного!"</span>;
+    
+    <span class="code-keyword">return</span> <span class="code-var">message</span> + <span class="code-var">techMessage</span> + <span class="code-var">passionMessage</span>;
+  },
+  
+  <span class="code-function">показатьСтатистику</span>() {
+    <span class="code-keyword">const</span> <span class="code-var">projectsCount</span> = 24;
+    <span class="code-keyword">const</span> <span class="code-var">linesOfCode</span> = 150000;
+    <span class="code-keyword">const</span> <span class="code-var">hoursSpent</span> = 2800;
+    
+    <span class="code-keyword">return</span> {
+      <span class="code-string">"проектов_завершено"</span>: <span class="code-var">projectsCount</span>,
+      <span class="code-string">"строк_кода"</span>: <span class="code-var">linesOfCode</span>,
+      <span class="code-string">"часов_потрачено"</span>: <span class="code-var">hoursSpent</span>
+    };
   }
 };
 
-<span class="code-comment">// Вывод в консоль</span>
-console.<span class="code-function">log</span>(myHobby.<span class="code-function">начатьКодить</span>());
-<span class="code-comment">// Результат: "Я люблю программировать на HTML и JavaScript!"</span></code></pre>
+<span class="code-comment">// Использование объекта</span>
+<span class="code-keyword">const</span> <span class="code-var">мойОпыт</span> = myCodingJourney.<span class="code-function">описатьХобби</span>();
+<span class="code-keyword">const</span> <span class="code-var">мояСтатистика</span> = myCodingJourney.<span class="code-function">показатьСтатистику</span>();
+
+console.<span class="code-function">log</span>(<span class="code-var">мойОпыт</span>);
+console.<span class="code-function">table</span>(<span class="code-var">мояСтатистика</span>);</code></pre>
             </div>
         </section>
         
         <section class="skills">
-            <h2 class="section-title">Мои навыки</h2>
+            <h2 class="section-title">Мои ключевые навыки</h2>
             <div class="skills-grid">
                 <div class="skill-card">
                     <div class="skill-icon">
                         <i class="fab fa-html5"></i>
                     </div>
-                    <h3>HTML5</h3>
-                    <p>Создание семантической и доступной структуры веб-страниц с использованием современных стандартов HTML5.</p>
+                    <h3>HTML5 & Семантика</h3>
+                    <p>Создание четкой, логичной и семантически правильной структуры веб-страниц. Использование современных элементов HTML5 для улучшения доступности и SEO. Понимание важности правильной разметки для кросс-браузерной совместимости и удобства пользователей.</p>
                 </div>
                 
                 <div class="skill-card">
                     <div class="skill-icon">
                         <i class="fab fa-js-square"></i>
                     </div>
-                    <h3>JavaScript</h3>
-                    <p>Разработка интерактивных элементов, анимаций и логики веб-приложений с помощью чистого JavaScript.</p>
+                    <h3>JavaScript & ES6+</h3>
+                    <p>Разработка интерактивных веб-приложений с использованием современного JavaScript. Работа с асинхронным кодом, DOM-манипуляциями, обработкой событий. Применение новых возможностей ES6+ для написания чистого, эффективного и поддерживаемого кода.</p>
                 </div>
                 
                 <div class="skill-card">
                     <div class="skill-icon">
                         <i class="fab fa-css3-alt"></i>
                     </div>
-                    <h3>CSS3</h3>
-                    <p>Стилизация и оформление веб-страниц с использованием современных возможностей CSS3, Flexbox и Grid.</p>
+                    <h3>CSS3 & Анимации</h3>
+                    <p>Создание современных, адаптивных интерфейсов с использованием Flexbox, Grid и CSS-анимаций. Понимание принципов визуального дизайна, типографики и цветовых схем. Умение создавать плавные переходы и сложные визуальные эффекты средствами CSS.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="about">
+            <h2>Почему программирование?</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Программирование для меня - это уникальное сочетание творчества и логики. Каждый день я узнаю что-то новое, решаю интересные задачи и создаю проекты, которые могут быть полезны другим людям.</p>
+                    <p>Меня вдохновляет возможность превратить абстрактную идею в работающий цифровой продукт. Процесс разработки учит терпению, вниманию к деталям и системному мышлению. Эти навыки полезны не только в программировании, но и в повседневной жизни.</p>
+                    <p>Веб-технологии постоянно развиваются, и это означает, что всегда есть чему учиться. Мне нравится быть частью этого динамичного сообщества, следить за новыми трендами и внедрять современные подходы в своих проектах.</p>
+                </div>
+                <div class="about-text">
+                    <h3>Что меня мотивирует:</h3>
+                    <ul class="motivation-list">
+                        <li>Возможность создавать продукты, которые решают реальные проблемы</li>
+                        <li>Мгновенная визуальная обратная связь при работе с веб-технологиями</li>
+                        <li>Бесконечные возможности для обучения и профессионального роста</li>
+                        <li>Сообщество разработчиков, готовое делиться знаниями и опытом</li>
+                        <li>Удовольствие от процесса отладки и поиска оптимальных решений</li>
+                        <li>Возможность работать из любой точки мира с помощью ноутбука</li>
+                    </ul>
                 </div>
             </div>
         </section>
         
         <section class="projects">
-            <h2 class="section-title">Примеры проектов</h2>
+            <h2 class="section-title">Мои проекты</h2>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-img">
                         <i class="fas fa-gamepad"></i>
                     </div>
                     <div class="project-info">
-                        <h3>Браузерная игра</h3>
-                        <p>Игра "Змейка", созданная с использованием чистого JavaScript, HTML5 Canvas и CSS анимаций.</p>
+                        <h3>Игровая платформа</h3>
+                        <p>Коллекция классических браузерных игр, включая "Змейку", "Тетрис" и "Сапера". Все игры созданы с использованием чистого JavaScript, HTML5 Canvas и продвинутых CSS-анимаций. Проект демонстрирует возможности фронтенд-технологий для создания интерактивных развлечений.</p>
                         <div class="project-tech">
-                            <span class="tech-tag">HTML5</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">Canvas API</span>
+                            <span class="tech-tag">HTML5 Canvas</span>
+                            <span class="tech-tag">JavaScript ES6+</span>
+                            <span class="tech-tag">CSS Animations</span>
+                            <span class="tech-tag">Game Logic</span>
                         </div>
                     </div>
                 </div>
@@ -430,13 +833,13 @@ console.<span class="code-function">log</span>(myHobby.<span class="code-functio
                         <i class="fas fa-tasks"></i>
                     </div>
                     <div class="project-info">
-                        <h3>Трекер задач</h3>
-                        <p>Веб-приложение для управления задачами с возможностью добавления, редактирования и отметки выполненных.</p>
+                        <h3>Умный планировщик</h3>
+                        <p>Продуктивное веб-приложение для управления задачами и временем. Включает календарь, напоминания, статистику продуктивности и синхронизацию между устройствами. Реализована сложная логика фильтрации, сортировки и визуализации данных о выполненных задачах.</p>
                         <div class="project-tech">
-                            <span class="tech-tag">HTML</span>
-                            <span class="tech-tag">CSS</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">LocalStorage</span>
+                            <span class="tech-tag">LocalStorage API</span>
+                            <span class="tech-tag">Data Visualization</span>
+                            <span class="tech-tag">Drag & Drop</span>
+                            <span class="tech-tag">Responsive Design</span>
                         </div>
                     </div>
                 </div>
@@ -446,13 +849,13 @@ console.<span class="code-function">log</span>(myHobby.<span class="code-functio
                         <i class="fas fa-cloud-sun"></i>
                     </div>
                     <div class="project-info">
-                        <h3>Погодное приложение</h3>
-                        <p>Виджет погоды с использованием API для получения актуальных данных о погоде в разных городах.</p>
+                        <h3>Метео-аналитика</h3>
+                        <p>Продвинутое погодное приложение с использованием нескольких API для прогнозирования. Показывает не только текущую погоду, но и подробную аналитику, графики изменений, исторические данные. Имеет персонализированные настройки и уведомления об изменении погодных условий.</p>
                         <div class="project-tech">
-                            <span class="tech-tag">HTML</span>
-                            <span class="tech-tag">CSS</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">Fetch API</span>
+                            <span class="tech-tag">Weather API</span>
+                            <span class="tech-tag">Chart.js</span>
+                            <span class="tech-tag">Geolocation</span>
+                            <span class="tech-tag">Service Workers</span>
                         </div>
                     </div>
                 </div>
@@ -460,71 +863,94 @@ console.<span class="code-function">log</span>(myHobby.<span class="code-functio
         </section>
         
         <div class="fun-element">
-            <h3>Интерактивный элемент на JavaScript</h3>
-            <p>Нажмите на кнопку, чтобы увидеть JavaScript в действии:</p>
+            <h3>Интерактивная демонстрация JavaScript</h3>
+            <p>Нажмите на кнопку ниже, чтобы увидеть возможности JavaScript в действии. Каждое нажатие меняет цвет кнопки и увеличивает счетчик. Этот простой пример демонстрирует основы обработки событий, манипуляции DOM и динамического изменения стилей.</p>
             <button id="clickMeBtn" class="btn">Нажми меня!</button>
             <div id="clickCounter">Количество нажатий: 0</div>
         </div>
         
         <section class="contact">
-            <h2>Давайте создавать вместе!</h2>
-            <p>Если вы тоже увлекаетесь программированием или хотите обсудить интересные проекты, напишите мне!</p>
-            <a href="mailto:example@domain.com" class="btn">Связаться со мной</a>
+            <h2>Готовы к сотрудничеству?</h2>
+            <p>Если вы разделяете мой интерес к программированию, хотите обсудить интересные проекты или просто поболтать о технологиях - буду рад общению! Вместе мы можем создать что-то удивительное.</p>
+            <a href="mailto:daniil@example.dev" class="btn">Написать мне</a>
         </section>
         
         <footer>
             <div class="social-links">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-codepen"></i></a>
-                <a href="#"><i class="fab fa-dev"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" title="CodePen"><i class="fab fa-codepen"></i></a>
+                <a href="#" title="DEV Community"><i class="fab fa-dev"></i></a>
+                <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
             </div>
-            <p>Страница создана с помощью HTML, CSS и JavaScript</p>
-            <p>&copy; 2026 Моё хобби - программирование</p>
+            <p>Страница создана с использованием HTML5, CSS3 и Vanilla JavaScript</p>
+            <p>&copy; <span class="year">2026</span> Моё хобби - программирование. Все права защищены.</p>
         </footer>
     </div>
 
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
     <script>
-        // Интерактивный счетчик нажатий
         let clickCount = 0;
         const clickMeBtn = document.getElementById('clickMeBtn');
         const clickCounter = document.getElementById('clickCounter');
+        const scrollTopBtn = document.getElementById('scrollTop');
         
         clickMeBtn.addEventListener('click', function() {
             clickCount++;
             clickCounter.textContent = `Количество нажатий: ${clickCount}`;
             
-            // Добавляем случайный цвет для кнопки
-            const colors = ['#64ffda', '#00a8ff', '#ff79c6', '#50fa7b', '#f1fa8c'];
+            const colors = ['#64ffda', '#00a8ff', '#ff79c6', '#50fa7b', '#f1fa8c', '#c678dd', '#e06c75'];
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            clickMeBtn.style.borderColor = randomColor;
-            clickMeBtn.style.color = randomColor;
+            clickMeBtn.style.background = `linear-gradient(90deg, ${randomColor}, ${colors[(colors.indexOf(randomColor) + 1) % colors.length]})`;
             
-            // Добавляем небольшой эффект анимации
-            clickMeBtn.style.transform = 'scale(0.95)';
+            clickMeBtn.style.transform = 'translateY(-5px) scale(1.05)';
             setTimeout(() => {
-                clickMeBtn.style.transform = 'scale(1)';
+                clickMeBtn.style.transform = 'translateY(-5px) scale(1.05)';
             }, 150);
+            
+            if (clickCount % 10 === 0) {
+                clickCounter.innerHTML += ` <i class="fas fa-trophy" style="color:#e6c07b;"></i>`;
+            }
         });
         
-        // Копирование кода при нажатии на иконку
         document.querySelector('.fa-copy').addEventListener('click', function() {
             const code = document.querySelector('pre').textContent;
             navigator.clipboard.writeText(code).then(() => {
-                const originalTitle = this.title;
-                this.title = 'Код скопирован!';
+                const originalIcon = this.className;
+                this.className = 'fas fa-check';
                 setTimeout(() => {
-                    this.title = originalTitle;
+                    this.className = originalIcon;
                 }, 2000);
             });
         });
         
-        // Эмуляция запуска кода при нажатии на иконку play
         document.querySelector('.fa-play').addEventListener('click', function() {
-            alert('Результат выполнения кода: "Я люблю программировать на HTML и JavaScript!"');
+            const message = "Мое программирование началось в 2022 год. Я обожаю создавать проекты с помощью HTML5 и JavaScript. Каждая строчка кода для меня - это шаг к созданию чего-то удивительного!";
+            alert(message);
         });
         
-        // Плавная анимация при прокрутке
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('active');
+            } else {
+                scrollTopBtn.classList.remove('active');
+            }
+            
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            document.querySelector('.header-bg').style.transform = `translateY(${rate}px)`;
+        });
+        
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -539,12 +965,30 @@ console.<span class="code-function">log</span>(myHobby.<span class="code-functio
             });
         }, observerOptions);
         
-        // Наблюдаем за элементами для анимации
         document.querySelectorAll('.skill-card, .project-card').forEach(el => {
             el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
             observer.observe(el);
+        });
+        
+        const currentYear = new Date().getFullYear();
+        document.querySelector('.year').textContent = currentYear;
+        
+        const text = "Я люблю программировать на HTML и JavaScript!";
+        let index = 0;
+        
+        function typeWriter() {
+            if (index < text.length) {
+                document.querySelector('.tagline').textContent += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+        
+        window.addEventListener('load', function() {
+            document.querySelector('.tagline').textContent = '';
+            setTimeout(typeWriter, 1000);
         });
     </script>
 </body>
