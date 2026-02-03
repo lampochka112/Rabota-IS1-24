@@ -3,170 +3,358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Чемпионат мира по хоккею</title>
+    <title>🏆 ЧЕМПИОНАТ МИРА ПО ХОККЕЮ 2024</title>
 </head>
-<body>
-    <h1 align="center">Чемпионат мира по хоккею</h1>
+<body bgcolor="#0a1a2a" text="#ffffff" link="#4fc3f7" alink="#ffeb3b" vlink="#bb86fc">
     
-    <div align="center">
-        <img src="data:image/jpeg;base64,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" 
-             alt="Чемпионат мира по хоккею" 
-             width="514" 
-             height="432"
-             border="1">
-        
-        <br>
-        <font size="2" color="gray">
-            Размеры изображения: 7.147 × 5.994 дюйма
-        </font>
-    </div>
-    
-    <br><br>
-    
-    <table align="center" border="1" cellpadding="10" cellspacing="0" width="90%" bgcolor="#f9f9f9">
-        <tr bgcolor="#2c3e50">
-            <th colspan="7">
-                <font size="4" color="white">Турнирная таблица чемпионата мира</font>
-            </th>
-        </tr>
-        <tr bgcolor="#3498db">
-            <th width="10%"><font color="white">№</font></th>
-            <th width="30%"><font color="white">Команда</font></th>
-            <th width="10%"><font color="white">И</font></th>
-            <th width="10%"><font color="white">В</font></th>
-            <th width="10%"><font color="white">Н</font></th>
-            <th width="10%"><font color="white">П</font></th>
-            <th width="20%"><font color="white">Очки</font></th>
-        </tr>
+    <!-- Верхний баннер -->
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001f3f">
         <tr>
-            <td align="center">1</td>
-            <td><strong>Канада</strong></td>
-            <td align="center">5</td>
-            <td align="center">4</td>
-            <td align="center">1</td>
-            <td align="center">0</td>
-            <td align="center" bgcolor="#e8f6f3"><strong>13</strong></td>
-        </tr>
-        <tr>
-            <td align="center">2</td>
-            <td><strong>Россия</strong></td>
-            <td align="center">5</td>
-            <td align="center">4</td>
-            <td align="center">0</td>
-            <td align="center">1</td>
-            <td align="center" bgcolor="#e8f6f3"><strong>12</strong></td>
-        </tr>
-        <tr>
-            <td align="center">3</td>
-            <td><strong>Швеция</strong></td>
-            <td align="center">5</td>
-            <td align="center">3</td>
-            <td align="center">1</td>
-            <td align="center">1</td>
-            <td align="center" bgcolor="#e8f6f3"><strong>10</strong></td>
-        </tr>
-        <tr>
-            <td align="center">4</td>
-            <td><strong>Финляндия</strong></td>
-            <td align="center">5</td>
-            <td align="center">3</td>
-            <td align="center">0</td>
-            <td align="center">2</td>
-            <td align="center" bgcolor="#e8f6f3"><strong>9</strong></td>
-        </tr>
-        <tr>
-            <td align="center">5</td>
-            <td><strong>США</strong></td>
-            <td align="center">5</td>
-            <td align="center">2</td>
-            <td align="center">0</td>
-            <td align="center">3</td>
-            <td align="center" bgcolor="#fef9e7"><strong>6</strong></td>
-        </tr>
-        <tr>
-            <td align="center">6</td>
-            <td><strong>Чехия</strong></td>
-            <td align="center">5</td>
-            <td align="center">1</td>
-            <td align="center">0</td>
-            <td align="center">4</td>
-            <td align="center" bgcolor="#fdedec"><strong>3</strong></td>
-        </tr>
-    </table>
-    
-    <br><br>
-    
-    <table align="center" border="1" cellpadding="10" cellspacing="0" width="90%">
-        <tr bgcolor="#27ae60">
-            <th colspan="4">
-                <font size="4" color="white">Статистика забитых шайб</font>
-            </th>
-        </tr>
-        <tr bgcolor="#2ecc71">
-            <th width="40%"><font color="white">Команда</font></th>
-            <th width="20%"><font color="white">Забито</font></th>
-            <th width="20%"><font color="white">Пропущено</font></th>
-            <th width="20%"><font color="white">Разница</font></th>
-        </tr>
-        <tr>
-            <td>Канада</td>
-            <td align="center">28</td>
-            <td align="center">10</td>
-            <td align="center" bgcolor="#d5f4e6"><strong>+18</strong></td>
-        </tr>
-        <tr>
-            <td>Россия</td>
-            <td align="center">25</td>
-            <td align="center">12</td>
-            <td align="center" bgcolor="#d5f4e6"><strong>+13</strong></td>
-        </tr>
-        <tr>
-            <td>Швеция</td>
-            <td align="center">22</td>
-            <td align="center">14</td>
-            <td align="center" bgcolor="#d5f4e6"><strong>+8</strong></td>
-        </tr>
-        <tr>
-            <td>Финляндия</td>
-            <td align="center">19</td>
-            <td align="center">16</td>
-            <td align="center" bgcolor="#d5f4e6"><strong>+3</strong></td>
-        </tr>
-        <tr>
-            <td>США</td>
-            <td align="center">15</td>
-            <td align="center">20</td>
-            <td align="center" bgcolor="#fef9e7"><strong>-5</strong></td>
-        </tr>
-        <tr>
-            <td>Чехия</td>
-            <td align="center">12</td>
-            <td align="center">29</td>
-            <td align="center" bgcolor="#fdedec"><strong>-17</strong></td>
-        </tr>
-        <tr bgcolor="#34495e">
-            <td align="right"><font color="white"><strong>Всего забито шайб:</strong></font></td>
-            <td colspan="3" align="center">
-                <font size="4" color="white"><strong>121 шайба</strong></font>
-            </td>
-        </tr>
-    </table>
-    
-    <br><br>
-    
-    <table align="center" border="0" cellpadding="15" width="80%">
-        <tr>
-            <td bgcolor="#e8f4f8">
-                <font size="2">
-                    <strong>Легенда:</strong><br>
-                    <strong>И</strong> - сыгранные матчи<br>
-                    <strong>В</strong> - выигрыши (3 очка)<br>
-                    <strong>Н</strong> - ничьи в основное время (2 очка)<br>
-                    <strong>П</strong> - проигрыши (0 очков)<br>
-                    <strong>Всего забито шайб:</strong> 28+25+22+19+15+12 = 121 шайба
+            <td align="center" height="80">
+                <font face="Arial, sans-serif" size="6" color="#ffd700">
+                    <strong>🏒 ЧЕМПИОНАТ МИРА ПО ХОККЕЮ 2024 🏒</strong>
                 </font>
             </td>
         </tr>
     </table>
+    
+    <br><br>
+    
+    <center>
+        <!-- Изображение чемпионата -->
+        <table border="0" cellpadding="10" cellspacing="0">
+            <tr>
+                <td bgcolor="#1a3a5a" style="border: 3px solid #4fc3f7; border-radius: 10px;">
+                    <img src="data:image/jpeg;base64,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" 
+                         alt="Чемпионат мира по хоккею" 
+                         width="600" 
+                         height="400"
+                         border="0"
+                         style="border: 2px solid #ffffff;">
+                </td>
+            </tr>
+        </table>
+        
+        <br><br>
+        
+        <!-- Основная турнирная таблица -->
+        <table border="0" cellpadding="0" cellspacing="1" width="90%">
+            <tr>
+                <td colspan="8" bgcolor="#00264d" height="60" align="center">
+                    <font face="Verdana" size="5" color="#ffd700">
+                        <strong>📊 ТУРНИРНАЯ ТАБЛИЦА ГРУППЫ А</strong>
+                    </font>
+                </td>
+            </tr>
+            <tr height="50" bgcolor="#1a3a5a">
+                <td width="8%" align="center">
+                    <font size="4" color="#4fc3f7"><strong>#</strong></font>
+                </td>
+                <td width="32%" align="center">
+                    <font size="4" color="#4fc3f7"><strong>КОМАНДА</strong></font>
+                </td>
+                <td width="8%" align="center">
+                    <font size="4" color="#4fc3f7"><strong>И</strong></font>
+                </td>
+                <td width="8%" align="center">
+                    <font size="4" color="#4fc3f7"><strong>В</strong></font>
+                </td>
+                <td width="8%" align="center">
+                    <font size="4" color="#4fc3f7"><strong>Н</strong></font>
+                </td>
+                <td width="8%" align="center">
+                    <font size="4" color="#4fc3f7"><strong>П</strong></font>
+                </td>
+                <td width="8%" align="center">
+                    <font size="4" color="#4fc3f7"><strong>Ш</strong></font>
+                </td>
+                <td width="20%" align="center">
+                    <font size="4" color="#4fc3f7"><strong>ОЧКИ</strong></font>
+                </td>
+            </tr>
+            
+            <!-- Канада (1 место) -->
+            <tr height="45" bgcolor="#003366">
+                <td align="center" bgcolor="#ffd700">
+                    <font size="4" color="#000000"><strong>1</strong></font>
+                </td>
+                <td>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td width="30" align="center">🇨🇦</td>
+                            <td><font size="4"><strong>Канада</strong></font></td>
+                        </tr>
+                    </table>
+                </td>
+                <td align="center"><font size="4">5</font></td>
+                <td align="center"><font size="4">5</font></td>
+                <td align="center"><font size="4">0</font></td>
+                <td align="center"><font size="4">0</font></td>
+                <td align="center"><font size="4" color="#00ff00"><strong>+24</strong></font></td>
+                <td align="center" bgcolor="#003300">
+                    <font size="5" color="#00ff00"><strong>15</strong></font>
+                </td>
+            </tr>
+            
+            <!-- Россия (2 место) -->
+            <tr height="45" bgcolor="#00264d">
+                <td align="center" bgcolor="#c0c0c0">
+                    <font size="4" color="#000000"><strong>2</strong></font>
+                </td>
+                <td>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td width="30" align="center">🇷🇺</td>
+                            <td><font size="4"><strong>Россия</strong></font></td>
+                        </tr>
+                    </table>
+                </td>
+                <td align="center"><font size="4">5</font></td>
+                <td align="center"><font size="4">4</font></td>
+                <td align="center"><font size="4">0</font></td>
+                <td align="center"><font size="4">1</font></td>
+                <td align="center"><font size="4" color="#00ff00"><strong>+18</strong></font></td>
+                <td align="center" bgcolor="#1a3a5a">
+                    <font size="5" color="#4fc3f7"><strong>12</strong></font>
+                </td>
+            </tr>
+            
+            <!-- Швеция (3 место) -->
+            <tr height="45" bgcolor="#003366">
+                <td align="center" bgcolor="#cd7f32">
+                    <font size="4" color="#000000"><strong>3</strong></font>
+                </td>
+                <td>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td width="30" align="center">🇸🇪</td>
+                            <td><font size="4"><strong>Швеция</strong></font></td>
+                        </tr>
+                    </table>
+                </td>
+                <td align="center"><font size="4">5</font></td>
+                <td align="center"><font size="4">3</font></td>
+                <td align="center"><font size="4">0</font></td>
+                <td align="center"><font size="4">2</font></td>
+                <td align="center"><font size="4" color="#00ff00"><strong>+12</strong></font></td>
+                <td align="center" bgcolor="#1a3a5a">
+                    <font size="5" color="#4fc3f7"><strong>9</strong></font>
+                </td>
+            </tr>
+            
+            <!-- Финляндия (4 место) -->
+            <tr height="45" bgcolor="#00264d">
+                <td align="center">
+                    <font size="4"><strong>4</strong></font>
+                </td>
+                <td>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td width="30" align="center">🇫🇮</td>
+                            <td><font size="4"><strong>Финляндия</strong></font></td>
+                        </tr>
+                    </table>
+                </td>
+                <td align="center"><font size="4">5</font></td>
+                <td align="center"><font size="4">2</font></td>
+                <td align="center"><font size="4">1</font></td>
+                <td align="center"><font size="4">2</font></td>
+                <td align="center"><font size="4" color="#ffff00"><strong>+3</strong></font></td>
+                <td align="center" bgcolor="#1a3a5a">
+                    <font size="5" color="#4fc3f7"><strong>7</strong></font>
+                </td>
+            </tr>
+            
+            <!-- США (5 место) -->
+            <tr height="45" bgcolor="#003366">
+                <td align="center">
+                    <font size="4"><strong>5</strong></font>
+                </td>
+                <td>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td width="30" align="center">🇺🇸</td>
+                            <td><font size="4"><strong>США</strong></font></td>
+                        </tr>
+                    </table>
+                </td>
+                <td align="center"><font size="4">5</font></td>
+                <td align="center"><font size="4">1</font></td>
+                <td align="center"><font size="4">1</font></td>
+                <td align="center"><font size="4">3</font></td>
+                <td align="center"><font size="4" color="#ff9900"><strong>-5</strong></font></td>
+                <td align="center" bgcolor="#332200">
+                    <font size="5" color="#ff9900"><strong>4</strong></font>
+                </td>
+            </tr>
+            
+            <!-- Чехия (6 место) -->
+            <tr height="45" bgcolor="#00264d">
+                <td align="center">
+                    <font size="4"><strong>6</strong></font>
+                </td>
+                <td>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td width="30" align="center">🇨🇿</td>
+                            <td><font size="4"><strong>Чехия</strong></font></td>
+                        </tr>
+                    </table>
+                </td>
+                <td align="center"><font size="4">5</font></td>
+                <td align="center"><font size="4">0</font></td>
+                <td align="center"><font size="4">0</font></td>
+                <td align="center"><font size="4">5</font></td>
+                <td align="center"><font size="4" color="#ff3333"><strong>-18</strong></font></td>
+                <td align="center" bgcolor="#330000">
+                    <font size="5" color="#ff3333"><strong>0</strong></font>
+                </td>
+            </tr>
+        </table>
+        
+        <br><br>
+        
+        <!-- Статистика голов -->
+        <table border="0" cellpadding="0" cellspacing="1" width="90%">
+            <tr>
+                <td colspan="5" bgcolor="#004d00" height="60" align="center">
+                    <font face="Verdana" size="5" color="#ffffff">
+                        <strong>🥅 СТАТИСТИКА ЗАБИТЫХ ШАЙБ</strong>
+                    </font>
+                </td>
+            </tr>
+            <tr height="50" bgcolor="#006600">
+                <td width="40%" align="center">
+                    <font size="4" color="#ffffff"><strong>КОМАНДА</strong></font>
+                </td>
+                <td width="15%" align="center">
+                    <font size="4" color="#ffffff"><strong>ЗАБИТО</strong></font>
+                </td>
+                <td width="15%" align="center">
+                    <font size="4" color="#ffffff"><strong>ПРОПУЩЕНО</strong></font>
+                </td>
+                <td width="15%" align="center">
+                    <font size="4" color="#ffffff"><strong>РАЗНИЦА</strong></font>
+                </td>
+                <td width="15%" align="center">
+                    <font size="4" color="#ffffff"><strong>СР. ЗА МАТЧ</strong></font>
+                </td>
+            </tr>
+            
+            <!-- Статистика по командам -->
+            <tr height="40" bgcolor="#003300">
+                <td>🇨🇦 Канада</td>
+                <td align="center"><font size="4"><strong>32</strong></font></td>
+                <td align="center"><font size="4">8</font></td>
+                <td align="center" bgcolor="#001a00">
+                    <font size="4" color="#00ff00"><strong>+24</strong></font>
+                </td>
+                <td align="center"><font size="4">6.4</font></td>
+            </tr>
+            <tr height="40" bgcolor="#002200">
+                <td>🇷🇺 Россия</td>
+                <td align="center"><font size="4"><strong>28</strong></font></td>
+                <td align="center"><font size="4">10</font></td>
+                <td align="center" bgcolor="#001a00">
+                    <font size="4" color="#00ff00"><strong>+18</strong></font>
+                </td>
+                <td align="center"><font size="4">5.6</font></td>
+            </tr>
+            <tr height="40" bgcolor="#003300">
+                <td>🇸🇪 Швеция</td>
+                <td align="center"><font size="4"><strong>25</strong></font></td>
+                <td align="center"><font size="4">13</font></td>
+                <td align="center" bgcolor="#001a00">
+                    <font size="4" color="#00ff00"><strong>+12</strong></font>
+                </td>
+                <td align="center"><font size="4">5.0</font></td>
+            </tr>
+            <tr height="40" bgcolor="#002200">
+                <td>🇫🇮 Финляндия</td>
+                <td align="center"><font size="4"><strong>18</strong></font></td>
+                <td align="center"><font size="4">15</font></td>
+                <td align="center" bgcolor="#333300">
+                    <font size="4" color="#ffff00"><strong>+3</strong></font>
+                </td>
+                <td align="center"><font size="4">3.6</font></td>
+            </tr>
+            <tr height="40" bgcolor="#003300">
+                <td>🇺🇸 США</td>
+                <td align="center"><font size="4"><strong>14</strong></font></td>
+                <td align="center"><font size="4">19</font></td>
+                <td align="center" bgcolor="#663300">
+                    <font size="4" color="#ff9900"><strong>-5</strong></font>
+                </td>
+                <td align="center"><font size="4">2.8</font></td>
+            </tr>
+            <tr height="40" bgcolor="#002200">
+                <td>🇨🇿 Чехия</td>
+                <td align="center"><font size="4"><strong>9</strong></font></td>
+                <td align="center"><font size="4">27</font></td>
+                <td align="center" bgcolor="#330000">
+                    <font size="4" color="#ff3333"><strong>-18</strong></font>
+                </td>
+                <td align="center"><font size="4">1.8</font></td>
+            </tr>
+            
+            <!-- Итоговая строка -->
+            <tr height="50" bgcolor="#001a00">
+                <td align="right">
+                    <font size="4" color="#ffffff">
+                        <strong>ВСЕГО ЗАБИТО ШАЙБ:</strong>
+                    </font>
+                </td>
+                <td colspan="4" align="center">
+                    <font size="6" color="#00ff00">
+                        <strong>🔥 126 ШАЙБ 🔥</strong>
+                    </font>
+                </td>
+            </tr>
+        </table>
+        
+        <br><br>
+        
+        <!-- Блок с легендой и информацией -->
+        <table border="0" cellpadding="20" cellspacing="0" width="80%" bgcolor="#1a3a5a">
+            <tr>
+                <td>
+                    <font size="3" color="#ffffff">
+                        <table border="0" cellpadding="10" cellspacing="0" width="100%">
+                            <tr>
+                                <td width="50%" valign="top">
+                                    <font color="#ffd700"><strong>🏆 СИСТЕМА НАЧИСЛЕНИЯ ОЧКОВ:</strong></font><br>
+                                    • Победа в основное время: <font color="#00ff00"><strong>3 очка</strong></font><br>
+                                    • Победа в овертайме/буллитах: <font color="#4fc3f7"><strong>2 очка</strong></font><br>
+                                    • Поражение в овертайме/буллитах: <font color="#ff9900"><strong>1 очко</strong></font><br>
+                                    • Поражение в основное время: <font color="#ff3333"><strong>0 очков</strong></font>
+                                </td>
+                                <td width="50%" valign="top">
+                                    <font color="#ffd700"><strong>📈 ЦВЕТОВАЯ МАРКИРОВКА:</strong></font><br>
+                                    • <font color="#00ff00">Золото</font> - 1 место<br>
+                                    • <font color="#c0c0c0">Серебро</font> - 2 место<br>
+                                    • <font color="#cd7f32">Бронза</font> - 3 место<br>
+                                    • <font color="#4fc3f7">Синий</font> - выход в плей-офф<br>
+                                    • <font color="#ff3333">Красный</font> - вылет
+                                </td>
+                            </tr>
+                        </table>
+                    </font>
+                </td>
+            </tr>
+        </table>
+        
+        <br><br>
+        
+        <!-- Нижний баннер -->
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001f3f">
+            <tr>
+                <td align="center" height="60">
+                    <font size="3" color="#4fc3f7">
+                        <strong>🏒 Чемпионат мира по хоккею 2024 • Официальная статистика • Все права защищены 🏒</strong>
+                    </font>
+                </td>
+            </tr>
+        </table>
+    </center>
 </body>
 </html>
