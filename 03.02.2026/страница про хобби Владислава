@@ -1,0 +1,3120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мое хобби - программирование</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Roboto+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #64ffda;
+            --secondary-color: #00a8ff;
+            --accent-1: #c678dd;
+            --accent-2: #e6c07b;
+            --accent-3: #e06c75;
+            --dark-bg: #0a192f;
+            --card-bg: #112240;
+            --card-bg-light: #1a2c4d;
+            --text-light: #ccd6f6;
+            --text-gray: #8892b0;
+            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --glow-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.8;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(100, 255, 218, 0.07) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(0, 168, 255, 0.07) 0%, transparent 25%),
+                radial-gradient(circle at 50% 50%, rgba(198, 120, 221, 0.05) 0%, transparent 35%);
+            position: relative;
+        }
+        
+        /* Новые элементы: Анимированный бэкграунд с кодом */
+        .code-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.03;
+            overflow: hidden;
+        }
+        
+        .code-line-bg {
+            position: absolute;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            color: var(--primary-color);
+            white-space: nowrap;
+            opacity: 0.4;
+            animation: floatCode 20s linear infinite;
+        }
+        
+        @keyframes floatCode {
+            0% {
+                transform: translateY(100vh) translateX(0);
+            }
+            100% {
+                transform: translateY(-100px) translateX(0);
+            }
+        }
+        
+        .floating-shapes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(40px);
+        }
+        
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary-color);
+            top: 10%;
+            left: 5%;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--secondary-color);
+            bottom: 15%;
+            right: 10%;
+            animation: float 25s infinite ease-in-out reverse;
+        }
+        
+        .shape-3 {
+            width: 250px;
+            height: 250px;
+            background: var(--accent-1);
+            top: 40%;
+            right: 20%;
+            animation: float 18s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        
+        /* Новый навигационный бар */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 0;
+            z-index: 1000;
+            background: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+            transition: var(--transition);
+        }
+        
+        .navbar.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 10px 0;
+            transition: var(--transition);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+            border-radius: 2px;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        
+        header {
+            padding: 180px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.4;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 4.5rem;
+            margin-bottom: 25px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-1));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1.5px;
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+        
+        .tagline {
+            font-size: 1.9rem;
+            color: var(--text-gray);
+            margin-bottom: 50px;
+            font-weight: 300;
+            max-width: 850px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .typewriter-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.9rem;
+            background-color: var(--primary-color);
+            margin-left: 5px;
+            animation: blink 1s infinite;
+            vertical-align: text-bottom;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        /* Новый компонент: Панель быстрого доступа */
+        .quick-access {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .quick-btn {
+            padding: 15px 30px;
+            background: rgba(100, 255, 218, 0.1);
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quick-btn:hover {
+            background: var(--primary-color);
+            color: var(--dark-bg);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(100, 255, 218, 0.3);
+        }
+        
+        .intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 120px;
+            gap: 70px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        
+        .intro::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(100, 255, 218, 0.1) 0%, transparent 70%);
+            top: -50px;
+            left: -50px;
+            z-index: -1;
+        }
+        
+        .intro-text {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+        
+        .intro-text h2 {
+            font-size: 3.2rem;
+            margin-bottom: 35px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .intro-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 120px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            border-radius: 3px;
+        }
+        
+        .intro-text p {
+            font-size: 1.3rem;
+            margin-bottom: 28px;
+            color: var(--text-gray);
+            line-height: 1.9;
+            position: relative;
+            padding-left: 20px;
+            border-left: 3px solid transparent;
+            transition: var(--transition);
+        }
+        
+        .intro-text p:hover {
+            border-left: 3px solid var(--primary-color);
+            padding-left: 25px;
+            background: linear-gradient(90deg, rgba(100, 255, 218, 0.05), transparent);
+        }
+        
+        .highlight {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-color);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+        
+        .highlight:hover::after {
+            transform: scaleX(1);
+        }
+        
+        .code-display-wrapper {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+        
+        .code-display {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 
+                0 25px 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border-left: 8px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            z-index: 1;
+        }
+        
+        .code-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(100, 255, 218, 0.03), transparent);
+            z-index: -1;
+        }
+        
+        .code-display::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent,
+                var(--primary-color),
+                transparent 30%
+            );
+            animation: rotate 10s linear infinite;
+            z-index: -2;
+        }
+        
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+        
+        .code-display:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 
+                0 35px 80px rgba(0, 0, 0, 0.6),
+                var(--glow-shadow),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+        
+        .code-title {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 600;
+            font-size: 1.3rem;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .code-title::before {
+            content: '❯';
+            color: var(--accent-3);
+        }
+        
+        .code-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .code-icons i {
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.3rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(100, 255, 218, 0.1);
+        }
+        
+        .code-icons i:hover {
+            color: var(--secondary-color);
+            transform: translateY(-5px);
+            background: rgba(100, 255, 218, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        pre {
+            overflow-x: auto;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            padding: 20px;
+            border-radius: 12px;
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .code-line {
+            display: block;
+            margin-bottom: 5px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .code-line::before {
+            content: attr(data-line);
+            position: absolute;
+            left: 0;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            width: 20px;
+            text-align: right;
+        }
+        
+        .code-keyword {
+            color: var(--accent-1);
+            font-weight: 600;
+        }
+        
+        .code-function {
+            color: #50fa7b;
+        }
+        
+        .code-string {
+            color: var(--accent-2);
+        }
+        
+        .code-comment {
+            color: #6272a4;
+            font-style: italic;
+        }
+        
+        .code-var {
+            color: var(--secondary-color);
+        }
+        
+        .code-number {
+            color: var(--accent-3);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 90px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 25px;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 180px;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-1));
+            margin: 25px auto;
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-title::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(100, 255, 218, 0.3), transparent);
+        }
+        
+        /* Новый модуль: Плавающие карточки технологий */
+        .tech-floating-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin: 60px 0;
+            perspective: 1000px;
+        }
+        
+        .tech-card {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(145deg, var(--card-bg), var(--card-bg-light));
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+        
+        .tech-card:hover {
+            transform: translateY(-20px) rotateY(10deg);
+            border-color: var(--primary-color);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(100, 255, 218, 0.2);
+        }
+        
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .tech-card:hover .tech-icon {
+            transform: scale(1.2) rotate(15deg);
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+        
+        .tech-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+        
+        .skills {
+            margin-bottom: 140px;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 50px;
+        }
+        
+        .skill-card {
+            background: linear-gradient(145deg, var(--card-bg), var(--card-bg-light));
+            border-radius: 20px;
+            padding: 45px 35px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+            background-clip: padding-box;
+        }
+        
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-1));
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .skill-card:hover::before {
+            opacity: 1;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-20px) scale(1.03);
+            box-shadow: 
+                0 35px 70px rgba(0, 0, 0, 0.5),
+                var(--glow-shadow);
+        }
+        
+        .skill-icon-wrapper {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.1), rgba(0, 168, 255, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .skill-card:hover .skill-icon-wrapper {
+            transform: rotateY(360deg);
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.2), rgba(0, 168, 255, 0.2));
+        }
+        
+        .skill-icon {
+            font-size: 3.8rem;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .skill-card:hover .skill-icon {
+            filter: drop-shadow(0 0 10px rgba(100, 255, 218, 0.5));
+        }
+        
+        .skill-card h3 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: var(--text-light);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .skill-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+        
+        .skill-card p {
+            color: var(--text-gray);
+            font-size: 1.2rem;
+            line-height: 1.9;
+        }
+        
+        .skill-progress {
+            margin-top: 25px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .skill-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 4px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+            position: relative;
+        }
+        
+        .skill-progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Новый модуль: Визуализатор кода */
+        .code-visualizer {
+            margin: 100px 0;
+            padding: 60px;
+            background: linear-gradient(145deg, var(--card-bg), var(--card-bg-light));
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .visualizer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .visualizer-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+        
+        .visualizer-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .vis-control-btn {
+            padding: 12px 25px;
+            background: rgba(100, 255, 218, 0.1);
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+        
+        .vis-control-btn:hover {
+            background: var(--primary-color);
+            color: var(--dark-bg);
+            transform: translateY(-5px);
+        }
+        
+        .code-output {
+            height: 300px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.2rem;
+            overflow-y: auto;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+        
+        .code-output-line {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .code-output-line:hover {
+            background: rgba(100, 255, 218, 0.1);
+        }
+        
+        .projects {
+            margin-bottom: 140px;
+        }
+        
+        .projects-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 15px 35px;
+            background: transparent;
+            color: var(--text-gray);
+            border: 2px solid rgba(100, 255, 218, 0.3);
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50px;
+            transition: transform 0.5s;
+            z-index: -1;
+        }
+        
+        .tab-btn.active {
+            color: var(--dark-bg);
+            border-color: transparent;
+        }
+        
+        .tab-btn.active::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .tab-btn:hover:not(.active) {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 50px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        
+        .projects-grid.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .project-card {
+            background: linear-gradient(145deg, var(--card-bg), var(--card-bg-light));
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-20px) scale(1.03);
+            box-shadow: 
+                0 35px 70px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(100, 255, 218, 0.2);
+            border-color: var(--primary-color);
+        }
+        
+        .project-img {
+            height: 250px;
+            background: linear-gradient(135deg, #0a192f, var(--card-bg));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(100, 255, 218, 0.1), transparent);
+        }
+        
+        .project-img i {
+            filter: drop-shadow(0 0 10px rgba(100, 255, 218, 0.3));
+            transition: var(--transition);
+        }
+        
+        .project-card:hover .project-img i {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        .project-info {
+            padding: 35px;
+        }
+        
+        .project-info h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--text-light);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .project-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+        
+        .project-info p {
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .tech-tag {
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-family: 'Roboto Mono', monospace;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tech-tag i {
+            font-size: 0.9rem;
+        }
+        
+        .tech-tag:hover {
+            background: rgba(100, 255, 218, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Новый модуль: 3D-визуализация */
+        .three-d-visual {
+            width: 100%;
+            height: 400px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            margin: 80px 0;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+        
+        .cube-container {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            perspective: 1000px;
+        }
+        
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateCube 20s infinite linear;
+        }
+        
+        .cube-face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(100, 255, 218, 0.1);
+            border: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+            opacity: 0.9;
+        }
+        
+        .front  { transform: translateZ(100px); }
+        .back   { transform: rotateY(180deg) translateZ(100px); }
+        .right  { transform: rotateY(90deg) translateZ(100px); }
+        .left   { transform: rotateY(-90deg) translateZ(100px); }
+        .top    { transform: rotateX(90deg) translateZ(100px); }
+        .bottom { transform: rotateX(-90deg) translateZ(100px); }
+        
+        @keyframes rotateCube {
+            0% { transform: rotateX(0) rotateY(0); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+        
+        .about {
+            margin-bottom: 140px;
+            background: linear-gradient(145deg, var(--card-bg), var(--card-bg-light));
+            border-radius: 30px;
+            padding: 70px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(100, 255, 218, 0.1) 0%, transparent 70%);
+        }
+        
+        .about::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 168, 255, 0.1) 0%, transparent 70%);
+        }
+        
+        .about h2 {
+            font-size: 3.2rem;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .about h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 150px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            border-radius: 3px;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 60px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-text {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            line-height: 1.9;
+        }
+        
+        .about-text p {
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .about-text p::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+        
+        .motivation-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .motivation-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            transition: var(--transition);
+            border-left: 5px solid var(--primary-color);
+        }
+        
+        .motivation-card:hover {
+            transform: translateX(10px);
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .motivation-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .motivation-card h4 i {
+            color: var(--primary-color);
+        }
+        
+        .motivation-card p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .motivation-card p::before {
+            display: none;
+        }
+        
+        .fun-element {
+            text-align: center;
+            margin: 100px 0;
+            padding: 70px;
+            background: linear-gradient(145deg, var(--card-bg), var(--card-bg-light));
+            border-radius: 30px;
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .fun-element::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent,
+                var(--primary-color),
+                var(--secondary-color),
+                var(--accent-1),
+                transparent 70%
+            );
+            animation: rotate 15s linear infinite;
+            z-index: 0;
+        }
+        
+        .fun-element > * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .fun-element h3 {
+            font-size: 3rem;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+        }
+        
+        .fun-element p {
+            font-size: 1.4rem;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+        
+        .counter-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .counter-box {
+            width: 120px;
+            height: 120px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .counter-box:hover {
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(100, 255, 218, 0.1);
+        }
+        
+        .counter-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-family: 'Roboto Mono', monospace;
+        }
+        
+        .counter-label {
+            font-size: 1rem;
+            color: var(--text-gray);
+            margin-top: 10px;
+        }
+        
+        #clickMeBtn {
+            margin: 20px 0 40px;
+            padding: 20px 50px;
+            font-size: 1.5rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: var(--dark-bg);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #clickMeBtn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3));
+            transform: rotate(30deg);
+            transition: left 0.7s;
+        }
+        
+        #clickMeBtn:hover::after {
+            left: 120%;
+        }
+        
+        #clickMeBtn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 
+                0 20px 40px rgba(100, 255, 218, 0.4),
+                0 0 30px rgba(100, 255, 218, 0.3);
+        }
+        
+        #clickCounter {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-top: 30px;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .achievement {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(100, 255, 218, 0.1);
+            border-radius: 50px;
+            margin-top: 15px;
+            animation: pop 0.5s;
+        }
+        
+        @keyframes pop {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .contact {
+            text-align: center;
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--card-bg), rgba(17, 34, 64, 0.9));
+            border-radius: 30px;
+            margin-bottom: 120px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(100, 255, 218, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 168, 255, 0.1) 0%, transparent 50%);
+        }
+        
+        .contact h2 {
+            font-size: 3.8rem;
+            margin-bottom: 35px;
+            color: var(--primary-color);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact p {
+            font-size: 1.5rem;
+            max-width: 850px;
+            margin: 0 auto 60px;
+            color: var(--text-gray);
+            position: relative;
+            z-index: 1;
+            line-height: 1.9;
+        }
+        
+        .contact .btn {
+            position: relative;
+            z-index: 1;
+            padding: 22px 55px;
+            font-size: 1.5rem;
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: var(--transition);
+            display: inline-block;
+            overflow: hidden;
+        }
+        
+        .contact .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 255, 218, 0.2), transparent);
+            transition: left 0.7s;
+        }
+        
+        .contact .btn:hover::before {
+            left: 100%;
+        }
+        
+        .contact .btn:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 
+                0 20px 40px rgba(100, 255, 218, 0.2),
+                0 0 20px rgba(100, 255, 218, 0.1);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 70px 0 50px;
+            color: var(--text-gray);
+            border-top: 1px solid rgba(100, 255, 218, 0.2);
+            position: relative;
+            background: rgba(10, 25, 47, 0.8);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .social-link {
+            color: var(--text-light);
+            font-size: 1.8rem;
+            transition: var(--transition);
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(145deg, var(--card-bg), var(--card-bg-light));
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 0;
+        }
+        
+        .social-link:hover::before {
+            opacity: 1;
+        }
+        
+        .social-link i {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .social-link:hover {
+            color: var(--dark-bg);
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .year {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .copyright {
+            font-size: 1rem;
+            opacity: 0.7;
+            margin-top: 20px;
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--dark-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.4);
+            border: none;
+        }
+        
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top:hover {
+            transform: translateY(-10px) rotate(360deg);
+            box-shadow: 
+                0 20px 50px rgba(100, 255, 218, 0.5),
+                0 0 30px rgba(100, 255, 218, 0.3);
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(145deg, var(--card-bg), var(--card-bg-light));
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(180deg) scale(1.1);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(100, 255, 218, 0.2);
+        }
+        
+        /* Новый компонент: Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: linear-gradient(145deg, var(--card-bg), var(--card-bg-light));
+            border-radius: 25px;
+            padding: 50px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            border: 2px solid var(--primary-color);
+            animation: modalAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        @keyframes modalAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            transform: rotate(90deg) scale(1.2);
+        }
+        
+        @media (max-width: 1200px) {
+            h1 {
+                font-size: 3.8rem;
+            }
+            
+            .section-title {
+                font-size: 3rem;
+            }
+            
+            .intro-text h2 {
+                font-size: 2.8rem;
+            }
+            
+            .contact h2 {
+                font-size: 3.2rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .container {
+                padding: 0 30px;
+            }
+            
+            .nav-container {
+                padding: 0 30px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: var(--card-bg);
+                padding: 30px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+            }
+            
+            h1 {
+                font-size: 3.2rem;
+            }
+            
+            .tagline {
+                font-size: 1.6rem;
+            }
+            
+            .intro {
+                gap: 50px;
+            }
+            
+            .section-title {
+                font-size: 2.6rem;
+                margin-bottom: 70px;
+            }
+            
+            .about {
+                padding: 50px 40px;
+            }
+            
+            .contact {
+                padding: 80px 40px;
+            }
+            
+            .contact h2 {
+                font-size: 2.8rem;
+            }
+            
+            .contact p {
+                font-size: 1.3rem;
+            }
+            
+            .skills-grid, .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .code-visualizer {
+                padding: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .nav-container {
+                padding: 0 20px;
+            }
+            
+            header {
+                padding: 150px 0 60px;
+            }
+            
+            h1 {
+                font-size: 2.6rem;
+            }
+            
+            .tagline {
+                font-size: 1.4rem;
+            }
+            
+            .intro {
+                flex-direction: column;
+                gap: 40px;
+                margin-bottom: 80px;
+            }
+            
+            .section-title {
+                font-size: 2.3rem;
+                margin-bottom: 50px;
+            }
+            
+            .intro-text h2 {
+                font-size: 2.3rem;
+            }
+            
+            .intro-text p, .about-text {
+                font-size: 1.15rem;
+            }
+            
+            .about {
+                padding: 40px 30px;
+                margin-bottom: 80px;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .fun-element {
+                padding: 40px 30px;
+                margin: 60px 0;
+            }
+            
+            .fun-element h3 {
+                font-size: 2.3rem;
+            }
+            
+            .fun-element p {
+                font-size: 1.2rem;
+            }
+            
+            .counter-box {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .counter-value {
+                font-size: 2rem;
+            }
+            
+            .contact {
+                padding: 60px 30px;
+                margin-bottom: 80px;
+            }
+            
+            .contact h2 {
+                font-size: 2.3rem;
+            }
+            
+            .contact p {
+                font-size: 1.15rem;
+            }
+            
+            .contact .btn {
+                padding: 18px 40px;
+                font-size: 1.3rem;
+            }
+            
+            .theme-toggle, .scroll-top {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .theme-toggle {
+                top: 20px;
+                right: 20px;
+            }
+            
+            .scroll-top {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .modal-content {
+                padding: 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .intro-text h2, .section-title {
+                font-size: 2rem;
+            }
+            
+            .code-display {
+                padding: 25px;
+            }
+            
+            .tab-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .skill-card, .project-info {
+                padding: 30px 25px;
+            }
+            
+            .skill-icon-wrapper {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .skill-icon {
+                font-size: 3rem;
+            }
+            
+            .social-link {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .quick-btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+            
+            .tech-card {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Новый фон с летающим кодом -->
+    <div class="code-background" id="codeBackground"></div>
+    
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+    
+    <!-- Новая навигация -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-code"></i>
+                <span>VladislavDev</span>
+            </a>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="#about" class="nav-link">Обо мне</a>
+                <a href="#skills" class="nav-link">Навыки</a>
+                <a href="#projects" class="nav-link">Проекты</a>
+                <a href="#contact" class="nav-link">Контакты</a>
+                <button class="quick-btn" id="showDemo">
+                    <i class="fas fa-play"></i> Демо
+                </button>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+    
+    <!-- Новое модальное окно -->
+    <div class="modal" id="demoModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">Интерактивная демонстрация</h2>
+            <p style="color: var(--text-gray); margin-bottom: 30px;">В этом демо-режиме вы можете увидеть возможности современного JavaScript. Попробуйте изменить параметры ниже:</p>
+            
+            <div class="demo-controls">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: var(--primary-color); margin-bottom: 10px;">Скорость анимаций:</label>
+                    <input type="range" id="animationSpeed" min="0.5" max="3" step="0.1" value="1" style="width: 100%;">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: var(--primary-color); margin-bottom: 10px;">Яркость интерфейса:</label>
+                    <input type="range" id="brightness" min="50" max="200" value="100" style="width: 100%;">
+                </div>
+                
+                <div style="display: flex; gap: 15px; margin-top: 30px;">
+                    <button class="vis-control-btn" id="resetDemo">Сбросить</button>
+                    <button class="vis-control-btn" id="applyDemo">Применить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="particles" id="particles"></div>
+            <div class="header-content">
+                <h1>Мир программирования - моя Вселенная</h1>
+                <p class="tagline" id="typedText"></p>
+                <div class="typewriter-cursor" id="cursor"></div>
+                
+                <!-- Новая панель быстрого доступа -->
+                <div class="quick-access">
+                    <button class="quick-btn" id="scrollToProjects">
+                        <i class="fas fa-rocket"></i> Проекты
+                    </button>
+                    <button class="quick-btn" id="startTutorial">
+                        <i class="fas fa-graduation-cap"></i> Туториал
+                    </button>
+                    <button class="quick-btn" id="showTech">
+                        <i class="fas fa-cogs"></i> Технологии
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Новый модуль с плавающими технологиями -->
+        <div class="tech-floating-cards" id="techCards">
+            <div class="tech-card">
+                <i class="fab fa-html5 tech-icon"></i>
+                <span class="tech-name">HTML5</span>
+            </div>
+            <div class="tech-card">
+                <i class="fab fa-css3-alt tech-icon"></i>
+                <span class="tech-name">CSS3</span>
+            </div>
+            <div class="tech-card">
+                <i class="fab fa-js-square tech-icon"></i>
+                <span class="tech-name">JavaScript</span>
+            </div>
+            <div class="tech-card">
+                <i class="fab fa-python tech-icon"></i>
+                <span class="tech-name">Python</span>
+            </div>
+            <div class="tech-card">
+                <i class="fab fa-react tech-icon"></i>
+                <span class="tech-name">React</span>
+            </div>
+        </div>
+        
+        <section class="intro" id="about">
+            <div class="intro-text">
+                <h2>Приветствую! Я Владислав</h2>
+                <p>Программирование - это моя страсть, творчество и способ самовыражения. С тех пор как я написал свою первую строчку кода, я понял, что нашел не просто хобби, а целую вселенную возможностей. Это мир, где логика встречается с креативностью, где каждая задача - это головоломка, а каждое решение - маленькая победа.</p>
+                <p>Мой путь в программировании начался с <span class="highlight">Python</span>, который я изучаю уже более 3 лет. За это время я освоил основы языка, объектно-ориентированное программирование, работу с библиотеками и фреймворками. Python стал для меня не просто языком, а мощным инструментом для решения самых разнообразных задач - от анализа данных до создания веб-приложений.</p>
+                <p>Особенное место в моем сердце занимают <span class="highlight">HTML</span> и <span class="highlight">JavaScript</span>. Эти технологии подобны волшебной палочке для веб-разработчика: они мгновенно оживляют идеи, превращая абстрактные концепции в интерактивные, визуально впечатляющие реальности. Видеть, как твой код преображается в работающий интерфейс - это волшебство доступное каждому, кто готов учиться и экспериментировать.</p>
+                <p>Веб-разработка - это удивительный симбиоз искусства и науки. Здесь я могу быть одновременно архитектором, проектирующим структуру; художником, подбирающим цвета и формы; и инженером, обеспечивающим надежность и производительность. Каждый проект становится уникальным вызовом, требующим не только технических навыков, но и творческого подхода, терпения и внимания к деталям.</p>
+                <p>Моя философия проста: код должен быть не только функциональным, но и элегантным; интерфейсы - не только удобными, но и вдохновляющими; решения - не только эффективными, но и масштабируемыми. Я стремлюсь создавать продукты, которые не просто решают задачи, но и приносят эстетическое удовольствие, упрощают жизнь людей и делают мир немного лучше, технологичнее и интереснее.</p>
+            </div>
+            
+            <div class="code-display-wrapper">
+                <div class="code-display">
+                    <div class="code-header">
+                        <div class="code-title">passion.py</div>
+                        <div class="code-icons">
+                            <i class="fas fa-copy" title="Скопировать код"></i>
+                            <i class="fas fa-play" title="Запустить код"></i>
+                            <i class="fas fa-expand-alt" title="Развернуть"></i>
+                        </div>
+                    </div>
+                    <pre><code><span class="code-keyword">class</span> <span class="code-function">DeveloperJourney</span>:
+    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(<span class="code-keyword">self</span>):
+        <span class="code-keyword">self</span>.name = <span class="code-string">"Владислав"</span>
+        <span class="code-keyword">self</span>.last_name = <span class="code-string">"Климов"</span>
+        <span class="code-keyword">self</span>.passion = <span class="code-string">"Программирование"</span>
+        <span class="code-keyword">self</span>.specialization = [<span class="code-string">"Python"</span>, <span class="code-string">"Frontend"</span>, <span class="code-string">"JavaScript"</span>]
+        <span class="code-keyword">self</span>.python_experience = <span class="code-number">3</span>  <span class="code-comment"># года изучения Python</span>
+        <span class="code-keyword">self</span>.total_experience = <span class="code-number">4</span>  <span class="code-comment"># общий опыт в программировании</span>
+        <span class="code-keyword">self</span>.projects = <span class="code-number">28</span>
+        <span class="code-keyword">self</span>.languages = [<span class="code-string">"Python"</span>, <span class="code-string">"HTML5"</span>, <span class="code-string">"CSS3"</span>, <span class="code-string">"JavaScript"</span>]
+
+    <span class="code-keyword">def</span> <span class="code-function">introduce</span>(<span class="code-keyword">self</span>):
+        <span class="code-keyword">return</span> <span class="code-string">f"""Привет! Меня зовут <span class="code-keyword">{</span><span class="code-keyword">self</span>.name<span class="code-keyword">}</span> <span class="code-keyword">{</span><span class="code-keyword">self</span>.last_name<span class="code-keyword">}</span>.
+        Моя страсть — <span class="code-keyword">{</span><span class="code-keyword">self</span>.passion<span class="code-keyword">}</span>.
+        Я изучаю Python уже <span class="code-keyword">{</span><span class="code-keyword">self</span>.python_experience<span class="code-keyword">}</span> года.
+        За <span class="code-keyword">{</span><span class="code-keyword">self</span>.total_experience<span class="code-keyword">}</span> года я создал 
+        <span class="code-keyword">{</span><span class="code-keyword">self</span>.projects<span class="code-keyword">}</span> проектов."""</span>
+
+    <span class="code-keyword">def</span> <span class="code-function">code</span>(<span class="code-keyword">self</span>, technology):
+        <span class="code-keyword">if</span> technology <span class="code-keyword">in</span> <span class="code-keyword">self</span>.languages:
+            <span class="code-keyword">return</span> <span class="code-string">f"Пишу чистый, эффективный код на <span class="code-keyword">{</span>technology<span class="code-keyword">}</span>!"</span>
+        <span class="code-keyword">return</span> <span class="code-string">"Изучаю новые технологии с огромным интересом!"</span>
+
+    <span class="code-keyword">def</span> <span class="code-function">python_achievements</span>(<span class="code-keyword">self</span>):
+        achievements = [
+            <span class="code-string">"Освоил основы Python за 6 месяцев"</span>,
+            <span class="code-string">"Изучил ООП и паттерны проектирования"</span>,
+            <span class="code-string">"Создал несколько проектов на Django и Flask"</span>,
+            <span class="code-string">"Работал с библиотеками для анализа данных"</span>,
+            <span class="code-string">"Автоматизировал рутинные задачи с помощью скриптов"</span>
+        ]
+        <span class="code-keyword">return</span> achievements
+
+    <span class="code-var">@classmethod</span>
+    <span class="code-keyword">def</span> <span class="code-function">get_motivation</span>(<span class="code-var">cls</span>):
+        motivations = [
+            <span class="code-string">"Создавать продукты, меняющие мир к лучшему"</span>,
+            <span class="code-string">"Превращать сложные задачи в элегантные решения"</span>,
+            <span class="code-string">"Наслаждаться процессом отладки и оптимизации"</span>,
+            <span class="code-string">"Учиться новому каждый день"</span>,
+            <span class="code-string">"Сочетать мощь Python с красотой веб-технологий"</span>
+        ]
+        <span class="code-keyword">import</span> random
+        <span class="code-keyword">return</span> random.choice(motivations)
+
+<span class="code-comment"># Создаем экземпляр и работаем с ним</span>
+me = <span class="code-function">DeveloperJourney</span>()
+<span class="code-function">print</span>(me.<span class="code-function">introduce</span>())
+<span class="code-function">print</span>(me.<span class="code-function">code</span>(<span class="code-string">"Python"</span>))
+<span class="code-function">print</span>(<span class="code-function">DeveloperJourney</span>.<span class="code-function">get_motivation</span>())
+
+<span class="code-comment"># Результат в консоли:</span>
+<span class="code-comment"># Привет! Меня зовут Владислав Климов.</span>
+<span class="code-comment"># Моя страсть — Программирование.</span>
+<span class="code-comment"># Я изучаю Python уже 3 года.</span>
+<span class="code-comment"># За 4 года я создал 28 проектов.</span>
+<span class="code-comment"># Пишу чистый, эффективный код на Python!</span>
+<span class="code-comment"># Создавать продукты, меняющие мир к лучшему</span></code></pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Новый модуль визуализатора кода -->
+        <div class="code-visualizer">
+            <div class="visualizer-header">
+                <h3 class="visualizer-title">Визуализатор кода</h3>
+                <div class="visualizer-controls">
+                    <button class="vis-control-btn" id="generateCode">Сгенерировать код</button>
+                    <button class="vis-control-btn" id="animateCode">Анимировать</button>
+                    <button class="vis-control-btn" id="clearOutput">Очистить</button>
+                </div>
+            </div>
+            <div class="code-output" id="codeOutput">
+                <div class="code-output-line">// Код появится здесь...</div>
+            </div>
+        </div>
+        
+        <section class="skills" id="skills">
+            <h2 class="section-title">Мои компетенции</h2>
+            <div class="skills-grid">
+                <div class="skill-card" data-skill="90">
+                    <div class="skill-icon-wrapper">
+                        <i class="fab fa-python skill-icon"></i>
+                    </div>
+                    <h3>Python 3+</h3>
+                    <p>Три года интенсивного изучения и практики Python. Опыт разработки скриптов для автоматизации, веб-приложений на Django и Flask, работы с базами данных и анализа информации. Знание ООП, паттернов проектирования, асинхронного программирования и тестирования. Работа с популярными библиотеками: NumPy, Pandas, Requests, BeautifulSoup.</p>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar" style="width: 90%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-skill="95">
+                    <div class="skill-icon-wrapper">
+                        <i class="fab fa-html5 skill-icon"></i>
+                    </div>
+                    <h3>HTML5 & Семантика</h3>
+                    <p>Профессиональное владение современными стандартами HTML5. Создание семантически правильной, доступной и SEO-оптимизированной разметки. Использование современных API, работа с веб-компонентами и микроразметкой для улучшения пользовательского опыта и поисковой видимости.</p>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar" style="width: 95%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-skill="92">
+                    <div class="skill-icon-wrapper">
+                        <i class="fab fa-js-square skill-icon"></i>
+                    </div>
+                    <h3>JavaScript & ES6+</h3>
+                    <p>Глубокое понимание JavaScript, включая асинхронное программирование, замыкания, прототипы и современные возможности ES6+. Разработка сложных SPA-приложений, работа с DOM, событиями, анимациями и сторонними API. Применение паттернов проектирования для создания чистого, поддерживаемого кода.</p>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar" style="width: 92%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Новая 3D визуализация -->
+        <div class="three-d-visual">
+            <div class="cube-container">
+                <div class="cube" id="rotatingCube">
+                    <div class="cube-face front"><i class="fab fa-python"></i></div>
+                    <div class="cube-face back"><i class="fab fa-js"></i></div>
+                    <div class="cube-face right"><i class="fab fa-html5"></i></div>
+                    <div class="cube-face left"><i class="fab fa-css3-alt"></i></div>
+                    <div class="cube-face top"><i class="fas fa-rocket"></i></div>
+                    <div class="cube-face bottom"><i class="fas fa-cogs"></i></div>
+                </div>
+            </div>
+        </div>
+        
+        <section class="about">
+            <h2>Философия разработки</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Для меня программирование - это не просто написание кода. Это процесс создания цифровых произведений искусства, которые должны быть не только функциональными, но и эстетически совершенными. Каждый проект - это уникальная история, которую я рассказываю с помощью кода.</p>
+                    <p>Мой путь начался с Python, который научил меня структурному мышлению и логике программирования. За три года изучения этого языка я не только освоил синтаксис, но и понял философию чистого, читаемого кода. Python показал мне, как элегантные решения могут решать сложные проблемы.</p>
+                    <p>Я верю в силу простоты и элегантности. Самые сложные проблемы часто имеют самые простые решения, и моя задача - найти эти решения. Код должен быть читаемым, понятным и легко поддерживаемым, потому что сегодняшний код - это завтрашняя база для развития.</p>
+                    <p>Веб-технологии развиваются с невероятной скоростью, и быть разработчиком сегодня - значит быть вечным студентом. Я наслаждаюсь этим процессом постоянного обучения, открытия новых подходов и методологий. Каждый день приносит новые вызовы и возможности для роста.</p>
+                    <p>Самый вдохновляющий аспект программирования - это возможность создавать продукты, которые реально улучшают жизнь людей. Когда я вижу, как моя работа помогает кому-то сэкономить время, решить проблему или просто получить удовольствие от использования интерфейса - это лучшая награда.</p>
+                </div>
+                <div class="motivation-cards">
+                    <div class="motivation-card">
+                        <h4><i class="fab fa-python"></i> Python Опыт</h4>
+                        <p>3 года изучения Python позволили мне глубоко понять принципы программирования. От основ синтаксиса до сложных архитектурных решений - этот язык стал моим надежным инструментом.</p>
+                    </div>
+                    <div class="motivation-card">
+                        <h4><i class="fas fa-rocket"></i> Миссия</h4>
+                        <p>Создавать цифровые продукты, которые делают мир удобнее, красивее и технологичнее. Превращать сложные идеи в простые и интуитивно понятные интерфейсы.</p>
+                    </div>
+                    <div class="motivation-card">
+                        <h4><i class="fas fa-lightbulb"></i> Подход</h4>
+                        <p>Постоянное обучение и совершенствование. Использование лучших практик, тестирование, рефакторинг и внимание к деталям на каждом этапе разработки.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="projects" id="projects">
+            <h2 class="section-title">Портфолио проектов</h2>
+            
+            <div class="projects-tabs">
+                <button class="tab-btn active" data-filter="all">Все проекты</button>
+                <button class="tab-btn" data-filter="python">Python</button>
+                <button class="tab-btn" data-filter="web">Веб</button>
+                <button class="tab-btn" data-filter="tool">Инструменты</button>
+            </div>
+            
+            <div class="projects-grid active" id="projectsContainer">
+                <div class="project-card" data-category="python">
+                    <div class="project-img">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>Data Analyzer</h3>
+                        <p>Мощное приложение для анализа данных на Python с использованием Pandas, NumPy и Matplotlib. Позволяет загружать CSV/Excel файлы, выполнять статистический анализ, строить графики и генерировать отчеты. Включает машинное обучение для прогнозирования трендов.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag"><i class="fab fa-python"></i> Pandas</span>
+                            <span class="tech-tag"><i class="fas fa-chart-line"></i> Matplotlib</span>
+                            <span class="tech-tag"><i class="fas fa-robot"></i> Scikit-learn</span>
+                            <span class="tech-tag"><i class="fas fa-database"></i> SQLite</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-category="web">
+                    <div class="project-img">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>Productivity Pro</h3>
+                        <p>Комплексное приложение для управления продуктивностью с интеллектуальным планировщиком, таймером Pomodoro, трекером привычек и аналитикой времени. Поддерживает синхронизацию между устройствами, экспорт данных и интеграцию с календарями.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag"><i class="fab fa-js"></i> Service Workers</span>
+                            <span class="tech-tag"><i class="fas fa-chart-line"></i> Chart.js</span>
+                            <span class="tech-tag"><i class="fas fa-mobile-alt"></i> PWA</span>
+                            <span class="tech-tag"><i class="fas fa-cloud"></i> Sync API</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-category="python">
+                    <div class="project-img">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>Automation Suite</h3>
+                        <p>Набор Python-скриптов для автоматизации рутинных задач: обработка документов, парсинг веб-сайтов, отправка email-рассылок, работа с API различных сервисов. Экономит несколько часов работы в неделю благодаря автоматизации повторяющихся процессов.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag"><i class="fab fa-python"></i> BeautifulSoup</span>
+                            <span class="tech-tag"><i class="fas fa-envelope"></i> SMTP</span>
+                            <span class="tech-tag"><i class="fas fa-file-excel"></i> OpenPyXL</span>
+                            <span class="tech-tag"><i class="fas fa-network-wired"></i> Requests</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="fun-element">
+            <h3>Интерактивная лаборатория</h3>
+            <p>Этот раздел демонстрирует возможности современного JavaScript в действии. Поэкспериментируйте с элементами ниже, чтобы увидеть, как код оживает прямо в вашем браузере!</p>
+            
+            <div class="counter-display">
+                <div class="counter-box">
+                    <div class="counter-value" id="clickCount">0</div>
+                    <div class="counter-label">Нажатий</div>
+                </div>
+                <div class="counter-box">
+                    <div class="counter-value" id="timeSpent">0</div>
+                    <div class="counter-label">Секунд</div>
+                </div>
+                <div class="counter-box">
+                    <div class="counter-value" id="colorChanges">0</div>
+                    <div class="counter-label">Цветов</div>
+                </div>
+                <div class="counter-box">
+                    <div class="counter-value" id="achievementCount">0</div>
+                    <div class="counter-label">Достижений</div>
+                </div>
+            </div>
+            
+            <button id="clickMeBtn" class="btn">Нажми для магии!</button>
+            
+            <div id="clickCounter">
+                <span>Статистика взаимодействия:</span>
+                <div id="achievements"></div>
+            </div>
+            
+            <div class="color-picker" style="margin-top: 30px;">
+                <p style="margin-bottom: 15px; font-size: 1.2rem;">Попробуйте изменить цвет фона:</p>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button class="color-btn" style="background: #64ffda;" data-color="#64ffda"></button>
+                    <button class="color-btn" style="background: #00a8ff;" data-color="#00a8ff"></button>
+                    <button class="color-btn" style="background: #c678dd;" data-color="#c678dd"></button>
+                    <button class="color-btn" style="background: #e6c07b;" data-color="#e6c07b"></button>
+                    <button class="color-btn" style="background: #e06c75;" data-color="#e06c75"></button>
+                    <button class="color-btn" style="background: #50fa7b;" data-color="#50fa7b"></button>
+                </div>
+            </div>
+            
+            <!-- Новые элементы управления -->
+            <div style="margin-top: 40px;">
+                <p style="margin-bottom: 15px; font-size: 1.2rem;">Управление анимациями:</p>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button class="vis-control-btn" id="pauseAnimations">
+                        <i class="fas fa-pause"></i> Пауза
+                    </button>
+                    <button class="vis-control-btn" id="resumeAnimations">
+                        <i class="fas fa-play"></i> Продолжить
+                    </button>
+                    <button class="vis-control-btn" id="randomizeColors">
+                        <i class="fas fa-random"></i> Случайные цвета
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <section class="contact" id="contact">
+            <h2>Давайте создавать будущее вместе!</h2>
+            <p>Если вы разделяете мою страсть к технологиям, хотите обсудить интересный проект или просто пообщаться о программировании - я всегда открыт для новых знакомств и сотрудничества. Вместе мы можем создать нечто поистине удивительное!</p>
+            <a href="mailto:hello@vladislav.dev" class="btn">Начать диалог</a>
+            
+            <div style="margin-top: 60px; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px;">28+</div>
+                    <div style="color: var(--text-gray);">Завершенных проектов</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px;">3+</div>
+                    <div style="color: var(--text-gray);">Года Python</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px;">4+</div>
+                    <div style="color: var(--text-gray);">Общего опыта</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px;" id="liveUsers">1</div>
+                    <div style="color: var(--text-gray);">Активных пользователей</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <div class="social-links">
+                <a href="#" class="social-link" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="social-link" title="CodePen">
+                    <i class="fab fa-codepen"></i>
+                </a>
+                <a href="#" class="social-link" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="#" class="social-link" title="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-link" title="Telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="#" class="social-link" title="Discord">
+                    <i class="fab fa-discord"></i>
+                </a>
+            </div>
+            <p>Вся страница создана с использованием чистого HTML5, CSS3 и Vanilla JavaScript</p>
+            <p>Без фреймворков, без библиотек - только чистая мощь веб-технологий</p>
+            <p class="copyright">&copy; <span class="year">2024</span> Климов Владислав | Программирование - моя страсть. Все права защищены.</p>
+        </footer>
+    </div>
+
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Основные переменные
+        const clickMeBtn = document.getElementById('clickMeBtn');
+        const clickCountElement = document.getElementById('clickCount');
+        const clickCounterElement = document.getElementById('clickCounter');
+        const timeSpentElement = document.getElementById('timeSpent');
+        const colorChangesElement = document.getElementById('colorChanges');
+        const achievementCountElement = document.getElementById('achievementCount');
+        const achievementsElement = document.getElementById('achievements');
+        const scrollTopBtn = document.getElementById('scrollTop');
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const projectsContainer = document.getElementById('projectsContainer');
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const skillCards = document.querySelectorAll('.skill-card');
+        const colorButtons = document.querySelectorAll('.color-btn');
+        const typedTextElement = document.getElementById('typedText');
+        const cursorElement = document.getElementById('cursor');
+        const particlesContainer = document.getElementById('particles');
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.getElementById('navLinks');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const codeBackground = document.getElementById('codeBackground');
+        const rotatingCube = document.getElementById('rotatingCube');
+        const codeOutput = document.getElementById('codeOutput');
+        const generateCodeBtn = document.getElementById('generateCode');
+        const animateCodeBtn = document.getElementById('animateCode');
+        const clearOutputBtn = document.getElementById('clearOutput');
+        const pauseAnimationsBtn = document.getElementById('pauseAnimations');
+        const resumeAnimationsBtn = document.getElementById('resumeAnimations');
+        const randomizeColorsBtn = document.getElementById('randomizeColors');
+        const showDemoBtn = document.getElementById('showDemo');
+        const demoModal = document.getElementById('demoModal');
+        const modalClose = document.getElementById('modalClose');
+        const scrollToProjectsBtn = document.getElementById('scrollToProjects');
+        const startTutorialBtn = document.getElementById('startTutorial');
+        const showTechBtn = document.getElementById('showTech');
+        const techCards = document.getElementById('techCards');
+        const liveUsersElement = document.getElementById('liveUsers');
+        
+        let clickCount = 0;
+        let timeSpent = 0;
+        let colorChanges = 0;
+        let achievements = [];
+        let achievementCount = 0;
+        let startTime = Date.now();
+        let isLightTheme = false;
+        let animationsPaused = false;
+        let liveUsers = 1;
+        
+        const texts = [
+            "Создание цифровых миров с помощью кода - это искусство, которым я живу",
+            "3 года изучения Python научили меня мыслить структурно и логически",
+            "Программирование - это не работа, а образ мышления и стиль жизни",
+            "Превращаю сложные задачи в элегантные решения с помощью Python и JavaScript",
+            "Интерактивность - это язык, на котором говорит современный веб"
+        ];
+        
+        let currentTextIndex = 0;
+        let currentCharIndex = 0;
+        let isDeleting = false;
+        let isTypingPaused = false;
+        
+        // Создание анимированного фона с кодом
+        function createCodeBackground() {
+            const codeLines = [
+                "const passion = 'programming';",
+                "function createMagic() {",
+                "  return 'Hello World!';",
+                "}",
+                "class Developer {",
+                "  constructor(name) {",
+                "    this.name = name;",
+                "  }",
+                "}",
+                "const dev = new Developer('Vladislav');",
+                "console.log('Code is poetry');",
+                "# Python - мой первый язык",
+                "def calculate_future():",
+                "    return 'Amazing projects ahead!'",
+                "technologies = ['Python', 'HTML', 'CSS', 'JS'];",
+                "python_experience = 3; # года",
+                "const projects = 28;",
+                "let total_experience = 4;",
+                "const isPassionate = true;",
+                "print('Hello from Python!')"
+            ];
+            
+            codeLines.forEach((line, index) => {
+                const codeLine = document.createElement('div');
+                codeLine.classList.add('code-line-bg');
+                codeLine.textContent = line;
+                
+                // Случайная позиция и задержка
+                const left = Math.random() * 100;
+                const delay = Math.random() * 20;
+                const duration = 20 + Math.random() * 20;
+                
+                codeLine.style.left = `${left}%`;
+                codeLine.style.animationDelay = `${delay}s`;
+                codeLine.style.animationDuration = `${duration}s`;
+                codeLine.style.fontSize = `${0.8 + Math.random() * 0.4}rem`;
+                
+                codeBackground.appendChild(codeLine);
+            });
+        }
+        
+        // Функция печатающего текста
+        function typeWriter() {
+            if (isTypingPaused) return;
+            
+            const currentText = texts[currentTextIndex];
+            
+            if (!isDeleting && currentCharIndex < currentText.length) {
+                typedTextElement.textContent += currentText.charAt(currentCharIndex);
+                currentCharIndex++;
+                setTimeout(typeWriter, 50);
+            } else if (isDeleting && currentCharIndex > 0) {
+                typedTextElement.textContent = currentText.substring(0, currentCharIndex - 1);
+                currentCharIndex--;
+                setTimeout(typeWriter, 30);
+            } else if (!isDeleting && currentCharIndex === currentText.length) {
+                isTypingPaused = true;
+                setTimeout(() => {
+                    isTypingPaused = false;
+                    isDeleting = true;
+                    setTimeout(typeWriter, 1500);
+                }, 2000);
+            } else if (isDeleting && currentCharIndex === 0) {
+                isDeleting = false;
+                currentTextIndex = (currentTextIndex + 1) % texts.length;
+                setTimeout(typeWriter, 500);
+            }
+        }
+        
+        // Создание частиц
+        function createParticles() {
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 4 + 1;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 10 + 10;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Обновление времени на сайте
+        function updateTimeSpent() {
+            const now = Date.now();
+            timeSpent = Math.floor((now - startTime) / 1000);
+            timeSpentElement.textContent = timeSpent;
+        }
+        
+        // Добавление достижений
+        function addAchievement(text) {
+            if (!achievements.includes(text)) {
+                achievements.push(text);
+                achievementCount++;
+                achievementCountElement.textContent = achievementCount;
+                
+                const achievement = document.createElement('div');
+                achievement.classList.add('achievement');
+                achievement.innerHTML = `<i class="fas fa-trophy"></i> ${text}`;
+                achievementsElement.appendChild(achievement);
+                
+                // Анимация появления
+                achievement.style.animation = 'pop 0.5s';
+                
+                setTimeout(() => {
+                    achievement.style.opacity = '0';
+                    achievement.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        if (achievementsElement.contains(achievement)) {
+                            achievementsElement.removeChild(achievement);
+                        }
+                    }, 500);
+                }, 3000);
+            }
+        }
+        
+        // Обработка кликов по кнопке
+        function handleClick() {
+            clickCount++;
+            clickCountElement.textContent = clickCount;
+            
+            // Смена цвета кнопки
+            const colors = ['#64ffda', '#00a8ff', '#c678dd', '#e6c07b', '#e06c75', '#50fa7b'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            const nextColor = colors[(colors.indexOf(randomColor) + 1) % colors.length];
+            
+            clickMeBtn.style.background = `linear-gradient(90deg, ${randomColor}, ${nextColor})`;
+            
+            // Анимация нажатия
+            clickMeBtn.style.transform = 'translateY(-8px) scale(1.05)';
+            setTimeout(() => {
+                clickMeBtn.style.transform = 'translateY(-8px) scale(1.05)';
+            }, 150);
+            
+            // Добавление достижений
+            if (clickCount % 10 === 0) {
+                addAchievement(`Достижение: ${clickCount} нажатий!`);
+            }
+            
+            if (clickCount === 25) addAchievement('Серебряный уровень!');
+            if (clickCount === 50) addAchievement('Золотой уровень!');
+            if (clickCount === 100) addAchievement('Платиновый уровень!');
+            if (clickCount === 150) addAchievement('Легендарный уровень!');
+            
+            // Случайная анимация куба
+            if (clickCount % 5 === 0) {
+                rotateCubeRandomly();
+            }
+        }
+        
+        // Случайный поворот куба
+        function rotateCubeRandomly() {
+            const randomX = Math.floor(Math.random() * 360);
+            const randomY = Math.floor(Math.random() * 360);
+            rotatingCube.style.transform = `rotateX(${randomX}deg) rotateY(${randomY}deg)`;
+            
+            setTimeout(() => {
+                rotatingCube.style.animation = 'rotateCube 20s infinite linear';
+            }, 1000);
+        }
+        
+        // Смена цвета темы
+        function handleColorChange(color) {
+            colorChanges++;
+            colorChangesElement.textContent = colorChanges;
+            
+            // Обновление основного цвета
+            document.documentElement.style.setProperty('--primary-color', color);
+            
+            // Анимация изменения формы
+            const hueRotate = Math.floor(Math.random() * 360);
+            document.querySelector('.shape-1').style.filter = `hue-rotate(${hueRotate}deg) blur(40px)`;
+            
+            if (colorChanges % 5 === 0) {
+                addAchievement(`Сменил ${colorChanges} цветов!`);
+            }
+        }
+        
+        // Генерация случайного кода
+        function generateRandomCode() {
+            const codeSnippets = [
+                "def fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)",
+                "const debounce = (fn, delay) => {\n  let timeout;\n  return (...args) => {\n    clearTimeout(timeout);\n    timeout = setTimeout(() => fn(...args), delay);\n  };\n};",
+                "class Observable {\n  constructor() {\n    this.subscribers = [];\n  }\n  subscribe(fn) {\n    this.subscribers.push(fn);\n  }\n  notify(data) {\n    this.subscribers.forEach(fn => fn(data));\n  }\n}",
+                "def deep_clone(obj):\n    if obj is None or not isinstance(obj, (dict, list, tuple)):\n        return obj\n    if isinstance(obj, dict):\n        return {k: deep_clone(v) for k, v in obj.items()}\n    return [deep_clone(item) for item in obj]",
+                "async function fetchWithRetry(url, retries = 3) {\n  try {\n    const response = await fetch(url);\n    if (!response.ok) throw new Error('Request failed');\n    return await response.json();\n  } catch (error) {\n    if (retries === 0) throw error;\n    return fetchWithRetry(url, retries - 1);\n  }\n}"
+            ];
+            
+            const randomCode = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+            const codeLine = document.createElement('div');
+            codeLine.classList.add('code-output-line');
+            codeLine.textContent = randomCode;
+            codeLine.style.opacity = '0';
+            
+            codeOutput.appendChild(codeLine);
+            
+            // Анимация появления
+            setTimeout(() => {
+                codeLine.style.transition = 'opacity 0.5s';
+                codeLine.style.opacity = '1';
+            }, 10);
+            
+            // Прокрутка к новому коду
+            codeOutput.scrollTop = codeOutput.scrollHeight;
+            
+            addAchievement('Сгенерирован новый код!');
+        }
+        
+        // Анимация кода
+        function animateCode() {
+            const lines = codeOutput.querySelectorAll('.code-output-line');
+            lines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.style.transform = 'translateX(-20px)';
+                    line.style.backgroundColor = 'rgba(100, 255, 218, 0.1)';
+                    
+                    setTimeout(() => {
+                        line.style.transform = 'translateX(0)';
+                        line.style.backgroundColor = 'transparent';
+                    }, 500);
+                }, index * 200);
+            });
+            
+            addAchievement('Запущена анимация кода!');
+        }
+        
+        // Очистка вывода кода
+        function clearCodeOutput() {
+            codeOutput.innerHTML = '<div class="code-output-line">// Код появится здесь...</div>';
+            addAchievement('Вывод кода очищен!');
+        }
+        
+        // Пауза анимаций
+        function pauseAllAnimations() {
+            animationsPaused = true;
+            document.querySelectorAll('*').forEach(el => {
+                if (el.style.animationPlayState !== undefined) {
+                    el.style.animationPlayState = 'paused';
+                }
+            });
+            addAchievement('Анимации приостановлены!');
+        }
+        
+        // Возобновление анимаций
+        function resumeAllAnimations() {
+            animationsPaused = false;
+            document.querySelectorAll('*').forEach(el => {
+                if (el.style.animationPlayState !== undefined) {
+                    el.style.animationPlayState = 'running';
+                }
+            });
+            addAchievement('Анимации возобновлены!');
+        }
+        
+        // Случайные цвета
+        function randomizeAllColors() {
+            const colors = ['#64ffda', '#00a8ff', '#c678dd', '#e6c07b', '#e06c75', '#50fa7b', '#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4'];
+            
+            // Случайный основной цвет
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.documentElement.style.setProperty('--primary-color', randomColor);
+            
+            // Случайный вторичный цвет
+            const secondaryColor = colors[Math.floor(Math.random() * colors.length)];
+            document.documentElement.style.setProperty('--secondary-color', secondaryColor);
+            
+            // Случайный акцентный цвет
+            const accentColor = colors[Math.floor(Math.random() * colors.length)];
+            document.documentElement.style.setProperty('--accent-1', accentColor);
+            
+            colorChanges++;
+            colorChangesElement.textContent = colorChanges;
+            
+            addAchievement('Все цвета рандомизированы!');
+        }
+        
+        // Показ/скрытие модального окна
+        function showDemoModal() {
+            demoModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            addAchievement('Открыт демо-режим!');
+        }
+        
+        function hideDemoModal() {
+            demoModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Прокрутка к проектам
+        function scrollToProjects() {
+            document.getElementById('projects').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+            addAchievement('Прокрутка к проектам!');
+        }
+        
+        // Запуск туториала
+        function startTutorial() {
+            const tutorialSteps = [
+                "Добро пожаловать в туториал!",
+                "Нажмите на кнопку 'Нажми для магии!' несколько раз",
+                "Попробуйте изменить цвета с помощью палитры",
+                "Исследуйте другие интерактивные элементы",
+                "Нажмите на карточки технологий для анимации",
+                "Используйте навигацию для быстрого доступа"
+            ];
+            
+            let step = 0;
+            function showNextStep() {
+                if (step < tutorialSteps.length) {
+                    addAchievement(tutorialSteps[step]);
+                    step++;
+                    setTimeout(showNextStep, 2000);
+                }
+            }
+            
+            showNextStep();
+            addAchievement('Туториал начат!');
+        }
+        
+        // Показ технологий с анимацией
+        function showTechAnimation() {
+            const cards = document.querySelectorAll('.tech-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.transform = 'translateY(-30px) scale(1.1)';
+                    card.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.5)';
+                    
+                    setTimeout(() => {
+                        card.style.transform = 'translateY(-20px) rotateY(10deg)';
+                        card.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.4)';
+                    }, 300);
+                }, index * 200);
+            });
+            
+            addAchievement('Анимация технологий запущена!');
+        }
+        
+        // Симуляция живых пользователей
+        function simulateLiveUsers() {
+            setInterval(() => {
+                // Случайное изменение количества пользователей
+                const change = Math.random() > 0.5 ? 1 : -1;
+                const newUsers = Math.max(1, liveUsers + change);
+                
+                if (newUsers !== liveUsers) {
+                    liveUsers = newUsers;
+                    liveUsersElement.textContent = liveUsers;
+                    
+                    // Анимация изменения
+                    liveUsersElement.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        liveUsersElement.style.transform = 'scale(1)';
+                    }, 300);
+                }
+            }, 5000);
+        }
+        
+        // Инициализация навигации
+        function initNavigation() {
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.classList.add('active');
+                } else {
+                    scrollTopBtn.classList.remove('active');
+                }
+            });
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+            
+            // Закрытие меню при клике на ссылку
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+        }
+        
+        // Инициализация прогресса навыков
+        function initSkillProgress() {
+            skillCards.forEach(card => {
+                const skillValue = card.getAttribute('data-skill');
+                const progressBar = card.querySelector('.skill-progress-bar');
+                
+                setTimeout(() => {
+                    progressBar.style.width = `${skillValue}%`;
+                }, 300);
+            });
+        }
+        
+        // Инициализация прокрутки наверх
+        function initScrollTop() {
+            scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                addAchievement('Прокрутка наверх!');
+            });
+        }
+        
+        // Инициализация переключения темы
+        function initThemeToggle() {
+            themeToggleBtn.addEventListener('click', toggleTheme);
+        }
+        
+        function toggleTheme() {
+            isLightTheme = !isLightTheme;
+            
+            if (isLightTheme) {
+                document.documentElement.style.setProperty('--dark-bg', '#f0f4f8');
+                document.documentElement.style.setProperty('--card-bg', '#ffffff');
+                document.documentElement.style.setProperty('--card-bg-light', '#f8fafc');
+                document.documentElement.style.setProperty('--text-light', '#1e293b');
+                document.documentElement.style.setProperty('--text-gray', '#64748b');
+                themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                themeToggleBtn.style.color = '#f59e0b';
+            } else {
+                document.documentElement.style.setProperty('--dark-bg', '#0a192f');
+                document.documentElement.style.setProperty('--card-bg', '#112240');
+                document.documentElement.style.setProperty('--card-bg-light', '#1a2c4d');
+                document.documentElement.style.setProperty('--text-light', '#ccd6f6');
+                document.documentElement.style.setProperty('--text-gray', '#8892b0');
+                themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                themeToggleBtn.style.color = '#64ffda';
+            }
+            
+            addAchievement(isLightTheme ? 'Включен светлый режим!' : 'Включен темный режим!');
+        }
+        
+        // Инициализация фильтрации проектов
+        function initProjectFilter() {
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', handleTabClick);
+            });
+        }
+        
+        function handleTabClick(event) {
+            const filter = event.target.getAttribute('data-filter');
+            
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            projectsContainer.style.opacity = '0';
+            projectsContainer.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                const projectCards = document.querySelectorAll('.project-card');
+                
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                projectsContainer.style.opacity = '1';
+                projectsContainer.style.transform = 'translateY(0)';
+            }, 300);
+            
+            addAchievement(`Фильтр проектов: ${event.target.textContent}`);
+        }
+        
+        // Инициализация анимаций при прокрутке
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.skill-card, .project-card, .motivation-card, .tech-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(40px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(el);
+            });
+        }
+        
+        // Инициализация копирования кода
+        function initCodeCopy() {
+            document.querySelectorAll('.code-icons i').forEach((icon, index) => {
+                icon.addEventListener('click', () => {
+                    if (index === 0) {
+                        const code = document.querySelector('pre').textContent;
+                        navigator.clipboard.writeText(code).then(() => {
+                            const originalIcon = icon.className;
+                            icon.className = 'fas fa-check';
+                            setTimeout(() => {
+                                icon.className = originalIcon;
+                            }, 2000);
+                            addAchievement('Код скопирован в буфер обмена!');
+                        });
+                    } else if (index === 1) {
+                        alert('Код успешно выполнен! Результат в консоли браузера.');
+                        addAchievement('Код выполнен!');
+                    } else if (index === 2) {
+                        document.querySelector('.code-display').classList.toggle('expanded');
+                        addAchievement('Режим полноэкранного просмотра кода!');
+                    }
+                });
+            });
+        }
+        
+        // Основная инициализация
+        function init() {
+            createParticles();
+            createCodeBackground();
+            typeWriter();
+            initNavigation();
+            initSkillProgress();
+            initScrollTop();
+            initThemeToggle();
+            initProjectFilter();
+            initScrollAnimations();
+            initCodeCopy();
+            simulateLiveUsers();
+            
+            setInterval(updateTimeSpent, 1000);
+            
+            // Установка текущего года
+            const currentYear = new Date().getFullYear();
+            document.querySelector('.year').textContent = currentYear;
+            
+            // Обработчики событий
+            clickMeBtn.addEventListener('click', handleClick);
+            
+            colorButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const color = btn.getAttribute('data-color');
+                    handleColorChange(color);
+                });
+            });
+            
+            generateCodeBtn.addEventListener('click', generateRandomCode);
+            animateCodeBtn.addEventListener('click', animateCode);
+            clearOutputBtn.addEventListener('click', clearCodeOutput);
+            pauseAnimationsBtn.addEventListener('click', pauseAllAnimations);
+            resumeAnimationsBtn.addEventListener('click', resumeAllAnimations);
+            randomizeColorsBtn.addEventListener('click', randomizeAllColors);
+            showDemoBtn.addEventListener('click', showDemoModal);
+            modalClose.addEventListener('click', hideDemoModal);
+            scrollToProjectsBtn.addEventListener('click', scrollToProjects);
+            startTutorialBtn.addEventListener('click', startTutorial);
+            showTechBtn.addEventListener('click', showTechAnimation);
+            
+            // Закрытие модального окна при клике вне его
+            demoModal.addEventListener('click', (e) => {
+                if (e.target === demoModal) {
+                    hideDemoModal();
+                }
+            });
+            
+            // Анимация карточек технологий при наведении
+            document.querySelectorAll('.tech-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    card.style.transform = 'translateY(-30px) rotateY(180deg) scale(1.2)';
+                    setTimeout(() => {
+                        card.style.transform = 'translateY(-20px) rotateY(10deg)';
+                    }, 600);
+                    addAchievement('Карточка технологии активирована!');
+                });
+            });
+            
+            // Добавление стилей для модального окна
+            const style = document.createElement('style');
+            style.textContent = `
+                .code-display.expanded {
+                    position: fixed;
+                    top: 50px;
+                    left: 50px;
+                    right: 50px;
+                    bottom: 50px;
+                    z-index: 2000;
+                    transform: none !important;
+                    max-height: none;
+                    overflow: auto;
+                }
+                
+                .code-display.expanded pre {
+                    max-height: calc(100vh - 200px);
+                    overflow: auto;
+                }
+                
+                .color-btn {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    border: 3px solid transparent;
+                    cursor: pointer;
+                    transition: all 0.3s;
+                }
+                
+                .color-btn:hover {
+                    transform: scale(1.2);
+                    border-color: white;
+                }
+                
+                .color-btn.active {
+                    border-color: white;
+                    box-shadow: 0 0 15px currentColor;
+                }
+                
+                .demo-controls {
+                    margin-top: 30px;
+                }
+                
+                .demo-controls input[type="range"] {
+                    -webkit-appearance: none;
+                    height: 8px;
+                    background: rgba(100, 255, 218, 0.2);
+                    border-radius: 4px;
+                    outline: none;
+                }
+                
+                .demo-controls input[type="range"]::-webkit-slider-thumb {
+                    -webkit-appearance: none;
+                    width: 20px;
+                    height: 20px;
+                    background: var(--primary-color);
+                    border-radius: 50%;
+                    cursor: pointer;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Начальные достижения
+            addAchievement('Добро пожаловать на мою страницу!');
+            setTimeout(() => addAchievement('Попробуйте нажать на кнопку!'), 2000);
+            setTimeout(() => addAchievement('Измените цвет темы!'), 5000);
+            setTimeout(() => addAchievement('Исследуйте все интерактивные элементы!'), 8000);
+        }
+        
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
