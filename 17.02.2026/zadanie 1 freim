@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фреймовая структура</title>
+    <!-- Фреймы (устаревшая технология, но для учебных целей подойдёт) -->
+</head>
+<frameset rows="30%, 70%" border="5">
+    <!-- Верхний ряд - два независимых документа с разными полосами прокрутки -->
+    <frameset cols="50%, 50%">
+        <frame src="https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0" 
+               name="frame1" 
+               scrolling="auto" 
+               noresize
+               title="Левый верхний фрейм">
+        <frame src="https://www.example.com" 
+               name="frame2" 
+               scrolling="yes" 
+               noresize
+               title="Правый верхний фрейм">
+    </frameset>
+    
+    <!-- Нижний ряд - один широкий фрейм без полосы прокрутки -->
+    <frame src="https://yandex.ru" 
+           name="frame3" 
+           scrolling="no" 
+           noresize
+           title="Нижний фрейм (без прокрутки)">
+    
+    <!-- Запасной контент для браузеров без поддержки фреймов -->
+    <noframes>
+        <body>
+            <h1>Ваш браузер не поддерживает фреймы</h1>
+            <p>Но вы можете посмотреть отдельные документы:</p>
+            <ul>
+                <li><a href="https://ru.wikipedia.org/wiki/Заглавная_страница">Википедия</a></li>
+                <li><a href="https://www.example.com">Example.com</a></li>
+                <li><a href="https://yandex.ru">Яндекс</a></li>
+            </ul>
+        </body>
+    </noframes>
+</frameset>
+</html>
