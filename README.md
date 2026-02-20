@@ -9,7 +9,7 @@
 *   **Prettier - Code formatter** - Автоматическое форматирование кода по единому стандарту.
 *   **Auto Rename Tag** - Автоматически переименовывает парный HTML/XML тег. 
 *   **CSS Peek** - Позволяет "заглянуть" в CSS правила из HTML и наоборот.
-*   **IntelliSense for CSS class names in HTML** - Автодополнение классов CSS в HTML.
+*   **IntelliSense for CSS class names in HTML** - Автодополнение классов CSS в HTML. 
 
 ### Для улучшения работы
 *   **ES7+ React/Redux/... Snippets** (dsznajder) - Сниппеты для JS, React (полезно даже без React).
