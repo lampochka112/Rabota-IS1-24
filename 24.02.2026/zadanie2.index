@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Позиционирование в рамке</title>
+    <link rel="stylesheet" href="cart_apples.css">
+</head>
+<body>
+    <div class="container">
+        <div id="box1" class="target-box green">
+            Зеленое яблоко
+            <div class="overlay-box green-apple">Зел.яблоко</div>
+        </div>
+        <div id="box2" class="target-box red">
+            Красное яблоко
+            <div class="overlay-box red-apple">Кр.яблоко</div>
+        </div>
+        <div id="box3" class="target-box yellow">
+            Желтое яблоко
+            <div class="overlay-box yellow-apple">Жел.яблоко</div>
+        </div>
+        <div id="box4" class="target-box black">
+            Гнилое яблоко
+            <div class="overlay-box black-apple">Гн.яблоко</div>
+        </div>
+    </div>
+</body>
+</html>
