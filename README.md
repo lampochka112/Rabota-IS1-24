@@ -1,4 +1,4 @@
-# 🚀 Оптимизация VS Code для веб-разработки (HTML/CSS/JS) 
+# 🚀 Оптимизация VS Code для веб-разработки (HTML/CSS/JS)  
 
 Краткий гайд по настройке Visual Studio Code для комфортной и продуктивной работы с HTML, CSS и JavaScript.
  
