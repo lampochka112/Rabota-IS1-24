@@ -955,7 +955,7 @@ footer{
       <div class="planet-display"></div>
       <p><strong>Планета и Монета</strong> — версия 1.0.0 · Windows · ~150 MB</p>
       <div class="download-platform">
-        <a href="!" class="btn-download"><span>⬇ Скачать для Windows</span></a>
+        <a href="https://drive.google.com/drive/folders/1JHg_9zSoARSqK3gfcH509TXLlhzdLUVc" class="btn-download"><span>⬇ Скачать для Windows</span></a>
       </div>
     </div>
     <div class="steps-list">
@@ -982,9 +982,7 @@ footer{
     <div class="sec-label">// РУКОВОДСТВО</div>
     <div class="sec-title">📖 Как играть <div class="sec-title-line"></div></div>
     <div class="howto-grid">
-      <div class="hcard"><div class="hcard-icon">🎮</div><h3>Цель игры</h3><p>Вы высаживаетесь на планету и проходите уровни, выполняя задания. Полностью выполни задание — получи монету и двигайся дальше!</p></div>
-      <div class="hcard"><div class="hcard-icon">🪙</div><h3>Монета</h3><p>Монета — главная награда. Она выдаётся только за полное прохождение уровня. Собери монеты со всех уровней!</p></div>
-      <div class="hcard"><div class="hcard-icon">🏆</div><h3>Рекорды</h3><p>Рекорды сохраняются автоматически. Соревнуйтесь с друзьями, кто соберёт больше монет!</p></div>
+      <div class="hcard"><div class="hcard-icon">🎮</div><h3>Цель игры</h3><p>Вы высаживаетесь на планету и проходите уровни, выполняя задания. Полностью выполни задание — получи монету и двигайся дальше! Учитесь как выполнять базовые задачи по физике!!</p></div>
     </div>
     <div class="sec-label" style="margin-bottom:16px;">// УПРАВЛЕНИЕ</div>
     <div class="ctrl-wrap">
@@ -992,12 +990,10 @@ footer{
         <div class="ctrl-th">Клавиша</div>
         <div class="ctrl-th">Действие</div>
       </div>
-      <div class="ctrl-row"><div class="ctrl-cell"><span class="key">W</span><span class="key">↑</span></div><div class="ctrl-cell">Движение вверх</div></div>
-      <div class="ctrl-row"><div class="ctrl-cell"><span class="key">S</span><span class="key">↓</span></div><div class="ctrl-cell">Движение вниз</div></div>
+      <div class="ctrl-row"><div class="ctrl-cell"><span class="key">W</span><span class="key">↑</span></div><div class="ctrl-cell">Прыжок</div></div>
       <div class="ctrl-row"><div class="ctrl-cell"><span class="key">A</span><span class="key">←</span></div><div class="ctrl-cell">Движение влево</div></div>
       <div class="ctrl-row"><div class="ctrl-cell"><span class="key">D</span><span class="key">→</span></div><div class="ctrl-cell">Движение вправо</div></div>
-      <div class="ctrl-row"><div class="ctrl-cell"><span class="key">Space</span></div><div class="ctrl-cell">Ускорение / Прыжок</div></div>
-      <div class="ctrl-row"><div class="ctrl-cell"><span class="key">Esc</span></div><div class="ctrl-cell">Пауза / Меню</div></div>
+      <div class="ctrl-row"><div class="ctrl-cell"><span class="key">Space</span></div><div class="ctrl-cell">Прыжок</div></div>
       <div class="ctrl-row"><div class="ctrl-cell"><span class="key">E</span></div><div class="ctrl-cell">Взаимодействие с объектами</div></div>
     </div>
   </section>
