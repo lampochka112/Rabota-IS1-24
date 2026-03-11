@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cosmos OS: Memory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Палитра "IOS 26 Liquid" */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-highlight: rgba(255, 255, 255, 0.2);
+            --neon-blue: #0A84FF;
+            --neon-purple: #BF5AF2;
+            --text-main: #FFFFFF;
+            --text-muted: rgba(255, 255, 255, 0.6);
+            --card-radius: 24px;
+            --blur-strength: 50px;
+            --liquid-gloss: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.05) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: #000;
+            background-image: radial-gradient(circle at top right, #1a1a2e 0%, #000000 100%);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- ЗАГРУЗОЧНЫЙ ЭКРАН --- */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease-out, visibility 1s;
+        }
+
+        .loader-orbit-system {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader-sun {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #ffcc00, #ff8800);
+            border-radius: 50%;
+            box-shadow: 0 0 50px #ffaa00;
+            z-index: 2;
+        }
+
+        .loader-planet {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: orbit linear infinite;
+        }
+
+        .p1 { width: 110px; height: 110px; animation-duration: 3s; }
+        .p1::after { content: ''; position: absolute; top: 10px; left: 50%; width: 10px; height: 10px; background: #0A84FF; border-radius: 50%; box-shadow: 0 0 10px #0A84FF;}
+        
+        .p2 { width: 190px; height: 190px; animation-duration: 5s; }
+        .p2::after { content: ''; position: absolute; top: 20px; left: 10%; width: 14px; height: 14px; background: #BF5AF2; border-radius: 50%; box-shadow: 0 0 10px #BF5AF2;}
+
+        .p3 { width: 270px; height: 270px; animation-duration: 8s; }
+        .p3::after { content: ''; position: absolute; bottom: 30px; right: 15%; width: 18px; height: 18px; background: #ff4d4d; border-radius: 50%; box-shadow: 0 0 10px #ff4d4d;}
+
+        @keyframes orbit {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        #loading-screen.align-planets .loader-planet {
+            animation: none !important;
+            transform: rotate(0deg);
+            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .loading-text-container {
+            margin-top: 40px;
+            text-align: center;
+            min-height: 60px;
+        }
+
+        .loading-status {
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .loading-authors {
+            font-size: 0.9rem;
+            color: #fff;
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: var(--neon-blue);
+            margin-left: 5px;
+            vertical-align: middle;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* --- ОБЪЕМНОЕ СОЛНЦЕ В УГЛУ --- */
+        .corner-sun {
+            position: fixed;
+            top: -120px;
+            right: -120px;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(255,215,0,0.6) 0%, rgba(255,140,0,0.3) 40%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(25px);
+            animation: sunPulse 8s ease-in-out infinite;
+        }
+
+        .sun-rays {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160%;
+            height: 160%;
+            background: repeating-conic-gradient(from 0deg, rgba(255,215,0,0.08) 0deg 15deg, transparent 15deg 30deg);
+            animation: sunRotate 90s linear infinite;
+        }
+
+        @keyframes sunPulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.15); opacity: 0.9; }
+        }
+
+        @keyframes sunRotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* --- 3D Parallax Background --- */
+        .parallax-wrapper {
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .star-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-repeat: repeat;
+            transition: transform 0.1s linear;
+        }
+
+        .layer-1 {
+            background-image: radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0));
+            background-size: 200px 200px;
+            opacity: 0.3;
+        }
+
+        .layer-2 {
+            background-image: radial-gradient(3px 3px at 50px 100px, var(--neon-blue), rgba(0,0,0,0)),
+                              radial-gradient(3px 3px at 150px 200px, var(--neon-purple), rgba(0,0,0,0));
+            background-size: 300px 300px;
+            opacity: 0.5;
+        }
+
+        /* --- Интерфейс --- */
+        .ui-container {
+            display: flex;
+            width: 95%;
+            height: 90vh;
+            gap: 20px;
+            max-width: 1600px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Эффект Жидкого Стекла (Liquid Glass) */
+        .sidebar, .info-card, .btn-primary, .stat-card {
+            position: relative;
+            overflow: hidden;
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--blur-strength));
+            -webkit-backdrop-filter: blur(var(--blur-strength));
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(255,255,255,0.05);
+        }
+
+        .sidebar::before, .info-card::before, .stat-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--liquid-gloss);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .sidebar {
+            width: 300px;
+            border-radius: 32px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            margin-bottom: 5px;
+            background: linear-gradient(135deg, #fff 0%, #888 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            z-index: 2;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-card {
+            padding: 15px;
+            border-radius: 18px;
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn {
+            padding: 16px;
+            border-radius: 18px;
+            border: none;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: rgba(255,255,255,0.07);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .btn-primary:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.02);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .btn-hint {
+            background: linear-gradient(135deg, var(--neon-blue), #004fb0);
+            color: white;
+            box-shadow: 0 10px 20px rgba(10, 132, 255, 0.3);
+        }
+
+        .inventory-list {
+            flex: 1;
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: min-content;
+            gap: 8px;
+            overflow-y: auto;
+            padding-right: 5px;
+            z-index: 2;
+        }
+
+        .inv-item {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: popIn 0.5s forwards;
+            backdrop-filter: blur(5px);
+        }
+        .inv-item:hover { transform: scale(1.1); border-color: var(--neon-purple); box-shadow: 0 0 15px var(--neon-purple); }
+        .inv-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        .game-area {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 16px;
+            width: 100%;
+            max-width: 900px;
+            perspective: 2000px;
+        }
+
+        .card-container {
+            aspect-ratio: 3/4;
+            position: relative;
+            cursor: pointer;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: var(--card-radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .card.flipped { transform: rotateY(180deg); }
+
+        .face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+
+        .back {
+            background: rgba(40, 40, 45, 0.5);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        .back i { font-size: 1.5rem; color: rgba(255,255,255,0.2); }
+        .front { transform: rotateY(180deg); background: #000; }
+        .front img { width: 100%; height: 100%; object-fit: cover; }
+
+        .flying-clone {
+            position: fixed;
+            z-index: 1000;
+            pointer-events: none;
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+            border-radius: 50%;
+            box-shadow: 0 0 30px var(--neon-blue);
+        }
+
+        /* --- INFO MODAL --- */
+        .info-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(30px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+        .info-modal.active { opacity: 1; pointer-events: auto; }
+
+        .info-card {
+            width: 90%;
+            max-width: 600px;
+            border-radius: 32px;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.9);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .info-modal.active .info-card { transform: scale(1); }
+
+        .info-header { height: 200px; position: relative; }
+        .info-header img { width: 100%; height: 100%; object-fit: cover; }
+        .info-title {
+            position: absolute;
+            bottom: 20px;
+            left: 30px;
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+        }
+
+        .info-body {
+            padding: 30px;
+            color: #ddd;
+            font-size: 1rem;
+            line-height: 1.6;
+            max-height: 50vh;
+            overflow-y: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .info-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 16px;
+        }
+        .info-stat b { color: var(--neon-blue); display: block; font-size: 0.8rem; text-transform: uppercase; }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.5);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* --- WIN MODAL --- */
+        .win-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(30px);
+            z-index: 3000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.5s;
+        }
+        .win-overlay.visible { opacity: 1; visibility: visible; }
+        .win-panel { text-align: center; transform: translateY(50px); transition: 0.5s; }
+        .win-overlay.visible .win-panel { transform: translateY(0); }
+        .stars-rating { font-size: 3rem; color: #FFD700; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+        .final-stats { color: var(--text-muted); margin-bottom: 30px; }
+
+        @keyframes popIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 1024px) {
+            .grid { grid-template-columns: repeat(4, 1fr); }
+            .sidebar { width: 250px; }
+        }
+        @media (max-width: 768px) {
+            .ui-container { flex-direction: column; height: auto; }
+            .sidebar { width: 100%; height: auto; flex-direction: row; padding: 15px; align-items: center; }
+            .stats-block, .subtitle, .inventory-list { display: none; }
+            .grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+            .corner-sun { width: 250px; height: 250px; top: -70px; right: -70px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Загрузочный экран -->
+    <div id="loading-screen">
+        <div class="loader-orbit-system">
+            <div class="loader-sun"></div>
+            <div class="loader-planet p1"></div>
+            <div class="loader-planet p2"></div>
+            <div class="loader-planet p3"></div>
+        </div>
+        <div class="loading-text-container">
+            <div class="loading-status" id="loading-status">System initializing...</div>
+            <div class="loading-authors">
+                <span id="authors-loader-text"></span><span class="cursor"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Солнце в углу -->
+    <div class="corner-sun">
+        <div class="sun-rays"></div>
+    </div>
+
+    <!-- 3D Фон -->
+    <div class="parallax-wrapper" id="parallax">
+        <div class="star-layer layer-1" data-speed="0.02"></div>
+        <div class="star-layer layer-2" data-speed="0.05"></div>
+    </div>
+
+    <div class="ui-container">
+        <!-- Боковая панель -->
+        <aside class="sidebar">
+            <div>
+                <div class="brand">Cosmos OS</div>
+                <div class="subtitle">System 26 Liquid</div>
+                
+                <div class="stats-block">
+                    <div class="stat-card">
+                        <div class="stat-num" id="moves">0</div>
+                        <div class="stat-label">Ходы</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num" id="timer">00:00</div>
+                        <div class="stat-label">Время</div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-hint" id="hint-btn">
+                        <i class="fas fa-lightbulb"></i> Подсказка
+                        <span class="hint-badge" id="hints-count">2</span>
+                    </button>
+                    <button class="btn btn-primary" onclick="restartGame()">
+                        <i class="fas fa-redo"></i> Перезагрузка
+                    </button>
+                </div>
+            </div>
+
+            <div class="inventory-list" id="inventory"></div>
+        </aside>
+
+        <!-- Игровое поле -->
+        <main class="game-area">
+            <div class="grid" id="grid"></div>
+        </main>
+    </div>
+
+    <!-- Модальное окно информации -->
+    <div class="info-modal" id="info-modal">
+        <div class="info-card">
+            <button class="close-modal" onclick="closeInfo()"><i class="fas fa-times"></i></button>
+            <div class="info-header">
+                <img src="" id="info-img" alt="">
+                <div class="info-title" id="info-title">Планета</div>
+            </div>
+            <div class="info-body">
+                <div class="info-stats-grid">
+                    <div class="info-stat"><b>Тип</b> <span id="info-type">-</span></div>
+                    <div class="info-stat"><b>Диаметр</b> <span id="info-diam">-</span></div>
+                    <div class="info-stat"><b>Температура</b> <span id="info-temp">-</span></div>
+                    <div class="info-stat"><b>Год</b> <span id="info-year">-</span></div>
+                </div>
+                <p id="info-desc">Описание...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран победы -->
+    <div class="win-overlay" id="win-screen">
+        <div class="win-panel">
+            <h1 style="font-size: 3rem; margin-bottom: 10px;">Система изучена</h1>
+            <div class="stars-rating" id="win-stars">★★★</div>
+            <div class="final-stats">
+                <p>Всего ходов: <span id="final-moves">0</span></p>
+                <p>Время миссии: <span id="final-time">00:00</span></p>
+                <p>Точность: <span id="final-accuracy">100%</span></p>
+            </div>
+            <button class="btn btn-primary" style="margin: 0 auto; width: 200px;" onclick="restartGame()">Новая миссия</button>
+        </div>
+    </div>
+
+    <script>
+        // --- ДАННЫЕ ---
+        const spaceData = [
+            { id: 'sun', name: 'Солнце', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg/600px-The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg', type: 'Звезда', diam: '1.4 млн км', temp: '5500 °C', year: '230 млн лет', desc: 'Центр нашей системы.' },
+            { id: 'mercury', name: 'Меркурий', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Mercury_in_true_color.jpg/600px-Mercury_in_true_color.jpg', type: 'Планета', diam: '4 880 км', temp: '430 °C', year: '88 сут', desc: 'Ближайшая к Солнцу.' },
+            { id: 'venus', name: 'Венера', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Venus-real_color.jpg/600px-Venus-real_color.jpg', type: 'Планета', diam: '12 104 км', temp: '462 °C', year: '225 сут', desc: 'Утренняя звезда.' },
+            { id: 'earth', name: 'Земля', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/600px-The_Earth_seen_from_Apollo_17.jpg', type: 'Планета', diam: '12 742 км', temp: '14 °C', year: '365 сут', desc: 'Наш дом.' },
+            { id: 'mars', name: 'Марс', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/600px-OSIRIS_Mars_true_color.jpg', type: 'Планета', diam: '6 779 км', temp: '-63 °C', year: '687 сут', desc: 'Красная планета.' },
+            { id: 'jupiter', name: 'Юпитер', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg/600px-Jupiter_and_its_shrunken_Great_Red_Spot.jpg', type: 'Гигант', diam: '139 820 км', temp: '-145 °C', year: '11.8 лет', desc: 'Царь планет.' },
+            { id: 'saturn', name: 'Сатурн', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Saturn_during_Equinox.jpg/600px-Saturn_during_Equinox.jpg', type: 'Гигант', diam: '116 460 км', temp: '-178 °C', year: '29.5 лет', desc: 'Властелин колец.' },
+            { id: 'uranus', name: 'Уран', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Uranus2.jpg/600px-Uranus2.jpg', type: 'Ледяной гигант', diam: '50 724 км', temp: '-224 °C', year: '84 года', desc: 'Ледяной шар.' },
+            { id: 'neptune', name: 'Нептун', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Neptune_-_Voyager_2_%2829347980845%29_flatten_crop.jpg/600px-Neptune_-_Voyager_2_%2829347980845%29_flatten_crop.jpg', type: 'Ледяной гигант', diam: '49 244 км', temp: '-218 °C', year: '165 лет', desc: 'Далекий синий мир.' },
+            { id: 'moon', name: 'Луна', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/600px-FullMoon2010.jpg', type: 'Спутник', diam: '3 474 км', temp: '127 °C', year: '27 сут', desc: 'Спутник Земли.' },
+            { id: 'galaxy', name: 'Млечный Путь', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Hubble_ultra_deep_field_high_rez_edit1.jpg/600px-Hubble_ultra_deep_field_high_rez_edit1.jpg', type: 'Галактика', diam: '100к св. лет', temp: '—', year: '—', desc: 'Наша галактика.' },
+            { id: 'nebula', name: 'Орион', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Orion_Nebula_-_Hubble_2006_mosaic_18000.jpg/600px-Orion_Nebula_-_Hubble_2006_mosaic_18000.jpg', type: 'Туманность', diam: '24 св. года', temp: '10к °C', year: '—', desc: 'Звездные ясли.' }
+        ];
+
+        /* --- СОСТОЯНИЕ ИГРЫ --- */
+        let state = {
+            flipped: [],
+            matched: 0,
+            moves: 0,
+            timer: 0,
+            interval: null,
+            hintsLeft: 2,
+            locked: false,
+            cards: []
+        };
+
+        const grid = document.getElementById('grid');
+        const inventory = document.getElementById('inventory');
+        const loadingScreen = document.getElementById('loading-screen');
+
+        // --- ЗАГРУЗКА И ПЕЧАТЬ АВТОРОВ ---
+        window.addEventListener('load', () => {
+            const authorsText = "Авторы: Голосов Даниил Алексеевич | Баринова София Владимировна";
+            const container = document.getElementById('authors-loader-text');
+            const statusText = document.getElementById('loading-status');
+            let i = 0;
+
+            function typeWriter() {
+                if (i < authorsText.length) {
+                    container.textContent += authorsText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 40);
+                } else {
+                    // Текст напечатан, завершаем загрузку
+                    finishLoading();
+                }
+            }
+
+            // Запускаем печать через секунду после появления загрузчика
+            setTimeout(typeWriter, 800);
+
+            function finishLoading() {
+                statusText.textContent = "Authorization successful. Welcome.";
+                setTimeout(() => {
+                    loadingScreen.classList.add('align-planets');
+                    setTimeout(() => {
+                        loadingScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                        }, 1000);
+                    }, 1500);
+                }, 800);
+            }
+        });
+
+        // --- 3D PARALLAX ---
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth - e.pageX) / 100;
+            const y = (window.innerHeight - e.pageY) / 100;
+            document.querySelectorAll('.star-layer').forEach(layer => {
+                const speed = layer.getAttribute('data-speed');
+                layer.style.transform = `translate(${x * speed * 100}px, ${y * speed * 100}px)`;
+            });
+        });
+
+        // --- GAME LOGIC ---
+        function init() {
+            state = { flipped: [], matched: 0, moves: 0, timer: 0, interval: null, hintsLeft: 2, locked: false, cards: [] };
+            grid.innerHTML = '';
+            inventory.innerHTML = '';
+            document.getElementById('moves').textContent = 0;
+            document.getElementById('timer').textContent = '00:00';
+            document.getElementById('hints-count').textContent = 2;
+            document.getElementById('hint-btn').disabled = false;
+            document.getElementById('win-screen').classList.remove('visible');
+
+            const pairs = [...spaceData, ...spaceData];
+            pairs.sort(() => Math.random() - 0.5);
+
+            pairs.forEach(item => {
+                const container = document.createElement('div');
+                container.className = 'card-container';
+                container.style.animationDelay = `${Math.random() * 5}s`;
+                
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.id = item.id;
+                card.innerHTML = `
+                    <div class="face front"><img src="${item.img}" alt="${item.name}"></div>
+                    <div class="face back"><i class="fas fa-rocket"></i></div>
+                `;
+
+                container.appendChild(card);
+                container.addEventListener('click', () => flipCard(card));
+                grid.appendChild(container);
+                state.cards.push(card);
+            });
+
+            if (state.interval) clearInterval(state.interval);
+            startTimer();
+        }
+
+        function startTimer() {
+            state.interval = setInterval(() => {
+                state.timer++;
+                const m = Math.floor(state.timer / 60).toString().padStart(2, '0');
+                const s = (state.timer % 60).toString().padStart(2, '0');
+                document.getElementById('timer').textContent = `${m}:${s}`;
+            }, 1000);
+        }
+
+        function flipCard(card) {
+            if (state.locked || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+            card.classList.add('flipped');
+            state.flipped.push(card);
+            if (state.flipped.length === 2) {
+                state.moves++;
+                document.getElementById('moves').textContent = state.moves;
+                state.locked = true;
+                checkMatch();
+            }
+        }
+
+        function checkMatch() {
+            const [c1, c2] = state.flipped;
+            const match = c1.dataset.id === c2.dataset.id;
+            if (match) {
+                c1.classList.add('matched');
+                c2.classList.add('matched');
+                state.matched++;
+                setTimeout(() => {
+                    flyToInventory(c1);
+                    setTimeout(() => flyToInventory(c2), 100);
+                    setTimeout(() => addToInventory(c1.dataset.id), 800);
+                    state.flipped = [];
+                    state.locked = false;
+                    if (state.matched === spaceData.length) endGame();
+                }, 500);
+            } else {
+                setTimeout(() => {
+                    c1.classList.remove('flipped');
+                    c2.classList.remove('flipped');
+                    state.flipped = [];
+                    state.locked = false;
+                }, 1000);
+            }
+        }
+
+        function flyToInventory(cardElement) {
+            const rect = cardElement.getBoundingClientRect();
+            const clone = cardElement.cloneNode(true);
+            clone.classList.remove('card');
+            clone.className = 'flying-clone';
+            clone.style.top = rect.top + 'px';
+            clone.style.left = rect.left + 'px';
+            clone.style.width = rect.width + 'px';
+            clone.style.height = rect.height + 'px';
+            clone.style.transform = 'rotateY(180deg)'; 
+            const frontImg = clone.querySelector('.front img').src;
+            clone.innerHTML = `<img src="${frontImg}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+            document.body.appendChild(clone);
+            cardElement.style.opacity = '0';
+            const inventoryRect = inventory.getBoundingClientRect();
+            requestAnimationFrame(() => {
+                clone.style.top = (inventoryRect.top + 20) + 'px';
+                clone.style.left = (inventoryRect.left + 20) + 'px';
+                clone.style.width = '40px';
+                clone.style.height = '40px';
+                clone.style.opacity = '0';
+            });
+            setTimeout(() => clone.remove(), 800);
+        }
+
+        function addToInventory(id) {
+            const data = spaceData.find(d => d.id === id);
+            if (document.querySelector(`.inv-item[data-id="${id}"]`)) return;
+            const item = document.createElement('div');
+            item.className = 'inv-item';
+            item.dataset.id = id;
+            item.innerHTML = `<img src="${data.img}">`;
+            item.onclick = () => showInfo(id);
+            inventory.appendChild(item);
+        }
+
+        document.getElementById('hint-btn').addEventListener('click', () => {
+            if (state.locked || state.hintsLeft <= 0) return;
+            state.hintsLeft--;
+            document.getElementById('hints-count').textContent = state.hintsLeft;
+            if (state.hintsLeft === 0) document.getElementById('hint-btn').disabled = true;
+            state.locked = true;
+            const hidden = state.cards.filter(c => !c.classList.contains('matched') && !c.classList.contains('flipped'));
+            hidden.forEach(c => c.classList.add('flipped'));
+            setTimeout(() => {
+                hidden.forEach(c => c.classList.remove('flipped'));
+                state.locked = false;
+            }, 1500);
+        });
+
+        function showInfo(id) {
+            const data = spaceData.find(d => d.id === id);
+            document.getElementById('info-img').src = data.img;
+            document.getElementById('info-title').textContent = data.name;
+            document.getElementById('info-type').textContent = data.type;
+            document.getElementById('info-diam').textContent = data.diam;
+            document.getElementById('info-temp').textContent = data.temp;
+            document.getElementById('info-year').textContent = data.year;
+            document.getElementById('info-desc').textContent = data.desc;
+            document.getElementById('info-modal').classList.add('active');
+        }
+
+        function closeInfo() { document.getElementById('info-modal').classList.remove('active'); }
+
+        function endGame() {
+            clearInterval(state.interval);
+            let accuracy = Math.round((spaceData.length / state.moves) * 100);
+            if (accuracy > 100) accuracy = 100;
+            let stars = accuracy > 80 ? '★★★' : (accuracy > 50 ? '★★☆' : '★☆☆');
+            document.getElementById('final-moves').textContent = state.moves;
+            document.getElementById('final-time').textContent = document.getElementById('timer').textContent;
+            document.getElementById('final-accuracy').textContent = accuracy + '%';
+            document.getElementById('win-stars').textContent = stars;
+            document.getElementById('win-screen').classList.add('visible');
+        }
+
+        function restartGame() { init(); }
+
+        init();
+    </script>
+</body>
+</html>
