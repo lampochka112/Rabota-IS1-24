@@ -423,7 +423,7 @@
     <div class="container">
       <div class="hero-grid">
         <div class="fade-up">
-          <div class="hero-badge"><i class="fas fa-star-of-life"></i> 2025 — 80-летие Великой Победы</div>
+          <div class="hero-badge"><i class="fas fa-star-of-life"></i> 2026 — 80-летие Великой Победы</div>
           <h1>Маршрут по улицам <span style="color: var(--accent-gold);">героев</span><br>Великой Отечественной</h1>
           <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Элиста помнит своих сынов. Пройдите по пути воинской славы, узнайте историю калмыцких героев, отдавших жизнь за Родину. Экскурсия от легендарного агентства «Калмыкия Тур».</p>
           <div><a href="#booking" class="btn btn-primary"><i class="fas fa-ticket-alt"></i> Записаться</a><a href="#sights" class="btn btn-outline" style="margin-left: 1rem;"><i class="fas fa-map-marked-alt"></i> Смотреть маршрут</a></div>
@@ -662,7 +662,7 @@
         <div><h4>Информация</h4><ul style="list-style: none; line-height: 2;"><li><a href="#">О проекте</a></li><li><a href="#">Правила бронирования</a></li><li><a href="#">Политика данных</a></li></ul></div>
         <div><h4>Контакты</h4><p><i class="fas fa-phone-alt"></i> +7 (8472) 33-44-55</p><p><i class="fas fa-envelope"></i> victory@kalmykia-tour.ru</p><p>г. Элиста, ул. Ленина, 212</p></div>
       </div>
-      <div class="footer-bottom" style="text-align: center; padding-top: 2rem; border-top: 1px solid var(--border-glass); margin-top: 2rem;"><p>© 2025 Маршрут «Герои ВОВ». 80 лет Победы. Бессмертный полк онлайн.</p></div>
+      <div class="footer-bottom" style="text-align: center; padding-top: 2rem; border-top: 1px solid var(--border-glass); margin-top: 2rem;"><p>© 2026 Маршрут «Герои ВОВ». 80 лет Победы. Бессмертный полк онлайн.</p></div>
     </div>
   </footer>
 
